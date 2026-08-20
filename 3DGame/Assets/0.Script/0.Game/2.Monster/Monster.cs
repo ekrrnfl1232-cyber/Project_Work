@@ -37,12 +37,16 @@ public class Monster : MonoBehaviour, IDamageable
     private void LookAtMove()
     {
         Vector3 tPos = target.position;
+        Vector3 mPos = transform.position;
+        Vector3 pPos = target.position;
         tPos.y = transform.position.y;
         transform.LookAt(tPos);
         float distance = Vector3.Distance(transform.position, target.position);
         if(distance > 1.5f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.position, 1f * Time.deltaTime);
+            mPos.y = 0;
+            pPos.y = 0;
+            transform.position = Vector3.MoveTowards(mPos, pPos, 1f * Time.deltaTime);
         }
         else
         {

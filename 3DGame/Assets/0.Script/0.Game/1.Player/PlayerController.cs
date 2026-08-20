@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     [SerializeField] private float dashForce = 20f;
 
-    [SerializeField] private float raylength = 1.005f;
-
     [SerializeField] private float InterationScale = 2f;
 
     [SerializeField] private int wDamage = 10;
@@ -46,7 +44,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.z = Input.GetAxisRaw("Vertical");
 
-        Debug.DrawRay(transform.position, Vector3.down * raylength, Color.red);
+        
         Vector3 center = transform.position;
         isGrounded = Physics.CheckBox(center, new Vector3(0.5f, 0.1f, 0.5f), transform.rotation, groundLayer);
         if (Input.GetKeyDown(KeyCode.Space))
