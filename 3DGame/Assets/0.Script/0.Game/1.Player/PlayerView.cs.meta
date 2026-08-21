@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ded1a263da9a5fa4592582235acbfda6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - isParent: {fileID: 3239141301218489312, guid: 5d754e21e73a053428ce20e9624f724e, type: 3}
+  - prefabHP: {fileID: 4013781562914862402, guid: 5d754e21e73a053428ce20e9624f724e, type: 3}
+  - UiCheckBox: {fileID: 6612781862914144525, guid: e4fde3dd52de8b6448d5f8980eab869a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
