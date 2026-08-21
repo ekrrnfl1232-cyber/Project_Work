@@ -517,8 +517,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   hpBG: {fileID: 0}
   hpImg: {fileID: 0}
-  atkDuration: 2
-  atkTimer: 0
   mDamage: 5
   target: {fileID: 46938339}
   hp: 100
@@ -2572,7 +2570,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 811719915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5f2cb6e9d7086647af89a2cda25e471, type: 3}
+  m_Script: {fileID: 11500000, guid: 50fafe65f85b75847a6d55503c17b2a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageFontManager
   damageTxt: {fileID: 6018142157182300900, guid: f64571da0c9d2724981fbcae36e00b46, type: 3}
@@ -2688,7 +2686,7 @@ Animator:
   m_GameObject: {fileID: 840673145}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 594f5f5a6aab30f439a00bb95f77e29c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3f5feb360de20084bbea4a8b5f706338, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -3,9 +3,11 @@ using UnityEngine;
 public class MonsterAttackState : IState
 {
     Monster monster;
-    public MonsterAttackState(Monster monster)
+    IState prevState;
+    public MonsterAttackState(Monster monster, IState prevState)
     {
         this.monster = monster;
+        this.prevState = prevState;
     }
 
     public void Enter()
@@ -22,6 +24,8 @@ public class MonsterAttackState : IState
                 break;
             }
         }
+        monster.attackCool.Start();
+        monster.ChangeState(prevState);
     }
 
     public void Exit()

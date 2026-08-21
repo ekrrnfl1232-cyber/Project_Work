@@ -3,10 +3,12 @@ using UnityEngine;
 public class MonsterHitState : IState
 {
     Monster monster;
+    IState prevState;
     int damage;
-    public MonsterHitState(Monster monster, int damage)
+    public MonsterHitState(Monster monster, IState prevState,int damage)
     {
         this.monster = monster;
+        this.prevState = prevState;
         this.damage = damage;
     }
 
@@ -22,6 +24,7 @@ public class MonsterHitState : IState
         }
         else
             Debug.Log($"남은 체력 : {monster.model.HP}");
+        monster.ChangeState(prevState);
     }
 
     public void Exit()

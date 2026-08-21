@@ -11,9 +11,6 @@ public class Monster : MonoBehaviour, IDamageable
     [SerializeField] private GameObject hpBG;
     [SerializeField] private Image hpImg;
 
-    [SerializeField] private float atkDuration = 10f;
-    [SerializeField] private float atkTimer = 0f;
-
     [SerializeField] private int mDamage = 5;
 
     [SerializeField] public Transform target;
@@ -23,6 +20,7 @@ public class Monster : MonoBehaviour, IDamageable
     private float distance;
     private IState currentState;
     private Vector3 tPos;
+    public Cooldown attackCool = new Cooldown(5f);
     public MonsterView view;
     public MonsterModel model;
 
@@ -41,7 +39,6 @@ public class Monster : MonoBehaviour, IDamageable
     {
         view = GetComponent<MonsterView>();
         view.CreateHp();
-        atkTimer = atkDuration;
         ChangeState(new MonsterIdleState(this));
     }
     void Update()
@@ -50,12 +47,11 @@ public class Monster : MonoBehaviour, IDamageable
             return;
         view.HPbar(transform.position);
         LookAt();
-        atkTimer -= Time.deltaTime;
-        if (atkTimer <= 0)
+        attackCool.Tick(Time.deltaTime);
+        if (attackCool.IsReady)
         {
             Debug.Log($"{name}АјАн");
-            ChangeState(new MonsterAttackState(this));
-            atkTimer = atkDuration;
+            ChangeState(new MonsterAttackState(this, currentState));
         }
         currentState?.Tick();
     }
@@ -76,7 +72,7 @@ public class Monster : MonoBehaviour, IDamageable
     }
     public void TakeDamage(int damage)
     {
-        ChangeState(new MonsterHitState(this, damage));
+        ChangeState(new MonsterHitState(this, currentState,damage));
     }
 
     private void OnDrawGizmos()

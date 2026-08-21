@@ -27,6 +27,7 @@ public class PlayerAttackState : IState
                 break;
             }
         }
+        player.coolDown.Start();
         player.ChangeState(prevState);
     }
 

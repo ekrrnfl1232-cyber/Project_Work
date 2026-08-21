@@ -35,6 +35,7 @@ public class Player : MonoBehaviour, IDamageable
     private IState currentState;
     public Rigidbody rb;
 
+    public Cooldown coolDown = new Cooldown(1f);
     public PlayerView view;
     public PlayerModel model;
 
@@ -62,9 +63,10 @@ public class Player : MonoBehaviour, IDamageable
         Vector3 move = Vector3.zero;
         move.x = Input.GetAxisRaw("Horizontal");
         move.z = Input.GetAxisRaw("Vertical");
+        coolDown.Tick(Time.deltaTime);
         model.Movement = move;
 
-        if (Input.GetMouseButtonDown(0) && isGrounded)
+        if (Input.GetMouseButtonDown(0) && isGrounded && coolDown.IsReady)
         {
             Debug.Log("공격키 입력");
             ChangeState(new PlayerAttackState(this, currentState));
@@ -113,7 +115,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         Vector3 posInter = transform.position;
         posInter.y += 1f;
-        Collider[] colls = Physics.OverlapSphere(posInter, InterationScale);
+        Collider[] colls = Physics.OverlapSphere(posInter, model.InterationScale);
         bool isFind = false;
 
         foreach (var col in colls)

@@ -4,9 +4,11 @@ using static UnityEditor.PlayerSettings;
 public class MonsterMoveState : IState
 {
     Monster monster;
-    public MonsterMoveState(Monster monster)
+    IState prevState;
+    public MonsterMoveState(Monster monster, IState prevState)
     {
         this.monster = monster;
+        this.prevState = prevState;
     }
     public void Enter()
     {
@@ -25,5 +27,6 @@ public class MonsterMoveState : IState
         tPos.y = 0;
         monster.model.TarPos = tPos;
         monster.transform.position = Vector3.MoveTowards(mPos, monster.model.TarPos, 1f * Time.deltaTime);
+        monster.ChangeState(prevState);
     }
 }

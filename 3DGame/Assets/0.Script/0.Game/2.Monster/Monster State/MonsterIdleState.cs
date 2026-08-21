@@ -13,7 +13,7 @@ public class MonsterIdleState : IState
     {
         if(monster.model.Dis > 1.5f)
         {
-            monster.ChangeState(new MonsterMoveState(monster));
+            monster.ChangeState(new MonsterMoveState(monster, this));
         }
 
     }
