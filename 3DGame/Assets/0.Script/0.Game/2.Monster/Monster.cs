@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
-using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
@@ -17,42 +17,51 @@ public class Monster : MonoBehaviour, IDamageable
 
     [SerializeField] public int hp, maxhp = 100;
 
-    private float distance;
+    [HideInInspector] public LayerMask targetlayer;
+    [HideInInspector] public float ScanSize = 5f;
     private IState currentState;
-    private Vector3 tPos;
-    public Cooldown attackCool = new Cooldown(5f);
-    public MonsterView view;
-    public MonsterModel model;
+
+    [HideInInspector] public bool isFind;
+    [HideInInspector] public bool isReturn;
+
+    [HideInInspector] public Collider[] targetScan;
+    [HideInInspector] public Cooldown attackCool = new Cooldown(5f);
+    [HideInInspector] public Animator MonAni;
+    [HideInInspector] public MonsterView view;
+    [HideInInspector] public MonsterModel Mmodel;
+
+    [HideInInspector] public NavMeshAgent agent;
 
     void Awake()
     {
-        model = new MonsterModel
+        Mmodel = new MonsterModel
             (
                 mDamage,
                 hp,
-                distance,
-                tPos
+                transform.position
             );
     }
 
     void Start()
     {
+        MonAni = GetComponent<Animator>();
+        targetlayer = LayerMask.GetMask("Player");
         view = GetComponent<MonsterView>();
+        agent = GetComponent<NavMeshAgent>();
+
         view.CreateHp();
         ChangeState(new MonsterIdleState(this));
     }
     void Update()
     {
-        if (target == null)
+        if (target == null || agent == null)
             return;
         view.HPbar(transform.position);
-        LookAt();
+        ScanTarget();
         attackCool.Tick(Time.deltaTime);
-        if (attackCool.IsReady)
-        {
-            Debug.Log($"{name}АјАн");
-            ChangeState(new MonsterAttackState(this, currentState));
-        }
+
+        Mmodel.TargetDis = Vector3.Distance(transform.position, target.position);
+        Mmodel.StartDis = Vector3.Distance(transform.position, Mmodel.StartPos);
         currentState?.Tick();
     }
 
@@ -63,13 +72,22 @@ public class Monster : MonoBehaviour, IDamageable
         currentState?.Enter();
     }
 
-    private void LookAt()
+    public void ScanTarget()
     {
-        tPos.y = 0;
-        model.TarPos = tPos;
-        transform.LookAt(model.TarPos);
-        model.Dis = Vector3.Distance(transform.position, target.position);
+        Vector3 pos = transform.position;
+        pos.y += 1f;
+        targetScan = Physics.OverlapSphere(pos, ScanSize);
+        foreach (var tar in targetScan)
+        {
+            isFind = false;
+            if (tar.CompareTag("Player"))
+            {
+                isFind = true;
+                break;
+            }
+        }
     }
+
     public void TakeDamage(int damage)
     {
         ChangeState(new MonsterHitState(this, currentState,damage));
@@ -78,8 +96,8 @@ public class Monster : MonoBehaviour, IDamageable
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Vector3 posAttack = transform.position + transform.forward * 1f;
-        posAttack.y += 0.7f;
-        Gizmos.DrawWireCube(posAttack, new Vector3(1f, 1.4f, 0.7f));
+        Vector3 posAttack = transform.position;
+        posAttack.y += 1f;
+        Gizmos.DrawWireSphere(posAttack, 5f);
     }
 }

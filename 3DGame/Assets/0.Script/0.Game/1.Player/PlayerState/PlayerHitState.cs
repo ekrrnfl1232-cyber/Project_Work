@@ -37,6 +37,6 @@ public class PlayerHitState : IState
     }
 
     public void Tick()
-    {
+    { 
     }
 }

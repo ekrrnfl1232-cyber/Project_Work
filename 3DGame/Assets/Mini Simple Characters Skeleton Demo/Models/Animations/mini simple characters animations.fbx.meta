@@ -1,7 +1,15 @@
 fileFormatVersion: 2
 guid: e5901ce40e7bc6f45be465c564aa05e0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 262897
+  packageName: Mini Simple Characters | Skeleton | Free Demo
+  packageVersion: 1.0
+  assetPath: Assets/Mini Simple Characters Skeleton Demo/Models/Animations/mini simple
+    characters animations.fbx
+  uploadId: 606480
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24501
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -9,6 +17,7 @@ ModelImporter:
     materialName: 0
     materialSearch: 1
     materialLocation: 1
+    searchTexturesGlobally: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -16,8 +25,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -232,6 +239,11 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    importUVs: -1
+    importVertexColors: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -251,6 +263,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 2
     normalSmoothingSource: 0
+    calculateBlendshapeNormalsDeltaFromImportedNormals: 1
   referencedClips: []
   importAnimation: 1
   humanDescription:
@@ -619,11 +632,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 262897
-  packageName: Mini Simple Characters | Skeleton | Free Demo
-  packageVersion: 1.0
-  assetPath: Assets/Mini Simple Characters Skeleton Demo/Models/Animations/mini simple
-    characters animations.fbx
-  uploadId: 606480

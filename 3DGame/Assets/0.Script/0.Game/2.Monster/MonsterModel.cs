@@ -8,15 +8,17 @@ public class MonsterModel : MonoBehaviour
 
     public int MaxHP { get; set; }
 
-    public float Dis {  get; set; }
-    public Vector3 TarPos { get; set; }
+    public float TargetDis {  get; set; }
 
-    public MonsterModel(int mDamage, int Hp, float dis,Vector3 tPos)
+    public float StartDis { get; set; }
+
+    public Vector3 StartPos { get; }
+
+    public MonsterModel(int mDamage, int Hp, Vector3 startPos)
     {
         this.mDamage = mDamage;
         this.HP = Hp;
         this.MaxHP = Hp;
-        this.Dis = dis;
-        this.TarPos = tPos;
+        this.StartPos = startPos;
     }
 }

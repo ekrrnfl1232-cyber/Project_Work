@@ -13,7 +13,6 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] public float jumpForce = 40f;
 
     [Header("Dash")]
-    [SerializeField] public GameObject dashShadow;
     [SerializeField] public float dashForce = 200f;
 
     [Header("InteractScale")]
@@ -34,10 +33,10 @@ public class Player : MonoBehaviour, IDamageable
     private bool isGrounded;
     private IState currentState;
     public Rigidbody rb;
-
-    public Cooldown coolDown = new Cooldown(1f);
-    public PlayerView view;
-    public PlayerModel model;
+    LayerMask ground;
+    [HideInInspector] public Cooldown coolDown = new Cooldown(1f);
+    [HideInInspector] public PlayerView view;
+    [HideInInspector] public PlayerModel model;
 
     private void Awake()
     {
@@ -52,6 +51,8 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        ground = LayerMask.GetMask("Ground");
+
         view = GetComponent<PlayerView>();
         view.CreateHp();
         ChangeState(new PlayerIdle(this));
@@ -66,12 +67,12 @@ public class Player : MonoBehaviour, IDamageable
         coolDown.Tick(Time.deltaTime);
         model.Movement = move;
 
-        if (Input.GetMouseButtonDown(0) && isGrounded && coolDown.IsReady)
+        if (Input.GetMouseButtonDown(0) && model.IsGrounded && coolDown.IsReady)
         {
             Debug.Log("공격키 입력");
             ChangeState(new PlayerAttackState(this, currentState));
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && model.IsGrounded)
         {
             Debug.Log("점프 키 입력");
             ChangeState(new PlayerJumpState(this, currentState, rb));
@@ -132,7 +133,7 @@ public class Player : MonoBehaviour, IDamageable
         }
         view.CheckBox(isFind);
     }
-   
+
     private void Look()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -148,16 +149,25 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(1f, 0.5f, 1f));
+    }*/
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            isGrounded = true;
+            model.IsGrounded = true;
         }
     }
     private void OnCollisionExit(Collision collision)
     {
-        isGrounded = false;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            model.IsGrounded = false;
+        }
     }
     #region 애니메이션
     public void OpenComboWindow()

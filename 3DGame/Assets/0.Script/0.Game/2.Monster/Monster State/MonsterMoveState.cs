@@ -5,6 +5,9 @@ public class MonsterMoveState : IState
 {
     Monster monster;
     IState prevState;
+
+    Vector3 startPos;
+    float distan;
     public MonsterMoveState(Monster monster, IState prevState)
     {
         this.monster = monster;
@@ -12,7 +15,7 @@ public class MonsterMoveState : IState
     }
     public void Enter()
     {
-        
+        monster.agent.speed = 3.5f;
     }
 
     public void Exit()
@@ -21,12 +24,17 @@ public class MonsterMoveState : IState
 
     public void Tick()
     {
-        Vector3 tPos = monster.target.position;
-        Vector3 mPos = monster.transform.position;
-        mPos.y = 0;
-        tPos.y = 0;
-        monster.model.TarPos = tPos;
-        monster.transform.position = Vector3.MoveTowards(mPos, monster.model.TarPos, 1f * Time.deltaTime);
-        monster.ChangeState(prevState);
+        monster.agent.SetDestination(monster.target.position);
+        monster.MonAni.SetTrigger("Walk");
+        if (!monster.isFind || monster.Mmodel.StartDis >= 5f)
+        {
+            monster.agent.ResetPath();
+            monster.ChangeState(new MonsterPatrolState(monster, prevState));
+        }
+        if(monster.agent.remainingDistance <= 1f)
+        {
+            monster.agent.ResetPath();
+            monster.ChangeState(prevState);
+        }
     }
 }

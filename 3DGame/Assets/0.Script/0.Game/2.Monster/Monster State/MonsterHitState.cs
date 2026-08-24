@@ -14,16 +14,16 @@ public class MonsterHitState : IState
 
     public void Enter()
     {
-        monster.model.HP -= damage;
-        monster.view.HpUpdate(monster.model.HP, monster.model.MaxHP);
-        if (monster.model.HP <= 0)
+        monster.Mmodel.HP -= damage;
+        monster.view.HpUpdate(monster.Mmodel.HP, monster.Mmodel.MaxHP);
+        if (monster.Mmodel.HP <= 0)
         {
             Debug.Log($"{monster.name} Dead");
             monster.gameObject.SetActive(false);
             monster.view.HPbarDelete(false);
         }
         else
-            Debug.Log($"남은 체력 : {monster.model.HP}");
+            Debug.Log($"남은 체력 : {monster.Mmodel.HP}");
         monster.ChangeState(prevState);
     }
 

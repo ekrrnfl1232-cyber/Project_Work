@@ -11,11 +11,7 @@ public class MonsterIdleState : IState
 
     public void Enter()
     {
-        if(monster.model.Dis > 1.5f)
-        {
-            monster.ChangeState(new MonsterMoveState(monster, this));
-        }
-
+        monster.MonAni.SetTrigger("Idle");
     }
 
     public void Exit()
@@ -24,5 +20,12 @@ public class MonsterIdleState : IState
 
     public void Tick()
     {
+        if(monster.isFind)
+            monster.ChangeState(new MonsterMoveState(monster, this));
+        if (monster.attackCool.IsReady && monster.Mmodel.TargetDis < 1.5f)
+        {
+            Debug.Log($"{monster.name}АјАн");
+            monster.ChangeState(new MonsterAttackState(monster, this));
+        }
     }
 }
