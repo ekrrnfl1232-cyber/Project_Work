@@ -15,7 +15,9 @@ public class MonsterMoveState : IState
     }
     public void Enter()
     {
-        monster.agent.speed = 3.5f;
+        monster.agent.speed = monster.data.MoveSpeed;
+        Debug.Log("목표물로 가는중");
+        monster.MonAni.SetTrigger("Walk");
     }
 
     public void Exit()
@@ -25,16 +27,18 @@ public class MonsterMoveState : IState
     public void Tick()
     {
         monster.agent.SetDestination(monster.target.position);
-        monster.MonAni.SetTrigger("Walk");
-        if (!monster.isFind || monster.Mmodel.StartDis >= 5f)
-        {
-            monster.agent.ResetPath();
-            monster.ChangeState(new MonsterPatrolState(monster, prevState));
-        }
-        if(monster.agent.remainingDistance <= 1f)
+        
+        if(monster.Mmodel.TargetDis <= 1.5f)
         {
             monster.agent.ResetPath();
             monster.ChangeState(prevState);
+        }
+        float StartDis = Vector3.Distance(monster.transform.position, monster.Mmodel.StartPos);
+
+        if (!monster.isFind && StartDis >= monster.data.SpawnRange)
+        {
+            monster.agent.ResetPath();
+            monster.ChangeState(new MonsterPatrolState(monster, this));
         }
     }
 }

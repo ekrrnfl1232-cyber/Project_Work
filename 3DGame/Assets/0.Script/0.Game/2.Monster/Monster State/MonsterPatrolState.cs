@@ -13,10 +13,10 @@ public class MonsterPatrolState : IState
 
     public void Enter()
     {
+        Debug.Log("∫π±Õ¡ﬂ");
         monster.MonAni.SetTrigger("Run");
-        monster.agent.speed = Mathf.MoveTowards(monster.agent.speed, 7f, 5f *Time.deltaTime);
+        monster.agent.speed += (int)monster.agent.speed << 2;
         monster.agent.SetDestination(monster.Mmodel.StartPos);
-        monster.ChangeState(prevState);
     }
 
     public void Exit()
@@ -24,7 +24,16 @@ public class MonsterPatrolState : IState
     }
 
     public void Tick()
-    {  
+    {
+        if (monster.agent.remainingDistance < 0.5f)
+        {
+            monster.agent.ResetPath();
+            monster.ChangeState(new MonsterIdleState(monster));
+        }
+        else if (monster.isFind && monster.Mmodel.TargetDis >= monster.data.Range)
+        {
+            monster.ChangeState(prevState);
+        }
     }
 
 }

@@ -15,7 +15,7 @@ public class PlayerJumpState : IState
 
     public void Enter()
     {
-        rb.linearVelocity = new Vector3(0f, Mathf.Sqrt(1f * 9.81f * player.model.JumpForce), 0f);
+        rb.linearVelocity = new Vector3(0f, Mathf.Sqrt(1f * 9.81f * player.data.JumpForce), 0f);
         player.ChangeState(prevState);
     }
 

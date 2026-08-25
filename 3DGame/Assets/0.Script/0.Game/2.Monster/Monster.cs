@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -7,15 +8,9 @@ using Image = UnityEngine.UI.Image;
 
 public class Monster : MonoBehaviour, IDamageable
 {
-
-    [SerializeField] private GameObject hpBG;
-    [SerializeField] private Image hpImg;
-
-    [SerializeField] private int mDamage = 5;
-
     [SerializeField] public Transform target;
 
-    [SerializeField] public int hp, maxhp = 100;
+    [SerializeField] public int hp, maxhp;
 
     [HideInInspector] public LayerMask targetlayer;
     [HideInInspector] public float ScanSize = 5f;
@@ -25,18 +20,21 @@ public class Monster : MonoBehaviour, IDamageable
     [HideInInspector] public bool isReturn;
 
     [HideInInspector] public Collider[] targetScan;
+
     [HideInInspector] public Cooldown attackCool = new Cooldown(5f);
+
     [HideInInspector] public Animator MonAni;
+
     [HideInInspector] public MonsterView view;
     [HideInInspector] public MonsterModel Mmodel;
 
     [HideInInspector] public NavMeshAgent agent;
-
+    [SerializeField] public MonsterData data;
+    [HideInInspector] public bool isLive = true;
     void Awake()
     {
         Mmodel = new MonsterModel
             (
-                mDamage,
                 hp,
                 transform.position
             );
@@ -48,6 +46,7 @@ public class Monster : MonoBehaviour, IDamageable
         targetlayer = LayerMask.GetMask("Player");
         view = GetComponent<MonsterView>();
         agent = GetComponent<NavMeshAgent>();
+        Mmodel.HP = Mmodel.MaxHP = data.Hp;
 
         view.CreateHp();
         ChangeState(new MonsterIdleState(this));
@@ -56,12 +55,14 @@ public class Monster : MonoBehaviour, IDamageable
     {
         if (target == null || agent == null)
             return;
+
         view.HPbar(transform.position);
         ScanTarget();
+       
         attackCool.Tick(Time.deltaTime);
 
         Mmodel.TargetDis = Vector3.Distance(transform.position, target.position);
-        Mmodel.StartDis = Vector3.Distance(transform.position, Mmodel.StartPos);
+
         currentState?.Tick();
     }
 
@@ -70,6 +71,15 @@ public class Monster : MonoBehaviour, IDamageable
         currentState?.Exit();
         currentState = state;
         currentState?.Enter();
+    }
+
+    public void OnDead()
+    {
+        Invoke("Delete", 1.5f);
+    }
+    public void Delete()
+    {
+        gameObject.SetActive(false);
     }
 
     public void ScanTarget()
@@ -90,14 +100,9 @@ public class Monster : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        ChangeState(new MonsterHitState(this, currentState,damage));
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 posAttack = transform.position;
-        posAttack.y += 1f;
-        Gizmos.DrawWireSphere(posAttack, 5f);
+        if (isLive)
+        {
+            ChangeState(new MonsterHitState(this, currentState, damage));
+        }
     }
 }

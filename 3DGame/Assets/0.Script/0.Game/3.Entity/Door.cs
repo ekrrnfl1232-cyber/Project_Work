@@ -12,13 +12,6 @@ public class Door : MonoBehaviour, IInterectable
     public void Interact()
     {
         animator.SetTrigger("door_open");
-
-        //Invoke("DoorClose", 10f);
-    }
-
-    void DoorClose()
-    {
-        animator.SetTrigger("door_close");
     }
     
 }

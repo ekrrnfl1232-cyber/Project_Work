@@ -11,6 +11,7 @@ public class MonsterIdleState : IState
 
     public void Enter()
     {
+        Debug.Log("대기중");
         monster.MonAni.SetTrigger("Idle");
     }
 
@@ -20,12 +21,16 @@ public class MonsterIdleState : IState
 
     public void Tick()
     {
-        if(monster.isFind)
+        if (monster.isFind && monster.Mmodel.TargetDis > monster.data.Range)
             monster.ChangeState(new MonsterMoveState(monster, this));
-        if (monster.attackCool.IsReady && monster.Mmodel.TargetDis < 1.5f)
+
+        if (monster.isFind && monster.Mmodel.TargetDis <= monster.data.Range)
         {
-            Debug.Log($"{monster.name}공격");
-            monster.ChangeState(new MonsterAttackState(monster, this));
+            monster.transform.LookAt(monster.target);
+            if (monster.attackCool.IsReady)
+            {
+                monster.ChangeState(new MonsterAttackState(monster, this));
+            }
         }
     }
 }

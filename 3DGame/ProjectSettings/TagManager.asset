@@ -9,6 +9,7 @@ TagManager:
   - Box
   - Wall
   - Monster
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -21,9 +22,9 @@ TagManager:
   - Door
   - Player
   - Monster
-  - 
-  - 
-  - 
+  - Entity
+  - NPC
+  - Dead
   - 
   - 
   - 

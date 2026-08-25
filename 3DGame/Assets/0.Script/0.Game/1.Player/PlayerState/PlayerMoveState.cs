@@ -11,7 +11,7 @@ public class PlayerMoveState : IState
     }
     public void Enter()
     {
-        player.animator.SetFloat("Speed", player.moveForce);
+        player.animator.SetFloat("Speed", player.data.MoveForce);
     }
 
     public void Exit()
@@ -24,7 +24,7 @@ public class PlayerMoveState : IState
 
         player.model.Movement.Normalize();
         //transform.position += movement * Time.deltaTime * speed;
-        player.transform.Translate(player.model.Movement * Time.deltaTime * player.model.MoveForce, Space.World);
+        player.transform.Translate(player.model.Movement * Time.deltaTime * player.data.MoveForce, Space.World);
         if (player.model.Movement == Vector3.zero)
         {
             player.ChangeState(new PlayerIdle(player));

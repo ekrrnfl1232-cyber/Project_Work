@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,20 +7,10 @@ public class Player : MonoBehaviour, IDamageable
 {
 
     [Header("Move")]
-    [SerializeField] public float moveForce = 4f;
     public Vector3 movement = Vector3.zero;
-
-    [Header("Jump")]
-    [SerializeField] public float jumpForce = 40f;
-
-    [Header("Dash")]
-    [SerializeField] public float dashForce = 200f;
 
     [Header("InteractScale")]
     [SerializeField] private float InterationScale = 2f;
-
-    [Header("WeaponDamage")]
-    [SerializeField] public int wDamage = 10;
 
     [Header("HP")]
     [SerializeField] private int HP = 100;
@@ -30,29 +21,25 @@ public class Player : MonoBehaviour, IDamageable
     private bool comboWindowWasOpened;
     private bool comboBroken;
 
-    private bool isGrounded;
     private IState currentState;
     public Rigidbody rb;
     LayerMask ground;
     [HideInInspector] public Cooldown coolDown = new Cooldown(1f);
     [HideInInspector] public PlayerView view;
     [HideInInspector] public PlayerModel model;
+    [SerializeField] public PlayerData data;
 
     private void Awake()
     {
         model = new PlayerModel
             (
-            moveForce, jumpForce,
-            dashForce,InterationScale,
-            wDamage, HP,
-            isGrounded, movement
+            InterationScale, HP, movement
             );
     }
 
     private void Start()
     {
-        ground = LayerMask.GetMask("Ground");
-
+        model.IsGrounded = true;
         view = GetComponent<PlayerView>();
         view.CreateHp();
         ChangeState(new PlayerIdle(this));
@@ -97,7 +84,7 @@ public class Player : MonoBehaviour, IDamageable
     public void Dash(IState prevState)
     {
         animator.SetBool("ShieldRush", true);
-        rb.AddRelativeForce(Vector3.forward * dashForce, ForceMode.VelocityChange);
+        rb.AddRelativeForce(Vector3.forward * data.DashForce, ForceMode.VelocityChange);
         Invoke("StopDash", 0.2f);
         ChangeState(prevState);
     }

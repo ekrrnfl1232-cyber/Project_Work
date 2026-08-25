@@ -22,8 +22,8 @@ public class PlayerAttackState : IState
         {
             if (tar.TryGetComponent<IDamageable>(out IDamageable damage))
             {
-                damage.TakeDamage(player.model.wDamage);
-                DamageFontManager.Instance.CreateText(player.model.wDamage, tar.transform.position);
+                damage.TakeDamage(player.data.Wdamage);
+                DamageFontManager.Instance.CreateText(player.data.Wdamage, tar.transform.position);
                 break;
             }
         }
