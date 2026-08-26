@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class PlayerModel : MonoBehaviour
+[System.Serializable]
+public class PlayerModel
 {
     private PlayerView view;
 

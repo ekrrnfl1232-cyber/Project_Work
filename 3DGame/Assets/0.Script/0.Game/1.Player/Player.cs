@@ -156,25 +156,4 @@ public class Player : MonoBehaviour, IDamageable
             model.IsGrounded = false;
         }
     }
-    #region 애니메이션
-    public void OpenComboWindow()
-    {
-        if (comboBroken)
-            return;
-
-        comboWindowOpen = true;
-        comboWindowWasOpened = true;
-
-    }
-
-    public void CloseComboWindow()
-    {
-        comboWindowOpen = false;
-    }
-
-    public void TryContinueFromSword01()
-    {
-        comboWindowOpen = false;
-    }
-    #endregion
 }

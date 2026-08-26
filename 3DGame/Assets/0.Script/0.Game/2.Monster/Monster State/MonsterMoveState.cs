@@ -1,23 +1,22 @@
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
+[System.Serializable]
 public class MonsterMoveState : IState
 {
     Monster monster;
-    IState prevState;
 
     Vector3 startPos;
     float distan;
-    public MonsterMoveState(Monster monster, IState prevState)
+    public MonsterMoveState(Monster monster)
     {
         this.monster = monster;
-        this.prevState = prevState;
     }
     public void Enter()
     {
         monster.agent.speed = monster.data.MoveSpeed;
         Debug.Log("목표물로 가는중");
-        monster.MonAni.SetTrigger("Walk");
+        monster.MonsterAni.SetTrigger("Walk");
     }
 
     public void Exit()
@@ -28,17 +27,17 @@ public class MonsterMoveState : IState
     {
         monster.agent.SetDestination(monster.target.position);
         
-        if(monster.Mmodel.TargetDis <= 1.5f)
+        if(monster.Model.TargetDis <= 1.5f)
         {
             monster.agent.ResetPath();
-            monster.ChangeState(prevState);
+            monster.ChangeState(monster.PrevState);
         }
-        float StartDis = Vector3.Distance(monster.transform.position, monster.Mmodel.StartPos);
+        float StartDis = Vector3.Distance(monster.transform.position, monster.Model.StartPos);
 
-        if (!monster.isFind && StartDis >= monster.data.SpawnRange)
+        if (!monster.IsFind && StartDis >= monster.data.SpawnRange)
         {
             monster.agent.ResetPath();
-            monster.ChangeState(new MonsterPatrolState(monster, this));
+            monster.ChangeState("patrolState");
         }
     }
 }

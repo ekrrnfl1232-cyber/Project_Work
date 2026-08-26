@@ -29,13 +29,13 @@ public class PlayerView : MonoBehaviour
     public void HPbar(Vector3 pos)
     {
         Vector3 targetPos = Camera.main.WorldToScreenPoint(pos);
-        targetPos.y += 50f;
+        targetPos.y += 150f;
         hpBG.transform.position = targetPos;
     }
 
     public void HpUpdate(int hp, int maxHp)
     {
-        hpImg.rectTransform.sizeDelta = new Vector2(50f * ((float)hp / maxHp), 10f);
+        hpImg.rectTransform.sizeDelta = new Vector2(hpImg.rectTransform.sizeDelta.x * ((float)hp / maxHp), 30f);
     }
 
 }

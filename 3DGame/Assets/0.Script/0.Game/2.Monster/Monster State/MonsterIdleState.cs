@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class MonsterIdleState : IState
 {
     Monster monster;
@@ -12,7 +13,7 @@ public class MonsterIdleState : IState
     public void Enter()
     {
         Debug.Log("´ë±âÁß");
-        monster.MonAni.SetTrigger("Idle");
+        monster.MonsterAni.SetTrigger("Idle");
     }
 
     public void Exit()
@@ -21,15 +22,15 @@ public class MonsterIdleState : IState
 
     public void Tick()
     {
-        if (monster.isFind && monster.Mmodel.TargetDis > monster.data.Range)
-            monster.ChangeState(new MonsterMoveState(monster, this));
+        if (monster.IsFind && monster.Model.TargetDis > monster.data.Range)
+            monster.ChangeState("moveState");
 
-        if (monster.isFind && monster.Mmodel.TargetDis <= monster.data.Range)
+        if (monster.IsFind && monster.Model.TargetDis <= monster.data.Range && monster.IsLive)
         {
             monster.transform.LookAt(monster.target);
             if (monster.attackCool.IsReady)
             {
-                monster.ChangeState(new MonsterAttackState(monster, this));
+                monster.ChangeState("attackState");
             }
         }
     }

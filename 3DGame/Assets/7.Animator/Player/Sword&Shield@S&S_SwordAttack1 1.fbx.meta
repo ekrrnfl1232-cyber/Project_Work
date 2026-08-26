@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: b48db5150e0d17245b3afc5315a3ccb2
-AssetOrigin:
-  serializedVersion: 1
-  productId: 384884
-  packageName: Viking Huscarl - Animated Character
-  packageVersion: 1.0
-  assetPath: Assets/Huscarl/Animations/Sword&Shield@S&S_SwordAttack1.fbx
-  uploadId: 930186
+guid: 8e6358abb0d566e418b7a116d9d25660
 ModelImporter:
   serializedVersion: 24501
   internalIDToNameTable: []
@@ -62,28 +55,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.49858883
-        functionName: OpenComboWindow
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.8423341
-        functionName: CloseComboWindow
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: TryContinueFromSword01
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

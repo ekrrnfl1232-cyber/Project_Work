@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class Cooldown
 {
     private float cooldownTime;

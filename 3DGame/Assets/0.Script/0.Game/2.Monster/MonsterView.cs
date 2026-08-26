@@ -14,17 +14,21 @@ public class MonsterView : MonoBehaviour
         hpBG = Instantiate(prefabHP, isParent);
         hpImg = hpBG.transform.GetChild(0).GetComponent<Image>();
     }
+    public void DeleteHp()
+    {
+        Destroy(hpBG);
+    }
 
     public void HPbar(Vector3 pos)
     {
         Vector3 targetPos = Camera.main.WorldToScreenPoint(pos);
-        targetPos.y += 50f;
+        targetPos.y += 100f;
         hpBG.transform.position = targetPos;
     }
 
     public void HpUpdate(int HP, int maxHP)
     {
-        hpImg.rectTransform.sizeDelta = new Vector2(50f * ((float)HP / maxHP), 10f);
+        hpImg.rectTransform.sizeDelta = new Vector2(hpImg.rectTransform.sizeDelta.x * ((float)HP / maxHP), hpImg.rectTransform.sizeDelta.y);
     }
 
     public void HPbarDelete(bool isLive)

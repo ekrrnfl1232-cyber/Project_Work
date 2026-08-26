@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
@@ -10,99 +12,103 @@ public class Monster : MonoBehaviour, IDamageable
 {
     [SerializeField] public Transform target;
 
-    [SerializeField] public int hp, maxhp;
-
-    [HideInInspector] public LayerMask targetlayer;
-    [HideInInspector] public float ScanSize = 5f;
+    public LayerMask targetlayer { get; private set; }
     private IState currentState;
+    private string currentKey;
 
-    [HideInInspector] public bool isFind;
-    [HideInInspector] public bool isReturn;
+    public bool IsFind { get; private set; }
+    public Collider[] targetScan {  get; private set; }
+    public Cooldown attackCool { get; set; } = new Cooldown(5f);
 
-    [HideInInspector] public Collider[] targetScan;
+    public Animator MonsterAni {  get; set; }
 
-    [HideInInspector] public Cooldown attackCool = new Cooldown(5f);
+    public MonsterView View { get; set; }
+    public MonsterModel Model { get; set; }
 
-    [HideInInspector] public Animator MonAni;
-
-    [HideInInspector] public MonsterView view;
-    [HideInInspector] public MonsterModel Mmodel;
-
-    [HideInInspector] public NavMeshAgent agent;
+    public NavMeshAgent agent {  get; set; }
     [SerializeField] public MonsterData data;
-    [HideInInspector] public bool isLive = true;
+    public bool IsLive { get; set; } = true;
+    public int EnterDamage{ get; private set; }
+    public string PrevState { get; private set; }
+    public Dictionary<string, IState> States { get; private set; }
     void Awake()
     {
-        Mmodel = new MonsterModel
+        Model = new MonsterModel
             (
-                hp,
+                data.Hp,
                 transform.position
             );
+        States = new Dictionary<string, IState> ();
+
+        States.Add("attackState", new MonsterAttackState(this));
+        States.Add("idleState", new MonsterIdleState(this));
+        States.Add("moveState", new MonsterMoveState(this));
+        States.Add("patrolState", new MonsterPatrolState(this));
+        States.Add("reviveState", new MonsterReviveState(this));
+        States.Add("deadState", new MonsterDeadState(this));
+        States.Add("hitState", new MonsterHitState(this));
     }
 
     void Start()
     {
-        MonAni = GetComponent<Animator>();
+        MonsterAni = GetComponent<Animator>();
         targetlayer = LayerMask.GetMask("Player");
-        view = GetComponent<MonsterView>();
+        View = GetComponent<MonsterView>();
         agent = GetComponent<NavMeshAgent>();
-        Mmodel.HP = Mmodel.MaxHP = data.Hp;
+        Model.HP = Model.MaxHP = data.Hp;
 
-        view.CreateHp();
-        ChangeState(new MonsterIdleState(this));
+        View.CreateHp();
+        ChangeState("idleState");
     }
     void Update()
     {
         if (target == null || agent == null)
             return;
 
-        view.HPbar(transform.position);
+        View.HPbar(transform.position);
+        View.HpUpdate(Model.HP, Model.MaxHP);
         ScanTarget();
        
         attackCool.Tick(Time.deltaTime);
 
-        Mmodel.TargetDis = Vector3.Distance(transform.position, target.position);
+        Model.TargetDis = Vector3.Distance(transform.position, target.position);
 
         currentState?.Tick();
     }
 
-    public void ChangeState(IState state)
+    public void ChangeState(string state)
     {
+        PrevState = currentKey;
         currentState?.Exit();
-        currentState = state;
+        currentState = States[state];
+        currentKey = state;
         currentState?.Enter();
     }
 
-    public void OnDead()
+    public void TakeDamage(int damage)
     {
-        Invoke("Delete", 1.5f);
-    }
-    public void Delete()
-    {
-        gameObject.SetActive(false);
+        if (IsLive)
+        {
+            Debug.Log("hit");
+            Model.Damage = damage;
+            ChangeState("hitState");
+        }
     }
 
     public void ScanTarget()
     {
         Vector3 pos = transform.position;
         pos.y += 1f;
-        targetScan = Physics.OverlapSphere(pos, ScanSize);
+        targetScan = Physics.OverlapSphere(pos, data.ScanSize);
         foreach (var tar in targetScan)
         {
-            isFind = false;
+            IsFind = false;
             if (tar.CompareTag("Player"))
             {
-                isFind = true;
+                IsFind = true;
                 break;
             }
         }
     }
-
-    public void TakeDamage(int damage)
-    {
-        if (isLive)
-        {
-            ChangeState(new MonsterHitState(this, currentState, damage));
-        }
-    }
+    
 }

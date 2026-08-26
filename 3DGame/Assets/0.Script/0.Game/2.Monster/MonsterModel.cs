@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class MonsterModel : MonoBehaviour
+[System.Serializable]
+public class MonsterModel
 {
     public int HP { get; set; }
 
@@ -10,7 +11,7 @@ public class MonsterModel : MonoBehaviour
 
     public Vector3 StartPos { get; set; }
     
-
+    public int Damage { get; set; }
     public MonsterModel(int Hp, Vector3 startPos)
     {
         this.HP = Hp;

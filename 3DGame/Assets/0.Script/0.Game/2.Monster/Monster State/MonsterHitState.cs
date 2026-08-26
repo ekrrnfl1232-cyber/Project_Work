@@ -1,30 +1,26 @@
 using UnityEngine;
 
+[System.Serializable]
 public class MonsterHitState : IState
 {
     Monster monster;
-    IState prevState;
-    int damage;
-    public MonsterHitState(Monster monster, IState prevState,int damage)
+    public MonsterHitState(Monster monster)
     {
         this.monster = monster;
-        this.prevState = prevState;
-        this.damage = damage;
     }
 
     public void Enter()
     {
-        monster.Mmodel.HP -= damage;
-        monster.view.HpUpdate(monster.Mmodel.HP, monster.Mmodel.MaxHP);
-        if (monster.Mmodel.HP <= 0)
+        monster.Model.HP -= monster.Model.Damage;
+        if (monster.Model.HP <= 0)
         {
-            monster.ChangeState(new MonsterDeadState(monster));
+            monster.ChangeState("deadState");
         }
         else
         {
-            monster.MonAni.SetTrigger("Hit");
-            Debug.Log($"남은 체력 : {monster.Mmodel.HP}");
-            monster.ChangeState(prevState);
+            monster.MonsterAni.SetTrigger("Hit");
+            Debug.Log($"남은 체력 : {monster.Model.HP}");
+            monster.ChangeState(monster.PrevState);
         }
     }
 
@@ -34,5 +30,6 @@ public class MonsterHitState : IState
 
     public void Tick()
     {
+        
     }
 }

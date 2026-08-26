@@ -23,4 +23,8 @@ public class MonsterData : ScriptableObject
     private float spawnRange = 7f;
     public float SpawnRange { get { return spawnRange; } }
 
+    [SerializeField]
+    private float scanSize = 5f;
+    public float ScanSize { get { return scanSize; } }
+
 }

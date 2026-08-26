@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class MonsterDeadState : IState
 {
     Monster monster;
@@ -10,10 +11,15 @@ public class MonsterDeadState : IState
 
     public void Enter()
     {
-        monster.isLive = false;
-        monster.MonAni.SetTrigger("Dead");
+        monster.agent.ResetPath();
+
+        monster.IsLive = false;
+
+        monster.MonsterAni.SetFloat("AnimSpeed", 1f);
+        monster.MonsterAni.SetTrigger("Dead");
+        monster.MonsterAni.SetBool("IsDead", true);
         Debug.Log($"{monster.name} Dead");
-        monster.OnDead();
+        monster.Invoke("OnDead", 2f);
     }
 
     public void Exit()
@@ -22,5 +28,16 @@ public class MonsterDeadState : IState
 
     public void Tick()
     {
+    }
+
+    public void OnDead()
+    {
+        monster.gameObject.SetActive(false);
+        monster.View.DeleteHp();
+        monster.Invoke("ReSpawn", 1f);
+    }
+    public void ReSpawn()
+    {
+        monster.ChangeState("reviveState");
     }
 }
