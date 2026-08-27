@@ -30,14 +30,4 @@ public class MonsterDeadState : IState
     {
     }
 
-    public void OnDead()
-    {
-        monster.gameObject.SetActive(false);
-        monster.View.DeleteHp();
-        monster.Invoke("ReSpawn", 1f);
-    }
-    public void ReSpawn()
-    {
-        monster.ChangeState("reviveState");
-    }
 }

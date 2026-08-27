@@ -24,10 +24,12 @@ public class Player : MonoBehaviour, IDamageable
     private IState currentState;
     public Rigidbody rb;
     LayerMask ground;
-    [HideInInspector] public Cooldown coolDown = new Cooldown(1f);
+    private Cooldown coolDown = new Cooldown(1f);
+    public Cooldown AtkCool { get { return coolDown; }}
     [HideInInspector] public PlayerView view;
     [HideInInspector] public PlayerModel model;
     [SerializeField] public PlayerData data;
+    [SerializeField] public GameObject Inven;
 
     private void Awake()
     {
@@ -47,31 +49,36 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        Look();
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            view.OnInventory(Inven);
+        }
+        view.HPbar(transform.position);
         Vector3 move = Vector3.zero;
         move.x = Input.GetAxisRaw("Horizontal");
         move.z = Input.GetAxisRaw("Vertical");
-        coolDown.Tick(Time.deltaTime);
-        model.Movement = move;
-
-        if (Input.GetMouseButtonDown(0) && model.IsGrounded && coolDown.IsReady)
-        {
-            Debug.Log("공격키 입력");
-            ChangeState(new PlayerAttackState(this, currentState));
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && model.IsGrounded)
-        {
-            Debug.Log("점프 키 입력");
-            ChangeState(new PlayerJumpState(this, currentState, rb));
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            ChangeState(new PlayerDashState(this, currentState, rb));
-        }
-
-        Interect();
-        view.HPbar(transform.position);
         
+        model.Movement = move;
+        if (!view.isOnInventory)
+        {
+            if (Input.GetMouseButtonDown(0) && model.IsGrounded && AtkCool.IsReady)
+            {
+                Debug.Log("공격키 입력");
+                ChangeState(new PlayerAttackState(this, currentState));
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && model.IsGrounded)
+            {
+                Debug.Log("점프 키 입력");
+                ChangeState(new PlayerJumpState(this, currentState, rb));
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                ChangeState(new PlayerDashState(this, currentState, rb));
+            }
+            AtkCool.Tick(Time.deltaTime);
+            Interect();
+            Look();
+        }
         currentState?.Tick();
     }
 

@@ -17,7 +17,7 @@ public class PlayerIdle : IState
 
     public void Tick()
     {
-        if (player.model.Movement != Vector3.zero)
+        if (player.model.Movement != Vector3.zero && !player.view.isOnInventory)
         {
             player.ChangeState(new PlayerMoveState(player, this));
         }

@@ -85,6 +85,16 @@ public class Monster : MonoBehaviour, IDamageable
         currentState?.Enter();
     }
 
+    public void OnDead()
+    {
+        gameObject.SetActive(false);
+        View.DeleteHp();
+        Invoke("ReSpawn", 1f);
+    }
+    public void ReSpawn()
+    {
+        ChangeState("reviveState");
+    }
     public void TakeDamage(int damage)
     {
         if (IsLive)
