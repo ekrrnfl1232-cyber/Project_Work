@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -10,11 +12,13 @@ public class Inventory : MonoBehaviour
     [SerializeField] private ItemScriptable[] itemDatas;
 
     private List<InventoryItem> items = new();
+    private Image background;
     public Transform Inven => parent;
 
     private void Start()
     {
         itemDatas = Resources.LoadAll<ItemScriptable>("ItemData");
+        background = parent.GetComponent<Image>();
     }
 
     private void Update()
@@ -33,7 +37,7 @@ public class Inventory : MonoBehaviour
         {
             foreach (var i in items)
             {
-                if (i.Data == item)
+                if (i.Data == item && i.Data.Type != ItemType.Equip)
                 {
                     if (i.Count < item.MaxStack)
                     {

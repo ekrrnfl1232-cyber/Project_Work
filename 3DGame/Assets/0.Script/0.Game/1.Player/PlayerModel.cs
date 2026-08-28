@@ -7,8 +7,7 @@ public class PlayerModel
 
     public float InterationScale { get; set; }
 
-    public int HP { get;set;}
-    public int MaxHP { get; set; }
+    public int HP { get; set; }
 
     public bool IsGrounded {  get; set; }
 
@@ -22,7 +21,6 @@ public class PlayerModel
     {
         this.InterationScale = InterationScale;
         this.HP = HP;
-        this.MaxHP = HP;
         this.Movement = Movement;
     }
 }

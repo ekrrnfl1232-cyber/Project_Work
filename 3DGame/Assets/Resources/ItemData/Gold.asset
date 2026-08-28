@@ -15,6 +15,7 @@ MonoBehaviour:
   itemID: 1
   itemName: "\uACE8\uB4DC"
   icon: {fileID: 21300000, guid: b938f1e4fa7cca3459bd7aef7f643806, type: 3}
+  backgroundIcon: {fileID: 21300000, guid: 29114078ffdf3ad46a63ea39321bcc5b, type: 3}
   maxStack: 4294967290
   price: 0
   Type: 2

@@ -17,4 +17,4 @@ MonoBehaviour:
   jumpForce: 10
   dashForce: 20
   moveForce: 4
-  damage: 100
+  damage: 10

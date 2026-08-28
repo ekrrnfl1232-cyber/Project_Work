@@ -12,14 +12,8 @@ public class Player : MonoBehaviour, IDamageable
     [Header("InteractScale")]
     [SerializeField] private float InterationScale = 2f;
 
-    [Header("HP")]
-    [SerializeField] private int HP = 100;
-
     [Header("Animator")]
     [SerializeField] public Animator animator;
-    private bool comboWindowOpen;
-    private bool comboWindowWasOpened;
-    private bool comboBroken;
 
     private IState currentState;
     public Rigidbody rb;
@@ -28,20 +22,27 @@ public class Player : MonoBehaviour, IDamageable
     public Cooldown AtkCool { get { return coolDown; }}
     [HideInInspector] public PlayerView view;
     [HideInInspector] public PlayerModel model;
+    [HideInInspector] public PlayerStat stat;
     [SerializeField] public PlayerData data;
-    [SerializeField] public GameObject Inven;
+    public UIConstroller UiCon { get; private set; }
+    public int Dmg { get; set; }
+    public GameObject UiSystem;
 
     private void Awake()
     {
+        stat = new PlayerStat();
         model = new PlayerModel
             (
-            InterationScale, HP, movement
+            InterationScale, data.Maxhp,movement
             );
     }
 
     private void Start()
     {
+        stat.BaseAttack = data.Wdamage;
+        Debug.Log($"{stat.BaseAttack}");
         model.IsGrounded = true;
+        UiCon = UiSystem.GetComponent<UIConstroller>();
         view = GetComponent<PlayerView>();
         view.CreateHp();
         ChangeState(new PlayerIdle(this));
@@ -49,17 +50,13 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            view.OnInventory(Inven);
-        }
         view.HPbar(transform.position);
         Vector3 move = Vector3.zero;
         move.x = Input.GetAxisRaw("Horizontal");
         move.z = Input.GetAxisRaw("Vertical");
         
         model.Movement = move;
-        if (!view.isOnInventory)
+        if (!UiCon.isOnInventory)
         {
             if (Input.GetMouseButtonDown(0) && model.IsGrounded && AtkCool.IsReady)
             {

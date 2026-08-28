@@ -40,26 +40,5 @@ public class PlayerView : MonoBehaviour
         hpImg.rectTransform.sizeDelta = new Vector2(hpImg.rectTransform.sizeDelta.x * ((float)hp / maxHp), 30f);
     }
 
-    public void OnInventory(GameObject inv)
-    {
-        Image Img = inv.GetComponent<Image>();
-        GameObject Inven = inv.transform.GetChild(0).gameObject;
-        if (Inven.activeInHierarchy)
-        {
-            Color alpha = Img.color;
-            alpha.a = 0;
-            Img.color = alpha;
-            Inven.SetActive(false);
-            isOnInventory = false;
-        }
-        else
-        {
-            Color alpha = Img.color;
-            alpha.a = 0.6f;
-            Img.color = alpha;
-            Inven.SetActive(true);
-            isOnInventory = true;
-        }
-    }
 
 }

@@ -23,7 +23,7 @@ public class PlayerHitState : IState
         player.model.HP -= damage;
         Debug.Log("Player 타격 받음");
         Debug.Log($"남은 체력 : {player.model.HP}");
-        player.view.HpUpdate(player.model.HP, player.model.MaxHP);
+        player.view.HpUpdate(player.model.HP, player.data.Maxhp);
         if (player.model.HP <= 0)
         {
             Debug.Log("Player Dead");

@@ -15,6 +15,7 @@ MonoBehaviour:
   itemID: 2
   itemName: "\uBE68\uAC04 \uBB3C\uC57D"
   icon: {fileID: 1662983577, guid: aca69ff870a51b34aa83e4725425deed, type: 3}
+  backgroundIcon: {fileID: 21300000, guid: f1191f8d2b2b9784fa6ed9188da4a79e, type: 3}
   maxStack: 5
   price: 30
   Type: 1

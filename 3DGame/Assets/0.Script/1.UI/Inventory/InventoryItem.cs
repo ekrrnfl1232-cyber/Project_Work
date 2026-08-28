@@ -1,9 +1,11 @@
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.U2D;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour
+public class InventoryItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler
 {
     [SerializeField]
     private Image iconImg;
@@ -17,24 +19,33 @@ public class InventoryItem : MonoBehaviour
     [SerializeField]
     private TMP_Text countTxt;
 
+    [SerializeField]
+    private Image back;
+
     private uint count;
 
-    private ItemScriptable data;
+    private InventoryItem moveItem;
+    private RectTransform moveItemRectTran;
+
     // ∞¯¿Ø ∫Øºˆ
-    public ItemScriptable Data => data;
+    public Image EquipImg { get; set; }
+    public Image IconImg { get; set; }
+    public ItemScriptable Data { get; set; }
     public uint Count => count;
     public InventoryItem Init(ItemScriptable data)
     {
-        this.data = data;
+        this.Data = data;
+        back = GetComponent<Image>();
         return this;
     }
 
     public void Setting()
     {
-        iconImg.sprite = data.Icon;
-        nameTxt.text = data.ItemName;
+        back.sprite = Data.BackgroundIcon;
+        iconImg.sprite = Data.Icon;
+        nameTxt.text = Data.ItemName;
         equipImg.gameObject.SetActive(false);
-        if (data.Type == ItemType.Equip)
+        if (Data.Type == ItemType.Equip)
         {
             countTxt.gameObject.SetActive(false);
         }
@@ -46,55 +57,74 @@ public class InventoryItem : MonoBehaviour
 
     public void SetCount(uint cnt)
     {
-        if (countTxt.IsActive())
+        count += cnt;
+        if (Data.Type == ItemType.Gold)
         {
-            count += cnt;
-            if (data.Type == ItemType.Gold)
-            {
-                countTxt.text = $"{count}";
-            }
-            else if(data.Type == ItemType.Posion)
-            {
-                countTxt.text = $"{count} / {data.MaxStack}";
-            }
+            countTxt.text = $"{count}";
         }
-        else
-            return;
+        else if(Data.Type == ItemType.Posion)
+        {
+            countTxt.text = $"{count} / {Data.MaxStack}";
+        }
     }
 
     public void OnUse()
     {
-        
-        if (data.Type == ItemType.Equip)
-        {
-            if (equipImg.IsActive())
-            {
-                equipImg.gameObject.SetActive(false);
-                Debug.Log($"{data.ItemName} ¿Â¬¯ «ÿ¡¶");
-            }
-            else
-            {
-                equipImg.gameObject.SetActive(true);
-                Debug.Log($"{data.ItemName} ¿Â¬¯");
-            }
-        }
-        else
+        if(Data.Type != ItemType.Equip)
         {
             count -= 1;
             SetCount(0);
-            Debug.Log($"{data.ItemName}");
+            Debug.Log($"{Data.ItemName}");
             if(count == 0)
             {
                 OnDelete();
             }
             
         }
-        
+        else
+        {
+            return;
+        }
     }
-    
     public void OnDelete()
     {
         Destroy(gameObject);
+    }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if(UIConstroller.Instance.equipSystem.SelectSlot != null)
+        {
+            UIConstroller.Instance.equipSystem.SelectSlot.Equip();
+            if (!equipImg.IsActive())
+            {
+                equipImg.gameObject.SetActive(true);
+                Debug.Log($"{Data.ItemName} ¿Â¬¯");
+            }
+        }
+        moveItem.gameObject.SetActive(false);
+        moveItemRectTran = null;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        moveItemRectTran.position = eventData.position;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        UIConstroller.Instance.moveItem.Data = Data;
+
+        this.moveItem = UIConstroller.Instance.moveItem;
+
+        moveItemRectTran = this.moveItem.GetComponent<RectTransform>();
+        moveItemRectTran.position = eventData.position;
+        this.moveItem.gameObject.SetActive(true);
+
+        moveItem.Setting();
     }
 }
 
