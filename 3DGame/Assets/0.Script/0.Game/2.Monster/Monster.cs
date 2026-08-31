@@ -10,14 +10,13 @@ using Image = UnityEngine.UI.Image;
 
 public class Monster : MonoBehaviour, IDamageable
 {
-    [SerializeField] public Transform target;
+    public Transform target;
 
     public LayerMask targetlayer { get; private set; }
     private IState currentState;
     private string currentKey;
 
     public bool IsFind { get; private set; }
-    public Collider[] targetScan {  get; private set; }
     public Cooldown attackCool { get; set; } = new Cooldown(5f);
 
     public Animator MonsterAni {  get; set; }
@@ -109,7 +108,7 @@ public class Monster : MonoBehaviour, IDamageable
     {
         Vector3 pos = transform.position;
         pos.y += 1f;
-        targetScan = Physics.OverlapSphere(pos, data.ScanSize);
+        Collider[] targetScan = Physics.OverlapSphere(pos, data.ScanSize);
         foreach (var tar in targetScan)
         {
             IsFind = false;

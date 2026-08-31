@@ -22,7 +22,7 @@ public class Player : MonoBehaviour, IDamageable
     public Cooldown AtkCool { get { return coolDown; }}
     [HideInInspector] public PlayerView view;
     [HideInInspector] public PlayerModel model;
-    [HideInInspector] public PlayerStat stat;
+    public PlayerStat stat;
     [SerializeField] public PlayerData data;
     public UIConstroller UiCon { get; private set; }
     public int Dmg { get; set; }
@@ -30,7 +30,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        stat = new PlayerStat();
         model = new PlayerModel
             (
             InterationScale, data.Maxhp,movement
@@ -54,7 +53,6 @@ public class Player : MonoBehaviour, IDamageable
         Vector3 move = Vector3.zero;
         move.x = Input.GetAxisRaw("Horizontal");
         move.z = Input.GetAxisRaw("Vertical");
-        
         model.Movement = move;
         if (!UiCon.isOnInventory)
         {

@@ -14,6 +14,9 @@ public class PlayerStat : MonoBehaviour
     [SerializeField]
     private float baseSpeed;
 
+    [SerializeField]
+    private PlayerData data;
+
     public int MaxHP { get { return maxHP; } private set { maxHP = value; } }
     public int BaseAttack { get { return baseAttack; } set { baseAttack = value; } }
     public int BaseDefence { get { return baseDefence; } private set { baseDefence = value; } }
@@ -21,6 +24,9 @@ public class PlayerStat : MonoBehaviour
 
     private void Awake()
     {
+        MaxHP = data.Maxhp;
+        BaseAttack = data.Wdamage;
+        BaseSpeed = data.MoveForce;
         ResetStat();
     }
 
@@ -34,11 +40,11 @@ public class PlayerStat : MonoBehaviour
 
     public int TotalDamage()
     {
-        return EquipSystem.Instance.EquipTotalDamage();
+        return EquipSystem.Instance.EquipTotalDamage() + BaseAttack;
     }
 
     public float TotalSpeed()
     {
-        return BaseSpeed + EquipSystem.Instance.EquipTotalSpeed();
+        return BaseSpeed + EquipSystem.Instance.EquipTotalSpeed() + BaseSpeed;
     }
 }

@@ -24,7 +24,7 @@ public class PlayerMoveState : IState
 
         player.model.Movement.Normalize();
         //transform.position += movement * Time.deltaTime * speed;
-        player.transform.Translate(player.model.Movement * Time.deltaTime * player.data.MoveForce, Space.World);
+        player.rb.MovePosition(player.transform.position + player.model.Movement * player.data.MoveForce * Time.deltaTime);
         if (player.model.Movement == Vector3.zero)
         {
             player.ChangeState(new PlayerIdle(player));

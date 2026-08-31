@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UIConstroller : Singleton<UIConstroller>
 {
-    public bool isOnInventory = false;
+    public bool isOnInventory;
 
     public Inventory inventory;
     public EquipSystem equipSystem;
@@ -12,6 +12,8 @@ public class UIConstroller : Singleton<UIConstroller>
     void Start()
     {
         moveItem.gameObject.SetActive(false);
+        inventory.gameObject.SetActive(false);
+        isOnInventory = false;
     }
 
     void Update()
@@ -24,22 +26,16 @@ public class UIConstroller : Singleton<UIConstroller>
 
     public void OnInventory()
     {
-        Image Iven = inventory.gameObject.GetComponent<Image>();
-        GameObject Inven = inventory.gameObject.transform.GetChild(0).gameObject;
-        Color alphaI = Iven.color;
-        if (Inven.activeInHierarchy)
+        if (inventory.gameObject.activeInHierarchy)
         {
-            alphaI.a = 0;
-            Inven.SetActive(false);
+            inventory.gameObject.SetActive(false);
             isOnInventory = false;
         }
         else
         {
-            alphaI.a = 0.6f;
-            Inven.SetActive(true);
+            inventory.gameObject.SetActive(true);
             isOnInventory = true;
         }
-        Iven.color = alphaI;
     }
 
 }

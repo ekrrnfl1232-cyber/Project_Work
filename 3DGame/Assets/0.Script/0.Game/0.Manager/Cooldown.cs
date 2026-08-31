@@ -27,4 +27,8 @@ public class Cooldown
         if (timer > 0f)
             timer -= time;
     }
+    public void Reset()
+    {
+        timer = 0f;
+    }
 }

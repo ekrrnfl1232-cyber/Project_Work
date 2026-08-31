@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EquipSystem : Singleton<EquipSystem>
@@ -6,33 +7,35 @@ public class EquipSystem : Singleton<EquipSystem>
     public EquipmentSlot[] slots;
 
     public EquipmentSlot SelectSlot { get; set; }
+    int totalDamage = 0;
+    float totalSpeed = 0;
 
     public int EquipTotalDamage()
     {
-        int totalValue = 0;
-
         foreach (EquipmentSlot slot in slots)
         {
             if (slot.Data != null)
             {
-                totalValue += slot.Data.Damage;
+                totalDamage += slot.Data.Damage;
+                break;
             }
         }
 
-        return totalValue;
+        return totalDamage;
     }
     public float EquipTotalSpeed()
     {
-        float totalValue = 0;
+        
 
         foreach(EquipmentSlot slot in slots)
         {
             if (slot.Data != null)
             {
-                totalValue += slot.Data.Speed;
+                totalSpeed += slot.Data.Speed;
+                break;
             }
         }
 
-        return totalValue;
+        return totalSpeed;
     }
 }

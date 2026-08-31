@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8486830fbabb53d498c36ce6f5a8a020, type: 3}
-  m_Name: PD000
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  hp: 100
-  maxhp: 100
-  jumpForce: 10
-  dashForce: 20
-  moveForce: 10
-  damage: 10
+  m_Script: {fileID: 11500000, guid: 8461188ffc9d9e841b9c8f217d0f2cf6, type: 3}
+  m_Name: BM
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterData
+  hp: 500
+  damage: 15
+  moveSpeed: 3.5
+  range: 1.5
+  spawnRange: 7
+  scanSize: 5
