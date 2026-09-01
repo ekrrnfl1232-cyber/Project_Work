@@ -31,7 +31,7 @@ public class MonsterPatrolState : IState
         }
         else if (monster.IsFind && monster.Model.TargetDis >= monster.data.Range)
         {
-            monster.ChangeState(monster.PrevState);
+            monster.ChangeState("moveState");
         }
     }
 

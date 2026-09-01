@@ -26,7 +26,7 @@ public class MonsterAttackState : IState
                 break;
             }
         }
-        monster.ChangeState(monster.PrevState);
+        monster.ChangeState("idleState");
     }
 
     public void Exit()

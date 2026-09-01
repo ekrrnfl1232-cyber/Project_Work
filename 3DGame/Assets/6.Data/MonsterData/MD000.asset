@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8461188ffc9d9e841b9c8f217d0f2cf6, type: 3}
   m_Name: MD000
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
+  monsterId: 1001
   hp: 100
   damage: 5
   moveSpeed: 3.5
   range: 1.5
   spawnRange: 7
+  scanSize: 5

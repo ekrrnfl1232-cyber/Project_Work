@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
@@ -9,6 +10,9 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Transform isParent;
     [SerializeField] private GameObject prefabHP;
     [SerializeField] private GameObject UiCheckBox;
+
+    [SerializeField] private Image expImg;
+    [SerializeField] private TMP_Text exptext;
 
     private PlayerModel model;
     private GameObject hpBG;
@@ -40,5 +44,9 @@ public class PlayerView : MonoBehaviour
         hpImg.rectTransform.sizeDelta = new Vector2(hpImg.rectTransform.sizeDelta.x * ((float)hp / maxHp), 30f);
     }
 
-
+    public void ExpUpdata()
+    {
+        exptext.text = $"{PlayerProgress.Instance.Exp} / {model.MaxExp}";
+        expImg.rectTransform.sizeDelta = new Vector2(1920f * (PlayerProgress.Instance.Exp / model.MaxExp), 20f);
+    }
 }

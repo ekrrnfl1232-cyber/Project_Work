@@ -24,12 +24,14 @@ public class Monster : MonoBehaviour, IDamageable
     public MonsterView View { get; set; }
     public MonsterModel Model { get; set; }
 
+    public QuestManager qm;
     public NavMeshAgent agent {  get; set; }
     [SerializeField] public MonsterData data;
     public bool IsLive { get; set; } = true;
     public int EnterDamage{ get; private set; }
     public string PrevState { get; private set; }
     public Dictionary<string, IState> States { get; private set; }
+    public float StartDis { get; private set; }
     void Awake()
     {
         Model = new MonsterModel
@@ -65,11 +67,11 @@ public class Monster : MonoBehaviour, IDamageable
             return;
 
         View.HPbar(transform.position);
-        View.HpUpdate(Model.HP, Model.MaxHP);
         ScanTarget();
        
         attackCool.Tick(Time.deltaTime);
 
+        StartDis = Vector3.Distance(transform.position, Model.StartPos);
         Model.TargetDis = Vector3.Distance(transform.position, target.position);
 
         currentState?.Tick();
@@ -87,6 +89,8 @@ public class Monster : MonoBehaviour, IDamageable
     public void OnDead()
     {
         gameObject.SetActive(false);
+        qm.NotifyEnemyKilled(data.MonsterId);
+        PlayerProgress.Instance.AddExp(data.GetExp);
         View.DeleteHp();
         Invoke("ReSpawn", 1f);
     }
@@ -98,8 +102,8 @@ public class Monster : MonoBehaviour, IDamageable
     {
         if (IsLive)
         {
+            Model.HP -= damage;
             Debug.Log("hit");
-            Model.Damage = damage;
             ChangeState("hitState");
         }
     }

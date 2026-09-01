@@ -4,6 +4,10 @@ using UnityEngine;
 public class MonsterData : ScriptableObject
 {
     [SerializeField]
+    private int monsterId;
+    public int MonsterId { get { return monsterId; } }
+
+    [SerializeField]
     private int hp = 100;
     public int Hp {  get { return hp; } }
 
@@ -26,5 +30,9 @@ public class MonsterData : ScriptableObject
     [SerializeField]
     private float scanSize = 5f;
     public float ScanSize { get { return scanSize; } }
+
+    [SerializeField]
+    private float getExp = 2.5f;
+    public float GetExp {  get { return getExp; } }
 
 }

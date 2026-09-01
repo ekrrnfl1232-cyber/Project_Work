@@ -1,5 +1,5 @@
-using NUnit.Framework;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,6 +11,8 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private ItemScriptable[] itemDatas;
 
+    [SerializeField] private TMP_Text goldAmount;
+
     private List<InventoryItem> items = new();
     private Image background;
     public Transform Inven => parent;
@@ -19,6 +21,7 @@ public class Inventory : MonoBehaviour
     {
         itemDatas = Resources.LoadAll<ItemScriptable>("ItemData");
         background = parent.GetComponent<Image>();
+        PlayerProgress.Instance.OnChanged += GoldAmount;
     }
 
     private void Update()
@@ -26,11 +29,13 @@ public class Inventory : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F5))
         {
             int rand = Random.Range(0, itemDatas.Length);
-            CreateItem(itemDatas[rand]);
+            CreateItem(itemDatas[rand], 1);
         }
     }
 
-    public void CreateItem(ItemScriptable item)
+    // 매개변수 int 추가
+    // 반환 자료형 int  변경
+    public int CreateItem(ItemScriptable item, int count)
     {
         items.RemoveAll(item => item == null);
         if (items.Count != 0)
@@ -42,15 +47,22 @@ public class Inventory : MonoBehaviour
                     if (i.Count < item.MaxStack)
                     {
                         i.SetCount(1);
-                        return;
+                        return 0;
                     }
                 }
             }
         }
+        
         InventoryItem createItem = Instantiate(invenItem, parent);
         createItem.Init(item);
         createItem.Setting();
 
         items.Add(createItem);
+        return 1;
+    }
+
+    public void GoldAmount()
+    {
+        goldAmount.text = $"{PlayerProgress.Instance.Gold}";
     }
 }

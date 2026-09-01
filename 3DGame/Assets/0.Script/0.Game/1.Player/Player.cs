@@ -32,12 +32,14 @@ public class Player : MonoBehaviour, IDamageable
     {
         model = new PlayerModel
             (
-            InterationScale, data.Maxhp,movement
+            InterationScale, data.Maxhp,movement, data.MaxExp
             );
     }
 
     private void Start()
     {
+        PlayerProgress.Instance.OnChanged += view.ExpUpdata;
+        view.ExpUpdata();
         stat.BaseAttack = data.Wdamage;
         Debug.Log($"{stat.BaseAttack}");
         model.IsGrounded = true;
@@ -107,7 +109,6 @@ public class Player : MonoBehaviour, IDamageable
         posInter.y += 1f;
         Collider[] colls = Physics.OverlapSphere(posInter, model.InterationScale);
         bool isFind = false;
-
         foreach (var col in colls)
         {
             if (col.TryGetComponent<IInterectable>(out IInterectable interact))

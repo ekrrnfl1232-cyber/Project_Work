@@ -30,11 +30,11 @@ public class MonsterMoveState : IState
         if(monster.Model.TargetDis <= 1.5f)
         {
             monster.agent.ResetPath();
-            monster.ChangeState(monster.PrevState);
+            monster.ChangeState("idleState");
         }
-        float StartDis = Vector3.Distance(monster.transform.position, monster.Model.StartPos);
+        
 
-        if (!monster.IsFind && StartDis >= monster.data.SpawnRange)
+        if (!monster.IsFind && monster.StartDis >= monster.data.SpawnRange)
         {
             monster.agent.ResetPath();
             monster.ChangeState("patrolState");

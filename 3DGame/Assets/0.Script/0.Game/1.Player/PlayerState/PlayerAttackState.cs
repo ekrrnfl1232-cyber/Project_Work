@@ -22,10 +22,10 @@ public class PlayerAttackState : IState
         {
             if (tar.TryGetComponent<IDamageable>(out IDamageable damage))
             {
-                player.Dmg =  player.stat.TotalDamage();
+                //player.Dmg =  player.stat.TotalDamage();
                 damage.TakeDamage(player.data.Wdamage);
-                DamageFontManager.Instance.CreateText(player.Dmg, tar.transform.position);
-                Debug.Log($"{player.Dmg}");
+                DamageFontManager.Instance.CreateText(player.data.Wdamage, tar.transform.position);
+                //Debug.Log($"{player.Dmg}");
                 break;
             }
         }

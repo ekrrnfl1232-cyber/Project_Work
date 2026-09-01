@@ -15,7 +15,6 @@ public class UIConstroller : Singleton<UIConstroller>
         inventory.gameObject.SetActive(false);
         isOnInventory = false;
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -37,5 +36,4 @@ public class UIConstroller : Singleton<UIConstroller>
             isOnInventory = true;
         }
     }
-
 }

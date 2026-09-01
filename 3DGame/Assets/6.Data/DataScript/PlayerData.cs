@@ -25,4 +25,9 @@ public class PlayerData : ScriptableObject
     [SerializeField]
     private int damage;
     public int Wdamage { get { return damage; } }
+
+    [SerializeField]
+    private float maxExp;
+    public float MaxExp { get { return maxExp; } }
+
 }

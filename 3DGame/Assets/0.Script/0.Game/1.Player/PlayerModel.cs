@@ -11,16 +11,20 @@ public class PlayerModel
 
     public bool IsGrounded {  get; set; }
 
+    public float MaxExp { get; set; }
+
     public Vector3 Movement {  get; set; }
     public PlayerModel
         ( 
         float InterationScale,
         int HP,
-        Vector3 Movement
+        Vector3 Movement,
+        float maxExp 
         )
     {
         this.InterationScale = InterationScale;
         this.HP = HP;
         this.Movement = Movement;
+        MaxExp = maxExp;
     }
 }

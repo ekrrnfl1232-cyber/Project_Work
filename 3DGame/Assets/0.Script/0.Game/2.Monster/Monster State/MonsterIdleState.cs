@@ -22,9 +22,6 @@ public class MonsterIdleState : IState
 
     public void Tick()
     {
-        if (monster.IsFind && monster.Model.TargetDis > monster.data.Range)
-            monster.ChangeState("moveState");
-
         if (monster.IsFind && monster.Model.TargetDis <= monster.data.Range && monster.IsLive)
         {
             monster.transform.LookAt(monster.target);
@@ -33,5 +30,7 @@ public class MonsterIdleState : IState
                 monster.ChangeState("attackState");
             }
         }
+        if (monster.IsFind && monster.Model.TargetDis > monster.data.Range)
+            monster.ChangeState("moveState");
     }
 }
