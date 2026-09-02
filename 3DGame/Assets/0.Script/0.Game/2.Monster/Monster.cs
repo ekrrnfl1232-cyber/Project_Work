@@ -1,12 +1,6 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Pool;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using Image = UnityEngine.UI.Image;
 
 public class Monster : MonoBehaviour, IDamageable
 {
@@ -89,8 +83,9 @@ public class Monster : MonoBehaviour, IDamageable
     public void OnDead()
     {
         gameObject.SetActive(false);
-        qm.NotifyEnemyKilled(data.MonsterId);
+        GameEvents.RaiseKillChange(data.MonsterId);
         PlayerProgress.Instance.AddExp(data.GetExp);
+        PlayerProgress.Instance.AddGold(data.GetGold);
         View.DeleteHp();
         Invoke("ReSpawn", 1f);
     }

@@ -6,7 +6,6 @@ public class QuestManager : MonoBehaviour
 {
     private readonly List<QuestProgress> activeQuests = new();
     public IReadOnlyList<QuestProgress> ActiveQuest => activeQuests;
-    public Action OnQuestChanged;
     
     public bool AcceptQuest(QuestData quest)
     {
@@ -19,7 +18,8 @@ public class QuestManager : MonoBehaviour
         }
         QuestProgress prog = new QuestProgress(quest);
         activeQuests.Add(prog);
-        OnQuestChanged?.Invoke();
+        GameEvents.PlayerKill += NotifyEnemyKilled;
+        GameEvents.RaiseQuestChanged();
         Debug.Log($"Quest Accepted:{quest.questTitle}");
         return true;
     }
@@ -68,7 +68,7 @@ public class QuestManager : MonoBehaviour
 
         if(change == true)
         {
-            OnQuestChanged?.Invoke();
+            GameEvents.RaiseQuestChanged();
         }
     }
 
@@ -90,12 +90,13 @@ public class QuestManager : MonoBehaviour
             }
         }
         int gold = quest.Data.rewardGold;
-        PlayerProgress.Instance.AddExp(gold);
+        PlayerProgress.Instance.AddGold(gold);
         float exp = (float)quest.Data.rewardExp;
         PlayerProgress.Instance.AddExp(exp);
         
         quest.Complete();
-        OnQuestChanged?.Invoke();
+        GameEvents.PlayerKill -= NotifyEnemyKilled;
+        GameEvents.RaiseQuestChanged();
         Debug.Log($"Quest Complete {quest.Data.questTitle}");
         return false;
     }

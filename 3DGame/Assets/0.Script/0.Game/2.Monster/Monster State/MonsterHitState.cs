@@ -11,6 +11,7 @@ public class MonsterHitState : IState
 
     public void Enter()
     {
+        monster.View.HpUpdate(monster.Model.HP, monster.Model.MaxHP);
         if (monster.Model.HP <= 0)
         {
             monster.ChangeState("deadState");
@@ -19,7 +20,6 @@ public class MonsterHitState : IState
         {
             monster.MonsterAni.SetTrigger("Hit");
             Debug.Log($"남은 체력 : {monster.Model.HP}");
-            monster.View.HpUpdate(monster.Model.HP, monster.Model.MaxHP);
             monster.ChangeState(monster.PrevState);
         }
         

@@ -35,4 +35,8 @@ public class MonsterData : ScriptableObject
     private float getExp = 2.5f;
     public float GetExp {  get { return getExp; } }
 
+    [SerializeField]
+    private int getGold = 50;
+    public int GetGold { get { return getGold; } }
+
 }

@@ -3,20 +3,20 @@ using UnityEngine;
 public class PlayerDashState : IState
 {
     private Player player;
-    private IState prevState;
-    private Rigidbody rb;
+    private CharacterController control;
 
-    public PlayerDashState(Player player, IState prevState, Rigidbody rb)
+    public PlayerDashState(Player player, CharacterController control)
     {
         this.player = player;
-        this.prevState = prevState;
-        this.rb = rb;
+        this.control = control;
     }
 
     public void Enter()
     {
         Debug.Log("´ë½¬ µé¿È");
-        player.Dash(prevState);
+        player.animator.SetBool("ShieldRush", true); //Vector3.forward * player.data.DashForce, ForceMode.Velocity
+        control.Move(Vector3.forward * player.data.DashForce * Time.deltaTime);
+        player.Invoke("StopDash", 0.2f);
     }
     
     public void Exit()

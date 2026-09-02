@@ -9,19 +9,19 @@ public class QuestUi : MonoBehaviour
 
     private void Start()
     {
-        questManager.OnQuestChanged += ReFresh;
-        ReFresh();
+        GameEvents.OnQuestChanged += ReFresh;
     }
 
     private void OnDestroy()
     {
         if(questManager != null)
-            questManager.OnQuestChanged -= ReFresh;
+            GameEvents.OnQuestChanged -= ReFresh;
     }
+
 
     private void ReFresh()
     {
-        if(questManager.ActiveQuest.Count == 0)
+        if (questManager.ActiveQuest.Count == 0)
         {
             titleTxt.text = string.Empty;
             progressTxt.text = string.Empty;
@@ -31,7 +31,7 @@ public class QuestUi : MonoBehaviour
         QuestProgress quest = questManager.ActiveQuest[0];
         titleTxt.text = quest.Data.questTitle;
         gameObject.SetActive(true);
-        switch(quest.State)
+        switch (quest.State)
         {
             case QuestState.Inprogress:
                 progressTxt.text = $"{quest.CurrentCount}/{quest.Data.requiredCount}";

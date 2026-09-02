@@ -34,9 +34,9 @@ public class EquipmentSlot : MonoBehaviour, IPointerUpHandler,IPointerEnterHandl
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        UIConstroller.Instance.moveItem.EquipImg.gameObject.SetActive(false);
-        Debug.Log($"{UIConstroller.Instance.moveItem.Data.ItemName} ¿Â¬¯«ÿ¡¶");
-        UIConstroller.Instance.moveItem.gameObject.SetActive(false);
+        moveItem.EquipImg.gameObject.SetActive(false);
+        Debug.Log($"{moveItem.Data.ItemName} ¿Â¬¯«ÿ¡¶");
+        moveItem.gameObject.SetActive(false);
         moveItem = null;
         moveItemRectTran = null;
     }

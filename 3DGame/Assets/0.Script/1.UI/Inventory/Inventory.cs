@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
     {
         itemDatas = Resources.LoadAll<ItemScriptable>("ItemData");
         background = parent.GetComponent<Image>();
-        PlayerProgress.Instance.OnChanged += GoldAmount;
+        CreateItem(itemDatas[1], 1);
     }
 
     private void Update()
@@ -31,6 +31,16 @@ public class Inventory : MonoBehaviour
             int rand = Random.Range(0, itemDatas.Length);
             CreateItem(itemDatas[rand], 1);
         }
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.OnGoldChange += GoldAmount;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnGoldChange -= GoldAmount;
     }
 
     // 매개변수 int 추가

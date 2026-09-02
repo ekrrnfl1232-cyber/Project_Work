@@ -12,7 +12,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private GameObject UiCheckBox;
 
     [SerializeField] private Image expImg;
-    [SerializeField] private TMP_Text exptext;
+    [SerializeField] public TMP_Text exptext;
 
     private PlayerModel model;
     private GameObject hpBG;
@@ -44,9 +44,19 @@ public class PlayerView : MonoBehaviour
         hpImg.rectTransform.sizeDelta = new Vector2(hpImg.rectTransform.sizeDelta.x * ((float)hp / maxHp), 30f);
     }
 
-    public void ExpUpdata()
+    public void ExpUpdata(float exp)
     {
-        exptext.text = $"{PlayerProgress.Instance.Exp} / {model.MaxExp}";
-        expImg.rectTransform.sizeDelta = new Vector2(1920f * (PlayerProgress.Instance.Exp / model.MaxExp), 20f);
+        exptext.text = $"{exp} / 500";
+        expImg.rectTransform.sizeDelta = new Vector2(1920f * (exp / 500f), 20f);
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.OnExpChange += ExpUpdata;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnExpChange -= ExpUpdata;
     }
 }

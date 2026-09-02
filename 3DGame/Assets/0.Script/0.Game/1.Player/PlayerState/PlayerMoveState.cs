@@ -3,11 +3,11 @@ using UnityEngine;
 public class PlayerMoveState : IState
 {
     private Player player;
-    private IState prevState;
-    public PlayerMoveState(Player player, IState prevState)
+    private CharacterController control;
+    public PlayerMoveState(Player player, CharacterController control)
     {
         this.player = player;
-        this.prevState = prevState;
+        this.control = control;
     }
     public void Enter()
     {
@@ -24,10 +24,11 @@ public class PlayerMoveState : IState
 
         player.model.Movement.Normalize();
         //transform.position += movement * Time.deltaTime * speed;
-        player.rb.MovePosition(player.transform.position + player.model.Movement * player.data.MoveForce * Time.deltaTime);
+        ///player.transform.position + player.model.Movement * player.data.MoveForce * Time.deltaTime
+        control.Move(player.movement * player.data.MoveForce * Time.deltaTime);
         if (player.model.Movement == Vector3.zero)
         {
-            player.ChangeState(new PlayerIdle(player));
+            player.ChangeState(PlayerState.idleState);
         }
     }
 }

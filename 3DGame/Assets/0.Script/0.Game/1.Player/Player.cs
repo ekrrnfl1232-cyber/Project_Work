@@ -1,7 +1,14 @@
-using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+public enum PlayerState
+{
+    idleState,
+    moveState,
+    attackState,
+    jumpState,
+    dashState,
+    hitState
+}
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -14,93 +21,124 @@ public class Player : MonoBehaviour, IDamageable
 
     [Header("Animator")]
     [SerializeField] public Animator animator;
-
-    private IState currentState;
-    public Rigidbody rb;
-    LayerMask ground;
-    private Cooldown coolDown = new Cooldown(1f);
     public Cooldown AtkCool { get { return coolDown; }}
     [HideInInspector] public PlayerView view;
     [HideInInspector] public PlayerModel model;
     public PlayerStat stat;
     [SerializeField] public PlayerData data;
-    public UIConstroller UiCon { get; private set; }
     public int Dmg { get; set; }
     public GameObject UiSystem;
+    public CharacterController controll;
 
+    private bool isOn;
+    private IState currentState;
+    private PlayerState currentKey;
+    public PlayerState prevState { get; private set; }
+    public Dictionary<PlayerState, IState> States { get; private set; }
+    LayerMask ground;
+    private Cooldown coolDown = new Cooldown(1f);
+    public InputSystem_Actions inputAction { get; private set; }
     private void Awake()
     {
         model = new PlayerModel
             (
             InterationScale, data.Maxhp,movement, data.MaxExp
             );
+        GameEvents.OnInventChange += OnController;
+        inputAction = new InputSystem_Actions();
+        inputAction.Enable();
+        SettingState();
     }
 
     private void Start()
     {
-        PlayerProgress.Instance.OnChanged += view.ExpUpdata;
-        view.ExpUpdata();
-        stat.BaseAttack = data.Wdamage;
-        Debug.Log($"{stat.BaseAttack}");
         model.IsGrounded = true;
-        UiCon = UiSystem.GetComponent<UIConstroller>();
+        isOn = false;
         view = GetComponent<PlayerView>();
+        view.ExpUpdata(0);
         view.CreateHp();
-        ChangeState(new PlayerIdle(this));
+        ChangeState(PlayerState.idleState);
     }
 
     private void Update()
     {
         view.HPbar(transform.position);
-        Vector3 move = Vector3.zero;
-        move.x = Input.GetAxisRaw("Horizontal");
-        move.z = Input.GetAxisRaw("Vertical");
-        model.Movement = move;
-        if (!UiCon.isOnInventory)
+        Vector2 movedir = inputAction.Player.Move.ReadValue<Vector2>();
+        model.Movement = new Vector3(movedir.x, 0, movedir.y);
+        if (inputAction.Player.Attack.triggered && model.IsGrounded && AtkCool.IsReady)
         {
-            if (Input.GetMouseButtonDown(0) && model.IsGrounded && AtkCool.IsReady)
-            {
-                Debug.Log("공격키 입력");
-                ChangeState(new PlayerAttackState(this, currentState));
-            }
-            if (Input.GetKeyDown(KeyCode.Space) && model.IsGrounded)
-            {
-                Debug.Log("점프 키 입력");
-                ChangeState(new PlayerJumpState(this, currentState, rb));
-            }
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                ChangeState(new PlayerDashState(this, currentState, rb));
-            }
-            AtkCool.Tick(Time.deltaTime);
+            Debug.Log("공격키 입력");
+            ChangeState(PlayerState.attackState);
+        }
+        if (inputAction.Player.Jump.triggered && model.IsGrounded)
+        {
+            Debug.Log("점프 키 입력");
+            ChangeState(PlayerState.jumpState);
+        }
+        if (inputAction.Player.Sprint.triggered)
+        {
+            ChangeState(PlayerState.dashState);
+        }
+        if (!isOn)
+        {
             Interect();
             Look();
         }
+        AtkCool?.Tick(Time.deltaTime);
         currentState?.Tick();
     }
 
-    public void ChangeState(IState state)
+    public void ChangeState(PlayerState state)
     {
+        prevState = currentKey;
         currentState?.Exit();
-        currentState = state;
+        currentState = States[state];
+        currentKey = state;
         currentState?.Enter();
     }
-    public void Dash(IState prevState)
+
+    private void SettingState()
     {
-        animator.SetBool("ShieldRush", true);
-        rb.AddRelativeForce(Vector3.forward * data.DashForce, ForceMode.VelocityChange);
-        Invoke("StopDash", 0.2f);
-        ChangeState(prevState);
+        States = new Dictionary<PlayerState, IState>()
+        {
+            { PlayerState.idleState, new PlayerIdle(this) },
+            { PlayerState.moveState, new PlayerMoveState(this, controll) },
+            { PlayerState.attackState, new PlayerAttackState(this) },
+            { PlayerState.jumpState, new PlayerJumpState(this, controll) },
+            { PlayerState.dashState, new PlayerDashState(this, controll) },
+            { PlayerState.hitState, new PlayerHitState(this) }
+        };
+    }
+
+    public void OnController(bool isOn)
+    {
+        if (!isOn)
+        {
+            inputAction.Enable();
+        }
+        else
+        {
+            inputAction.Disable();
+        }
+        this.isOn = isOn;
     }
     void StopDash()
     {
-        rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
         animator.SetBool("ShieldRush", false);
+        ChangeState(PlayerState.idleState);
     }
 
     public void TakeDamage(int damage)
     {
-        ChangeState(new PlayerHitState(this, currentState, damage));
+        if (model.HP > 0)
+        {
+            model.HP -= damage;
+            ChangeState(PlayerState.hitState);
+        }
+        else
+        {
+            Debug.Log($"{name} Dead");
+        }
     }
 
     void Interect()
@@ -114,7 +152,7 @@ public class Player : MonoBehaviour, IDamageable
             if (col.TryGetComponent<IInterectable>(out IInterectable interact))
             {
                 isFind = true;
-                if (Input.GetKeyDown(KeyCode.F))
+                if (inputAction.Player.Interact.triggered)
                 {
                     interact.Interact();
                 }
@@ -159,4 +197,10 @@ public class Player : MonoBehaviour, IDamageable
             model.IsGrounded = false;
         }
     }
+
+    private void OnDisable()
+    {
+        GameEvents.OnInventChange -= OnController;
+    }
+
 }

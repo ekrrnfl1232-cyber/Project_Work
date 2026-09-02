@@ -3,11 +3,9 @@ using UnityEngine;
 public class PlayerAttackState : IState
 {
     private Player player;
-    private IState prevState;
-    public PlayerAttackState(Player player, IState prevState)
+    public PlayerAttackState(Player player)
     {
         this.player = player;
-        this.prevState = prevState;
     }
     public void Enter()
     {
@@ -30,7 +28,7 @@ public class PlayerAttackState : IState
             }
         }
         player.AtkCool.Start();
-        player.ChangeState(prevState);
+        player.ChangeState(PlayerState.idleState);
     }
 
     public void Exit()

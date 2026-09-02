@@ -19,7 +19,7 @@ public class PlayerIdle : IState
     {
         if (player.model.Movement != Vector3.zero && !player.view.isOnInventory)
         {
-            player.ChangeState(new PlayerMoveState(player, this));
+            player.ChangeState(PlayerState.moveState);
         }
     }
 

@@ -5,30 +5,20 @@ using UnityEngine;
 
 public class PlayerHitState : IState
 {
-
-    private int damage;
-    private IState prevState;
     private Player player;
 
-    public PlayerHitState(Player player, IState preState, int damage)
+    public PlayerHitState(Player player)
     {
         this.player = player;
-        this.prevState = preState;
-        this.damage = damage;
         
     }
     public void Enter()
     {
         player.animator.SetTrigger("Hit");
-        player.model.HP -= damage;
         Debug.Log("Player 타격 받음");
         Debug.Log($"남은 체력 : {player.model.HP}");
         player.view.HpUpdate(player.model.HP, player.data.Maxhp);
-        if (player.model.HP <= 0)
-        {
-            Debug.Log("Player Dead");
-        }
-        player.ChangeState(prevState);
+        player.ChangeState(player.prevState);
     }
 
     public void Exit()
