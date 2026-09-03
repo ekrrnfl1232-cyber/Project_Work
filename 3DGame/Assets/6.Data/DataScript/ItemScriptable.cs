@@ -8,6 +8,15 @@ public enum ItemType
     Gold
 }
 
+public enum EquipType
+{
+    Item,
+    Weapon,
+    Armor,
+    Helmet,
+    Boots
+}
+
 [CreateAssetMenu]
 public class ItemScriptable : ScriptableObject
 {
@@ -39,7 +48,8 @@ public class ItemScriptable : ScriptableObject
     private float speed;
 
     public int ItemID => itemID;
-    public ItemType Type;
+    public ItemType itemType;
+    public EquipType equipType;
     public string ItemName => itemName;
     public Sprite Icon => icon;
     public Sprite BackgroundIcon => backgroundIcon;

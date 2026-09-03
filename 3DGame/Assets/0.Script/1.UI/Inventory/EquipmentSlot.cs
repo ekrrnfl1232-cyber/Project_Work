@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EquipmentSlot : MonoBehaviour, IPointerUpHandler,IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class EquipmentSlot : MonoBehaviour, 
+    IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField]
     private GameObject txtBGObj;
@@ -13,32 +14,34 @@ public class EquipmentSlot : MonoBehaviour, IPointerUpHandler,IPointerEnterHandl
     private Image iconImg;
     [SerializeField]
     private TMP_Text itemNameTxt;
+    [SerializeField]
+    private EquipType type;
 
     private bool isExit;
 
     public ItemScriptable Data { get; set; }
     private InventoryItem moveItem;
     private RectTransform moveItemRectTran;
-
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (UIConstroller.Instance.moveItem.Data.Type == ItemType.Equip)
+        if (UIConstroller.Instance.moveItem.Data.itemType == ItemType.Equip)
         {
-            UIConstroller.Instance.equipSystem.SelectSlot = this;
+            if (UIConstroller.Instance.moveItem.Data.equipType == type)
+            {
+                UIConstroller.Instance.equipSystem.SelectSlot = this;
+            }
+            else
+            {
+                Debug.Log($"{type}만 가능합니다");
+                return;
+            }
         }
         else
         {
             Debug.Log("장비만 가능합니다.");
             return;
         }
-    }
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        moveItem.EquipImg.gameObject.SetActive(false);
-        Debug.Log($"{moveItem.Data.ItemName} 장착해제");
-        moveItem.gameObject.SetActive(false);
-        moveItem = null;
-        moveItemRectTran = null;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -47,10 +50,15 @@ public class EquipmentSlot : MonoBehaviour, IPointerUpHandler,IPointerEnterHandl
 
         moveItem = null;
     }
+    public bool IsInPoint(Vector2 postion)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(iconImg.rectTransform, postion);
+    }
+
     public void Equip()
     {
         this.moveItem = UIConstroller.Instance.moveItem;
-        Data = moveItem.Data;
+        Data = UIConstroller.Instance.moveItem.Data;
 
         iconImg.sprite = moveItem.Data.Icon;
         itemNameTxt.text = moveItem.Data.ItemName;
@@ -59,8 +67,12 @@ public class EquipmentSlot : MonoBehaviour, IPointerUpHandler,IPointerEnterHandl
     }
     public void UnEquip()
     {
+        UIConstroller.Instance.moveItem.EquipImg.gameObject.SetActive(false);
+        UIConstroller.Instance.equipSystem.SelectSlot = null;
         iconImg.gameObject.SetActive(false);
         txtBGObj.SetActive(false);
+        moveItem = null;
+        Data = null;
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -71,17 +83,21 @@ public class EquipmentSlot : MonoBehaviour, IPointerUpHandler,IPointerEnterHandl
     {
         UIConstroller.Instance.moveItem.Data = Data;
 
-        moveItem = UIConstroller.Instance.moveItem;
+        this.moveItem = UIConstroller.Instance.moveItem;
 
-        moveItemRectTran = moveItem.GetComponent<RectTransform>();
+        moveItemRectTran = UIConstroller.Instance.moveItem.GetComponent<RectTransform>();
         moveItemRectTran.position = eventData.position;
-        moveItem.gameObject.SetActive(true);
+        UIConstroller.Instance.moveItem.gameObject.SetActive(true);
 
-        moveItem.Setting();
+        UIConstroller.Instance.moveItem.Setting();
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        UnEquip();
+        UIConstroller.Instance.moveItem.gameObject.SetActive(false);
+        if (!IsInPoint(eventData.position))
+        {
+            UnEquip();
+        }
     }
 }

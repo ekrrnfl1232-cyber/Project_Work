@@ -3,19 +3,18 @@ using UnityEngine;
 public class PlayerJumpState : IState
 {
     private Player player;
-    private CharacterController control;
+    private float timer;
 
-    public PlayerJumpState(Player player, CharacterController control)
+    public PlayerJumpState(Player player)
     {
         this.player = player;
-        this.control = control;
     }
 
     public void Enter()
     {
-        //new Vector3(0f, Mathf.Sqrt(1f * 9.81f * player.data.JumpForce), 0f);
-        control.Move(new Vector3(0f, Mathf.Sqrt(1f * 9.81f * player.data.JumpForce), 0f));
-        player.ChangeState(PlayerState.idleState);
+        player.animator.SetFloat("Speed", 0);
+        player.animator.SetTrigger("ReturnIdle");
+        player.model.VerticalVelo = Mathf.Sqrt(player.data.JumpHeight * player.model.gravity.y * -2f);
     }
 
     public void Exit()
@@ -24,5 +23,7 @@ public class PlayerJumpState : IState
 
     public void Tick()
     {
+        if (player.controll.isGrounded && player.model.VerticalVelo < 0f)
+            player.ChangeState(PlayerState.idleState);
     }
 }

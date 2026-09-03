@@ -1944,11 +1944,11 @@ MonoBehaviour:
   movement: {x: 0, y: 0, z: 0}
   InterationScale: 2
   animator: {fileID: 2747176988148459899}
-  rb: {fileID: 0}
   view: {fileID: 0}
   stat: {fileID: 3297992447693833389}
   data: {fileID: 11400000, guid: 4ac67256bee0ed749b03873637c9af35, type: 2}
   UiSystem: {fileID: 0}
+  controll: {fileID: 7989898949563818040}
 --- !u!114 &3297992447693833389
 MonoBehaviour:
   m_ObjectHideFlags: 0

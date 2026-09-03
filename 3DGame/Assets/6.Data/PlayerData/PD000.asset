@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   hp: 100
   maxhp: 100
-  jumpForce: 10
-  dashForce: 20
-  moveForce: 10
+  jumpHeight: 10
+  dashForce: 15
+  moveForce: 5
   damage: 100
   maxExp: 500

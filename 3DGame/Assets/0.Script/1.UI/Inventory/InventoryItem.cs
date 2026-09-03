@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler
+public class InventoryItem : MonoBehaviour, IPointerUpHandler, IDragHandler, IBeginDragHandler
 {
     [SerializeField]
     private Image iconImg;
@@ -24,11 +24,10 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private uint count;
 
-    private InventoryItem moveItem;
     private RectTransform moveItemRectTran;
 
     // °øÀ¯ º¯¼ö
-    public Image EquipImg { get; set; }
+    public Image EquipImg { get { return equipImg; } set { equipImg = value; } }
     public Image IconImg { get; set; }
     public ItemScriptable Data { get; set; }
     public uint Count => count;
@@ -44,8 +43,8 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         back.sprite = Data.BackgroundIcon;
         iconImg.sprite = Data.Icon;
         nameTxt.text = Data.ItemName;
-        equipImg.gameObject.SetActive(false);
-        if (Data.Type == ItemType.Equip)
+        EquipImg.gameObject.SetActive(false);
+        if (Data.itemType == ItemType.Equip)
         {
             countTxt.gameObject.SetActive(false);
         }
@@ -58,11 +57,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public void SetCount(uint cnt)
     {
         count += cnt;
-        if (Data.Type == ItemType.Gold)
-        {
-            countTxt.text = $"{count}";
-        }
-        else if(Data.Type == ItemType.Posion)
+        if(Data.itemType == ItemType.Posion)
         {
             countTxt.text = $"{count} / {Data.MaxStack}";
         }
@@ -70,7 +65,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     public void OnUse()
     {
-        if(Data.Type != ItemType.Equip)
+        if(Data.itemType != ItemType.Equip)
         {
             count -= 1;
             SetCount(0);
@@ -90,22 +85,16 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         Destroy(gameObject);
     }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-    }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         if(UIConstroller.Instance.equipSystem.SelectSlot != null)
         {
             UIConstroller.Instance.equipSystem.SelectSlot.Equip();
-            if (!equipImg.IsActive())
-            {
-                equipImg.gameObject.SetActive(true);
-                Debug.Log($"{Data.ItemName} ÀåÂø");
-            }
+            EquipImg.gameObject.SetActive(!EquipImg.gameObject.activeSelf);
+            Debug.Log($"{Data.ItemName} ÀåÂø");
         }
-        moveItem.gameObject.SetActive(false);
+        UIConstroller.Instance.moveItem.gameObject.SetActive(false);
         moveItemRectTran = null;
     }
 
@@ -118,13 +107,11 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         UIConstroller.Instance.moveItem.Data = Data;
 
-        this.moveItem = UIConstroller.Instance.moveItem;
-
-        moveItemRectTran = this.moveItem.GetComponent<RectTransform>();
+        moveItemRectTran = UIConstroller.Instance.moveItem.GetComponent<RectTransform>();
         moveItemRectTran.position = eventData.position;
-        this.moveItem.gameObject.SetActive(true);
+        UIConstroller.Instance.moveItem.gameObject.SetActive(true);
 
-        moveItem.Setting();
+        UIConstroller.Instance.moveItem.Setting();
     }
 }
 

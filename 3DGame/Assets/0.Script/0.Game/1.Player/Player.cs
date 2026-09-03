@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections.Generic;
 using UnityEngine;
 public enum PlayerState
@@ -12,9 +13,9 @@ public enum PlayerState
 
 public class Player : MonoBehaviour, IDamageable
 {
-
     [Header("Move")]
     public Vector3 movement = Vector3.zero;
+    public Vector2 movedir {  get; private set; } = Vector2.zero;
 
     [Header("InteractScale")]
     [SerializeField] private float InterationScale = 2f;
@@ -33,9 +34,9 @@ public class Player : MonoBehaviour, IDamageable
     private bool isOn;
     private IState currentState;
     private PlayerState currentKey;
+    private Vector3 velocity = Vector3.zero;
     public PlayerState prevState { get; private set; }
     public Dictionary<PlayerState, IState> States { get; private set; }
-    LayerMask ground;
     private Cooldown coolDown = new Cooldown(1f);
     public InputSystem_Actions inputAction { get; private set; }
     private void Awake()
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        Debug.Log(stat.TotalDamage());
         model.IsGrounded = true;
         isOn = false;
         view = GetComponent<PlayerView>();
@@ -63,14 +65,21 @@ public class Player : MonoBehaviour, IDamageable
     private void Update()
     {
         view.HPbar(transform.position);
-        Vector2 movedir = inputAction.Player.Move.ReadValue<Vector2>();
-        model.Movement = new Vector3(movedir.x, 0, movedir.y);
-        if (inputAction.Player.Attack.triggered && model.IsGrounded && AtkCool.IsReady)
+        if (inputAction.Player.Move.IsPressed())
+        {
+            movedir = inputAction.Player.Move.ReadValue<Vector2>();
+        }
+        else
+        {
+            movedir = Vector2.zero;
+        }
+            model.Movement = new Vector3(movedir.x, 0, movedir.y).normalized;
+        if (inputAction.Player.Attack.triggered && AtkCool.IsReady && controll.isGrounded)
         {
             Debug.Log("공격키 입력");
             ChangeState(PlayerState.attackState);
         }
-        if (inputAction.Player.Jump.triggered && model.IsGrounded)
+        if (inputAction.Player.Jump.triggered && controll.isGrounded)
         {
             Debug.Log("점프 키 입력");
             ChangeState(PlayerState.jumpState);
@@ -84,6 +93,7 @@ public class Player : MonoBehaviour, IDamageable
             Interect();
             Look();
         }
+        Gravity();
         AtkCool?.Tick(Time.deltaTime);
         currentState?.Tick();
     }
@@ -97,15 +107,30 @@ public class Player : MonoBehaviour, IDamageable
         currentState?.Enter();
     }
 
+    private void Gravity()
+    {
+        if(controll.isGrounded)
+        {
+            if(model.VerticalVelo < 0f)
+                model.VerticalVelo = -2f;
+        }
+        else
+        {
+            model.VerticalVelo += Physics.gravity.y * Time.deltaTime;
+        }
+        model.gravity = new Vector3 (0, model.VerticalVelo, 0 );
+        controll.Move(model.gravity * Time.deltaTime);
+    }
+
     private void SettingState()
     {
         States = new Dictionary<PlayerState, IState>()
         {
             { PlayerState.idleState, new PlayerIdle(this) },
-            { PlayerState.moveState, new PlayerMoveState(this, controll) },
+            { PlayerState.moveState, new PlayerMoveState(this) },
             { PlayerState.attackState, new PlayerAttackState(this) },
-            { PlayerState.jumpState, new PlayerJumpState(this, controll) },
-            { PlayerState.dashState, new PlayerDashState(this, controll) },
+            { PlayerState.jumpState, new PlayerJumpState(this) },
+            { PlayerState.dashState, new PlayerDashState(this) },
             { PlayerState.hitState, new PlayerHitState(this) }
         };
     }
@@ -121,11 +146,6 @@ public class Player : MonoBehaviour, IDamageable
             inputAction.Disable();
         }
         this.isOn = isOn;
-    }
-    void StopDash()
-    {
-        animator.SetBool("ShieldRush", false);
-        ChangeState(PlayerState.idleState);
     }
 
     public void TakeDamage(int damage)
@@ -161,7 +181,6 @@ public class Player : MonoBehaviour, IDamageable
         }
         view.CheckBox(isFind);
     }
-
     private void Look()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -177,30 +196,15 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    /*private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(1f, 0.5f, 1f));
-    }*/
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            model.IsGrounded = true;
-        }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            model.IsGrounded = false;
-        }
-    }
 
     private void OnDisable()
     {
         GameEvents.OnInventChange -= OnController;
     }
 
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(1f, 0.5f, 1f));
+    }*/
 }

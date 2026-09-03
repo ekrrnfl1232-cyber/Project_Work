@@ -14,6 +14,7 @@ public class UIConstroller : Singleton<UIConstroller>
     public QuestUi Quest;
 
     private GameObject inven;
+    private GameObject equip;
     private GameObject quest;
 
     private InputAction invenKey;
@@ -22,6 +23,7 @@ public class UIConstroller : Singleton<UIConstroller>
     private void Awake()
     {
         inven = inventory.transform.GetChild(0).gameObject;
+        equip = equipSystem.transform.GetChild(0).gameObject;
         quest = Quest.transform.GetChild(0).gameObject;
         invenKey = InputSystem.actions.FindAction("Inventory");
         questKey = InputSystem.actions.FindAction("Quest");
@@ -32,12 +34,14 @@ public class UIConstroller : Singleton<UIConstroller>
         moveItem.gameObject.SetActive(false);
         quest.SetActive(false);
         inven.SetActive(false);
+        equip.SetActive(false);
     }
     void Update()
     {
         if(invenKey.WasPressedThisFrame())
         {
             inven.SetActive(!inven.activeSelf);
+            equip.SetActive(!equip.activeSelf);
             quest.SetActive(!inven.activeSelf);
             GameEvents.RaiseInven(inven.activeSelf);
         }

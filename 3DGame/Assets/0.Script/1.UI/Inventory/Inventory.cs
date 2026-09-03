@@ -21,7 +21,10 @@ public class Inventory : MonoBehaviour
     {
         itemDatas = Resources.LoadAll<ItemScriptable>("ItemData");
         background = parent.GetComponent<Image>();
+        CreateItem(itemDatas[0], 1);
         CreateItem(itemDatas[1], 1);
+        CreateItem(itemDatas[2], 1);
+        CreateItem(itemDatas[4], 1);
     }
 
     private void Update()
@@ -52,7 +55,7 @@ public class Inventory : MonoBehaviour
         {
             foreach (var i in items)
             {
-                if (i.Data == item && i.Data.Type != ItemType.Equip)
+                if (i.Data == item && i.Data.itemType != ItemType.Equip)
                 {
                     if (i.Count < item.MaxStack)
                     {

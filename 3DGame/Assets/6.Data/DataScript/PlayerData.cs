@@ -11,8 +11,8 @@ public class PlayerData : ScriptableObject
     public int Maxhp { get { return maxhp; } }
 
     [SerializeField]
-    private float jumpForce;
-    public float JumpForce { get { return jumpForce; } }
+    private float jumpHeight;
+    public float JumpHeight { get { return jumpHeight; } }
 
     [SerializeField]
     private float dashForce;

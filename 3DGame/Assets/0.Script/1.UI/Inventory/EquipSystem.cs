@@ -2,6 +2,8 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+
 public class EquipSystem : Singleton<EquipSystem>
 {
     public EquipmentSlot[] slots;
@@ -17,10 +19,8 @@ public class EquipSystem : Singleton<EquipSystem>
             if (slot.Data != null)
             {
                 totalDamage += slot.Data.Damage;
-                break;
             }
         }
-
         return totalDamage;
     }
     public float EquipTotalSpeed()
@@ -32,7 +32,10 @@ public class EquipSystem : Singleton<EquipSystem>
             if (slot.Data != null)
             {
                 totalSpeed += slot.Data.Speed;
-                break;
+            }
+            else
+            {
+                totalSpeed = 0;
             }
         }
 
