@@ -1,0 +1,21 @@
+{
+  "playerName": "player",
+  "level": 5,
+  "gold": 500,
+  "exp": 50,
+  "invendata" [
+
+    {
+      "id": "0",
+      "date": "   0-00-00",
+      "number": [ 0, 0, 0, 0 ],
+      "bonus": 0
+    },
+    {
+      "id": "1",
+      "date": "2002-12-07",
+      "number": [ 1, 2, 3, 4 ],
+      "bonus": 16
+    }
+  ]
+}
