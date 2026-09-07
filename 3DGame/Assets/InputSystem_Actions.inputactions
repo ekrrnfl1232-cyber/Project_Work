@@ -113,6 +113,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Equip",
+                    "type": "Button",
+                    "id": "800fe027-4376-410c-a998-4d3f5a1bd014",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -504,7 +513,7 @@
                 {
                     "name": "",
                     "id": "d68359dd-c72f-4bfd-afe5-43185e9454cb",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -520,6 +529,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Quest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6cfb9dee-2139-4c8d-b916-0bbcafd81ecb",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Equip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -632,6 +652,15 @@
                     "name": "Quest",
                     "type": "Button",
                     "id": "e7bd9db5-5c6f-482f-a228-a965892a91d0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Equip",
+                    "type": "Button",
+                    "id": "3e072176-dec9-4ae5-b97b-c24e7d561bd6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1060,7 +1089,7 @@
                 {
                     "name": "",
                     "id": "f34e76cd-96e7-40d6-ac96-cdaa019a79ef",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -1076,6 +1105,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Quest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1fc4bd77-d6d4-464e-8c48-cc0662192667",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Equip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

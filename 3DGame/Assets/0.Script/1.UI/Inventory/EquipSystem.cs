@@ -66,6 +66,8 @@ public class EquipSystem : Singleton<EquipSystem>
     }
     public void LoadEquip(EquipData[] data)
     {
-
+        foreach(var equipData in data)
+        {
+        }
     }
 }

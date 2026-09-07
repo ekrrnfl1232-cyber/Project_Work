@@ -55,7 +55,6 @@ public class SaveManager : Singleton<SaveManager>
         {
             string json = File.ReadAllText(savePath);
             GameSaveData data = JsonUtility.FromJson<GameSaveData>(json);
-            Debug.Log(data.invendata[1].id);
             return data;
         }
         catch (System.Exception e)

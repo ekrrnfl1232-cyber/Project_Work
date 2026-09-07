@@ -23,5 +23,9 @@ public class BossIdleState : IState
         {
             boss.ChangeState(BossState.Chase);
         }
+        if(boss.TargetDis < 1.5f)
+        {
+            boss.ChangeState(BossState.SelectAttack);
+        }
     }
 }

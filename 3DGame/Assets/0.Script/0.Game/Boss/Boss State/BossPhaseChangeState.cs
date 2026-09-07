@@ -12,6 +12,7 @@ public class BossPhaseChangeState : IState
     public void Enter()
     {
         Debug.Log("페이즈 전환");
+        boss.stats.Phase = 2;
         boss.ChangeState(boss.PrevState);
     }
 

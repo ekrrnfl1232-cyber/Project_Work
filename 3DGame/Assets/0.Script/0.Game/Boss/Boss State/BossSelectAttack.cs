@@ -25,17 +25,17 @@ public class BossSelectAttack : IState
     {
         if (boss.TargetDis > 2f)
         {
-            boss.ChangeState(BossState.Chase);
+            boss.ChangeState(BossState.Idle);
             return;
         }
-        if (boss.NomalCool.IsReady && boss.ChargeCool.IsReady && boss.AreaCool.IsReady)
+        if (boss.NomalCool.IsReady || boss.ChargeCool.IsReady || boss.AreaCool.IsReady)
         {
-            if (boss.data.Hp > 50)
+            if (boss.stats.Phase == 1)
             {
 
                 boss.ChangeState((BossState)Random.Range(3, 5));
             }
-            else
+            else if (boss.stats.Phase == 2)
             {
                 boss.ChangeState((BossState)Random.Range(3, 6));
             }

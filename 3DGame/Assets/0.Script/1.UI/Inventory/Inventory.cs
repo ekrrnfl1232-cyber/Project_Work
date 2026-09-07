@@ -24,10 +24,6 @@ public class Inventory : MonoBehaviour
     {
         itemDatas = Resources.LoadAll<ItemScriptable>("ItemData");
         background = parent.GetComponent<Image>();
-        CreateItem(itemDatas[0], 1);
-        CreateItem(itemDatas[1], 1);
-        CreateItem(itemDatas[2], 1);
-        CreateItem(itemDatas[4], 1);
     }
 
     private void Update()
@@ -62,7 +58,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (i.Amount < item.MaxStack)
                     {
-                        i.SetCount((uint)count);
+                        i.SetCount(count);
                         return 0;
                     }
                 }
@@ -72,6 +68,7 @@ public class Inventory : MonoBehaviour
         InventoryItem createItem = Instantiate(invenItem, parent);
         createItem.Init(item);
         createItem.Setting();
+        createItem.SetCount(count);
         items.Add(createItem);
         return 1;
     }
@@ -108,6 +105,13 @@ public class Inventory : MonoBehaviour
 
     public void LoadInventory(InvenData[] data)
     {
-        
+        foreach(var saveData in data)
+        {
+            for(int i = 0; i < itemDatas.Length; ++i)
+            {
+                if (itemDatas[i].ItemID == saveData.id)
+                    CreateItem(itemDatas[i], saveData.stack);
+            }
+        }
     }
 }

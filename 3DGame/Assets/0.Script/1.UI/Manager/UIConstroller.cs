@@ -19,17 +19,12 @@ public class UIConstroller : Singleton<UIConstroller>
     private GameObject equip;
     private GameObject quest;
 
-    private InputAction invenKey;
-    private InputAction questKey;
-
     private void Awake()
     {
-        OnLoad();
         inven = inventory.transform.GetChild(0).gameObject;
         equip = equipSystem.transform.GetChild(0).gameObject;
         quest = Quest.transform.GetChild(0).gameObject;
-        invenKey = InputSystem.actions.FindAction("Inventory");
-        questKey = InputSystem.actions.FindAction("Quest");
+        OnLoad();
     }
 
     void Start()
@@ -41,18 +36,37 @@ public class UIConstroller : Singleton<UIConstroller>
     }
     void Update()
     {
-        if(invenKey.WasPressedThisFrame())
+        if(InputManger.Instance.input.UI.Inventory.WasPressedThisFrame())
         {
             inven.SetActive(!inven.activeSelf);
-            equip.SetActive(!equip.activeSelf);
-            quest.SetActive(!inven.activeSelf);
-            GameEvents.RaiseInven(inven.activeSelf);
+            if (quest.activeInHierarchy)
+            {
+                quest.SetActive(!inven.activeSelf);
+            }
+            IsInventory(inven.activeSelf);
         }
-        if(questKey.WasPressedThisFrame())
+        if(InputManger.Instance.input.UI.Quest.WasPressedThisFrame())
         {
             quest.SetActive(!quest.activeSelf);
         }
+        if(InputManger.Instance.input.UI.Equip.WasPressedThisFrame())
+        {
+            Debug.Log(equip.activeSelf);    
+            equip.SetActive(!equip.activeSelf);
+        }
         
+    }
+
+    private void IsInventory(bool active)
+    {
+        if(active)
+        {
+            InputManger.Instance.input.Player.Disable();
+        }
+        else
+        {
+            InputManger.Instance.input.Player.Enable();
+        }
     }
 
     public void OnSave()
@@ -73,10 +87,10 @@ public class UIConstroller : Singleton<UIConstroller>
         GameSaveData data = SaveManager.Instance.Load();
         playerStat.Level = data.level;
         playerStat.Hp = data.Hp;
-        playerStat.Exp = data.exp;
-        inventory.gold = data.gold;
+        PlayerProgress.Instance.AddExp(data.exp);
+        PlayerProgress.Instance.AddGold(data.gold);
 
         inventory.LoadInventory(data.invendata);
-        equipSystem.LoadEquip(data.equipDatas);
+        //equipSystem.LoadEquip(data.equipDatas);
     }
 }

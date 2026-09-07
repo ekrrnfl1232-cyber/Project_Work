@@ -46,7 +46,6 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IDragHandler, IBe
         EquipImg.gameObject.SetActive(false);
         if(Data.itemType != ItemType.Equip)
             countTxt.gameObject.SetActive(true);
-        SetCount(1);
     }
 
     public void SetCount(uint cnt)

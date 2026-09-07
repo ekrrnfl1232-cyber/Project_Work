@@ -32,30 +32,24 @@ public class Player : MonoBehaviour, IDamageable
     public GameObject UiSystem;
     public CharacterController controll;
 
-    private bool isOn;
     private IState currentState;
     private PlayerState currentKey;
     private Vector3 velocity = Vector3.zero;
     public PlayerState prevState { get; private set; }
     public Dictionary<PlayerState, IState> States { get; private set; }
     private Cooldown coolDown = new Cooldown(1f);
-    public InputSystem_Actions inputAction { get; private set; }
     private void Awake()
     {
         model = new PlayerModel
             (
             InterationScale, data.Maxhp,movement, data.MaxExp
             );
-        GameEvents.OnInventChange += OnController;
-        inputAction = new InputSystem_Actions();
-        inputAction.Enable();
         SettingState();
     }
 
     private void Start()
     {
         model.IsGrounded = true;
-        isOn = false;
         view = GetComponent<PlayerView>();
         view.ExpUpdata(0);
         view.CreateHp();
@@ -65,34 +59,32 @@ public class Player : MonoBehaviour, IDamageable
     private void Update()
     {
         view.HPbar(transform.position);
-        if (inputAction.Player.Move.IsPressed())
+        if (InputManger.Instance.input.Player.Move.IsPressed())
         {
-            movedir = inputAction.Player.Move.ReadValue<Vector2>();
+            movedir = InputManger.Instance.input.Player.Move.ReadValue<Vector2>();
         }
         else
         {
             movedir = Vector2.zero;
         }
             model.Movement = new Vector3(movedir.x, 0, movedir.y).normalized;
-        if (inputAction.Player.Attack.triggered && AtkCool.IsReady && controll.isGrounded)
+        if (InputManger.Instance.input.Player.Attack.triggered && AtkCool.IsReady && controll.isGrounded)
         {
             Debug.Log("공격키 입력");
             ChangeState(PlayerState.attackState);
         }
-        if (inputAction.Player.Jump.triggered && controll.isGrounded)
+        if (InputManger.Instance.input.Player.Jump.triggered && controll.isGrounded)
         {
             Debug.Log("점프 키 입력");
             ChangeState(PlayerState.jumpState);
         }
-        if (inputAction.Player.Sprint.triggered)
+        if (InputManger.Instance.input.Player.Sprint.triggered)
         {
             ChangeState(PlayerState.dashState);
         }
-        if (!isOn)
-        {
-            Interect();
+        Interect();
+        if(InputManger.Instance.input.Player.enabled)
             Look();
-        }
         
         Gravity();
         AtkCool?.Tick(Time.deltaTime);
@@ -136,19 +128,6 @@ public class Player : MonoBehaviour, IDamageable
         };
     }
 
-    public void OnController(bool isOn)
-    {
-        if (!isOn)
-        {
-            inputAction.Enable();
-        }
-        else
-        {
-            inputAction.Disable();
-        }
-        this.isOn = isOn;
-    }
-
     public void TakeDamage(int damage)
     {
         if (model.HP > 0)
@@ -175,7 +154,7 @@ public class Player : MonoBehaviour, IDamageable
             if (col.TryGetComponent<IInterectable>(out IInterectable interact))
             {
                 isFind = true;
-                if (inputAction.Player.Interact.triggered)
+                if (InputManger.Instance.input.Player.Interact.triggered)
                 {
                     interact.Interact();
                 }
@@ -197,12 +176,6 @@ public class Player : MonoBehaviour, IDamageable
                 //transform.forward = dir;
             }
         }
-    }
-
-
-    private void OnDisable()
-    {
-        GameEvents.OnInventChange -= OnController;
     }
 
     /*private void OnDrawGizmos()

@@ -17,6 +17,7 @@ public class Boss : MonoBehaviour, IDamageable
 {
     IState currentState;
     BossState currentKey;
+    private BossView view;
 
     public Transform target;
     
@@ -38,13 +39,13 @@ public class Boss : MonoBehaviour, IDamageable
     Vector3 pos = new Vector3(4f, 1f, 6f);
     void Start()
     {
+        view = GetComponent<BossView>();
         SettingState();
         SettingCool();
         agent = GetComponent<NavMeshAgent>();
         stats.Hp = stats.MaxHp = data.Hp;
+        view.CreateHp();
         ChangeState(BossState.Idle);
-
-
     }
 
     void Update()
@@ -54,7 +55,7 @@ public class Boss : MonoBehaviour, IDamageable
         AreaCool.Tick(Time.deltaTime);
         ScanTarget();
         TargetDis = Vector2.Distance(transform.position, target.position);
-        if(stats.Hp <= 50)
+        if(stats.Hp <= stats.MaxHp/2)
         {
             ChangeState(BossState.PhaseChange);
         }
