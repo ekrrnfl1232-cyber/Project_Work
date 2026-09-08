@@ -24,7 +24,6 @@ public class UIConstroller : Singleton<UIConstroller>
         inven = inventory.transform.GetChild(0).gameObject;
         equip = equipSystem.transform.GetChild(0).gameObject;
         quest = Quest.transform.GetChild(0).gameObject;
-        OnLoad();
     }
 
     void Start()
