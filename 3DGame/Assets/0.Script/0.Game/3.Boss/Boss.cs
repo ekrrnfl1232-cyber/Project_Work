@@ -46,8 +46,9 @@ public class Boss : MonoBehaviour, IDamageable
         SettingState();
         SettingCool();
         agent = GetComponent<NavMeshAgent>();
-        stats.Hp = stats.MaxHp = data.Hp;
-        view.CreateHp();
+        stats.HpOne = stats.HpTwo = data.Hp / 2;
+        stats.MaxHp = data.Hp;
+        view.CreateHp(stats);
         ChangeState(BossState.Idle);
     }
 
@@ -58,7 +59,7 @@ public class Boss : MonoBehaviour, IDamageable
         AreaCool.Tick(Time.deltaTime);
         ScanTarget();
         TargetDis = Vector2.Distance(transform.position, target.position);
-        if(stats.Hp <= stats.MaxHp/2)
+        if(stats.HpOne == 0 && stats.Phase == 1)
         {
             ChangeState(BossState.PhaseChange);
         }
@@ -110,14 +111,20 @@ public class Boss : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        stats.Hp -= damage;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 posAttack = transform.position + transform.forward * 4f;
-        posAttack.y += 1f;
-        Gizmos.DrawWireCube(posAttack, new Vector3(3f, 1f, 5f));
+        Debug.Log("보스 데미지 피격");
+        if(stats.HpOne != 0)
+        {
+            stats.HpOne -= damage;
+            if(stats.HpOne < 0)
+            {
+                stats.HpTwo += stats.HpOne;
+                stats.HpOne = 0;
+            }
+        }
+        else if(stats.HpOne == 0)
+        {
+            stats.HpTwo -= damage;
+        }
+        view.UpdateHp(stats);
     }
 }

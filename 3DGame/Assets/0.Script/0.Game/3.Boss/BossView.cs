@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,25 +10,31 @@ public class BossView : MonoBehaviour
     [SerializeField] private GameObject prefabHp;
     [SerializeField] private GameObject areaPrefab;
     [SerializeField] private GameObject chargePrefab;
+    [SerializeField] private TMP_Text phaseTxt;
 
     private GameObject hpBG;
     private Image hpImgOne;
     private Image hpImgTwo;
 
-    public void CreateHp()
+    public void CreateHp(BossStat stats)
     {
         hpBG = Instantiate(prefabHp, isParent);
         hpImgOne = hpBG.transform.GetChild(1).GetComponent<Image>();
         hpImgTwo = hpBG.transform.GetChild(0).GetComponent<Image>();
-        hpBG.transform.position = new Vector3(25, 500, 0);
+        RectTransform rt = hpBG.GetComponent<RectTransform>();
+        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 1f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.anchoredPosition = new Vector2(0f, -50f);
     }
 
-    public void UpdateHp(int hp, int maxHp, int phase)
+    public void UpdateHp(BossStat stats)
     {
-        if (phase == 1)
-            hpImgOne.rectTransform.sizeDelta = new Vector2(hpImgOne.rectTransform.sizeDelta.x * ((float)hp / maxHp), 20f);
-        else if (phase == 2)
-            hpImgTwo.rectTransform.sizeDelta = new Vector2(hpImgTwo.rectTransform.sizeDelta.x * ((float)hp / maxHp), 20f);
+        hpImgOne.rectTransform.sizeDelta = new Vector2(hpImgOne.rectTransform.sizeDelta.x * ((float)stats.HpOne / (stats.MaxHp / 2)), 20f);
+        hpImgTwo.rectTransform.sizeDelta = new Vector2(hpImgTwo.rectTransform.sizeDelta.x * ((float)stats.HpTwo / (stats.MaxHp / 2)), 20f);
+        if(stats.HpOne == 0)
+        {
+            phaseTxt.text = "¡¿ 1";
+        }
     }
 
     public GameObject AreaAttack(Vector3 targetPos)

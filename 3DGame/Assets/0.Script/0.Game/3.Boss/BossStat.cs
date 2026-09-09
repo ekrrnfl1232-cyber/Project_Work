@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class BossStat : MonoBehaviour
 {
-    private int hp;
+    private int hpOne;
+    private int hpTwo;
     private int maxHp;
     private int phase = 1;
     private int chargeDamage = 10;
@@ -11,7 +12,8 @@ public class BossStat : MonoBehaviour
     private Vector3 chargeArea = new Vector3(3f, 1f, 5f);
     private float areaRadius = 2.5f;
 
-    public int Hp { get { return hp; } set { hp = value; } }
+    public int HpOne { get { return hpOne; } set { hpOne = value; } }
+    public int HpTwo { get { return hpTwo; } set { hpTwo = value; } }
     public int MaxHp { get {  return maxHp; } set { maxHp = value; } }
     public int Phase { get { return phase; } set { phase = value; } } 
     public int AreaDamage { get { return areaDamage; } set { areaDamage = value; } }

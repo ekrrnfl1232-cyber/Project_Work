@@ -37,6 +37,8 @@ public class Loding : Singleton<Loding>
             yield return null;
         }
 
+        System.GC.Collect();
+
         loadingbar.value = 1f;
         loadingText.text = $"Loading... 100%";
         // scene ON

@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 [System.Serializable]
 public class MonsterMoveState : IState

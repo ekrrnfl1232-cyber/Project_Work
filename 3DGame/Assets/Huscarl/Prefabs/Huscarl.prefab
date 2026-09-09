@@ -1961,11 +1961,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38d5fc7ec957d045960e6e5f74a1bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStat
-  maxHP: 100
+  data: {fileID: 11400000, guid: 4ac67256bee0ed749b03873637c9af35, type: 2}
+  hp: 0
+  level: 0
+  exp: 0
+  maxExp: 0
   baseAttack: 10
   baseDefence: 0
   baseSpeed: 3
-  data: {fileID: 11400000, guid: 4ac67256bee0ed749b03873637c9af35, type: 2}
 --- !u!114 &4664595657853803439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1983,6 +1986,7 @@ MonoBehaviour:
   UiCheckBox: {fileID: 0}
   expImg: {fileID: 0}
   exptext: {fileID: 0}
+  stats: {fileID: 0}
   isOnInventory: 0
 --- !u!114 &7849304053494576751
 MonoBehaviour:

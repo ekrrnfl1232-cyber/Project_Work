@@ -40,11 +40,15 @@ public class BossAreaAttack : IState
         if (progress >= 1f)
         {
             Collider[] attack = Physics.OverlapSphere(AreaAttack.transform.position, boss.stats.AreaRadius);
+            VFXManager.Instance.Show(VFXtype.AreaAttack, AreaAttack.transform);
             foreach (Collider atk in attack)
             {
                 if(atk.TryGetComponent<IDamageable>(out IDamageable damage))
                 {
-                    damage.TakeDamage(boss.data.Mdamage + boss.stats.AreaDamage);
+                    if (atk.CompareTag("Player"))
+                    {
+                        damage.TakeDamage(boss.data.Mdamage + boss.stats.AreaDamage);
+                    }
                 }
             }
 

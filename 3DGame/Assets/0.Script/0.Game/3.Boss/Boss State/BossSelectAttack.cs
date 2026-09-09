@@ -23,26 +23,22 @@ public class BossSelectAttack : IState
 
     public void Tick()
     {
-        if (boss.TargetDis > 2f)
+        boss.transform.LookAt(boss.target);
+        if (boss.NomalCool.IsReady && boss.ChargeCool.IsReady && boss.AreaCool.IsReady)
+        {
+            if (boss.stats.Phase == 1)
+            {
+                boss.ChangeState((BossState)Random.Range(3, 5));
+            }
+            else if (boss.stats.Phase == 2)
+            {
+                boss.ChangeState((BossState)Random.Range(3, 6));
+            }
+        }
+        if(boss.TargetDis > 2f)
         {
             boss.ChangeState(BossState.Idle);
-            return;
         }
-        if (boss.ChargeCool.IsReady)
-        {
-            boss.ChangeState(BossState.ChargeAttack);
-        }
-            /*if (boss.NomalCool.IsReady || boss.ChargeCool.IsReady || boss.AreaCool.IsReady)
-            {
-                if (boss.stats.Phase == 1)
-                {
-
-                    boss.ChangeState((BossState)Random.Range(3, 5));
-                }
-                else if (boss.stats.Phase == 2)
-                {
-                    boss.ChangeState((BossState)Random.Range(3, 6));
-                }
-            }*/
+        
     }
 }

@@ -9,11 +9,10 @@ public class EquipSystem : Singleton<EquipSystem>
     public EquipmentSlot[] slots;
 
     public EquipmentSlot SelectSlot { get; set; }
-    int totalDamage = 0;
-    float totalSpeed = 0;
-
+    
     public int EquipTotalDamage()
     {
+        int totalDamage = 0;
         foreach (EquipmentSlot slot in slots)
         {
             if (slot.Data != null)
@@ -25,9 +24,9 @@ public class EquipSystem : Singleton<EquipSystem>
     }
     public float EquipTotalSpeed()
     {
-        
+        float totalSpeed = 0;
 
-        foreach(EquipmentSlot slot in slots)
+        foreach (EquipmentSlot slot in slots)
         {
             if (slot.Data != null)
             {

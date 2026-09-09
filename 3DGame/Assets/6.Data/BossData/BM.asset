@@ -20,4 +20,4 @@ MonoBehaviour:
   spawnRange: 7
   scanSize: 5
   getExp: 1000
-  getGold: 50
+  getGold: 500

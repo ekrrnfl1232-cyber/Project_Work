@@ -17,22 +17,15 @@ public class VFXManager : Singleton<VFXManager>
         public GameObject vfxObj;
     }
     [SerializeField] private VFXData[] vfxDatas;
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.F2))
-        {
-            Vector3 pos = FindAnyObjectByType<Player>().transform.position;
-            Show(VFXtype.Heal, pos);
-        }
-    }
 
-    public void Show(VFXtype fxType, Vector3 pos)
+    public void Show(VFXtype fxType, Transform tran)
     {
-        foreach(var vfx in vfxDatas)
+        Quaternion rotaitionArea = Quaternion.Euler(0f, tran.eulerAngles.y, 0f);
+        foreach (var vfx in vfxDatas)
         {
             if(fxType == vfx.type)
             {
-                Instantiate(vfx.vfxObj, pos, Quaternion.identity).transform.SetParent(transform);
+                Instantiate(vfx.vfxObj, tran.position, rotaitionArea).transform.SetParent(transform);
 
                 break;
             }
