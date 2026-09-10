@@ -17,8 +17,6 @@ public class PlayerView : MonoBehaviour
     private Image hpImg;
     [SerializeField]private PlayerStat stats;
 
-    public bool isOnInventory = false;
-
     public void CheckBox(bool isFind)
     {
         UiCheckBox.SetActive(isFind);

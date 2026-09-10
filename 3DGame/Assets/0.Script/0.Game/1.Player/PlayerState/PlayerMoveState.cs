@@ -19,7 +19,7 @@ public class PlayerMoveState : IState
 
     public void Tick()
     {
-        player.controll.Move(player.model.Movement * player.data.MoveForce * Time.deltaTime);
+        player.controll.Move(player.model.Movement * player.stat.TotalSpeed() * Time.deltaTime);
         if (player.movedir == Vector2.zero)
         {
             player.ChangeState(PlayerState.idleState);

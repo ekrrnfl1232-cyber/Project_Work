@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerIdle : IState
 {
     private Player player;
-    private IState prevState;
     public PlayerIdle(Player player)
     {
         this.player = player;
@@ -17,7 +16,7 @@ public class PlayerIdle : IState
 
     public void Tick()
     {
-        if (player.movedir != Vector2.zero && !player.view.isOnInventory)
+        if (player.movedir != Vector2.zero)
         {
             player.ChangeState(PlayerState.moveState);
         }

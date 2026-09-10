@@ -22,7 +22,6 @@ public class Monster : MonoBehaviour, IDamageable
     public NavMeshAgent agent {  get; set; }
     [SerializeField] public MonsterData data;
     public bool IsLive { get; set; } = true;
-    public int EnterDamage{ get; private set; }
     public string PrevState { get; private set; }
     public Dictionary<string, IState> States { get; private set; }
     public float StartDis { get; private set; }
@@ -33,23 +32,15 @@ public class Monster : MonoBehaviour, IDamageable
                 data.Hp,
                 transform.position
             );
-        States = new Dictionary<string, IState> ();
-
-        States.Add("attackState", new MonsterAttackState(this));
-        States.Add("idleState", new MonsterIdleState(this));
-        States.Add("moveState", new MonsterMoveState(this));
-        States.Add("patrolState", new MonsterPatrolState(this));
-        States.Add("reviveState", new MonsterReviveState(this));
-        States.Add("deadState", new MonsterDeadState(this));
-        States.Add("hitState", new MonsterHitState(this));
+        SettingState();
     }
 
     void Start()
     {
         MonsterAni = GetComponent<Animator>();
-        targetlayer = LayerMask.GetMask("Player");
         View = GetComponent<MonsterView>();
         agent = GetComponent<NavMeshAgent>();
+        targetlayer = LayerMask.GetMask("Player");
         Model.HP = Model.MaxHP = data.Hp;
 
         View.CreateHp();
@@ -113,6 +104,20 @@ public class Monster : MonoBehaviour, IDamageable
         }
         else
             return;
+    }
+
+    private void SettingState()
+    {
+        States = new Dictionary<string, IState>()
+        {
+            { "attackState", new MonsterAttackState(this) },
+            { "idleState", new MonsterIdleState(this) },
+            { "moveState", new MonsterMoveState(this) },
+            { "patrolState", new MonsterPatrolState(this) },
+            { "reviveState", new MonsterReviveState(this) },
+            { "deadState", new MonsterDeadState(this) },
+            { "hitState", new MonsterHitState(this) }
+        };
     }
 
     public void ScanTarget()

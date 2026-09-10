@@ -9,7 +9,6 @@ public class PlayerAttackState : IState
     }
     public void Enter()
     {
-        Debug.Log("АјАн");
         player.animator.SetTrigger("Sword01");
         Vector3 posAttack = player.transform.position + player.transform.forward * 1f;
         posAttack.y += 0.5f;
@@ -20,9 +19,7 @@ public class PlayerAttackState : IState
         {
             if (tar.TryGetComponent<IDamageable>(out IDamageable damage))
             {
-                Debug.Log(player.stat.TotalDamage());
-                damage.TakeDamage(player.data.Wdamage);
-                //Debug.Log($"{player.Dmg}");
+                damage.TakeDamage(player.stat.TotalDamage());
                 break;
             }
         }

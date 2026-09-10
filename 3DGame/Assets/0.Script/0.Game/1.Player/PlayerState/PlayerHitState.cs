@@ -16,8 +16,8 @@ public class PlayerHitState : IState
     {
         player.animator.SetTrigger("Hit");
         Debug.Log("Player 타격 받음");
-        Debug.Log($"남은 체력 : {player.model.HP}");
-        player.view.HpUpdate(player.model.HP, player.data.Maxhp);
+        Debug.Log($"남은 체력 : {player.stat.Hp}");
+        player.view.HpUpdate(player.stat.Hp, player.data.Maxhp);
         player.ChangeState(player.prevState);
     }
 

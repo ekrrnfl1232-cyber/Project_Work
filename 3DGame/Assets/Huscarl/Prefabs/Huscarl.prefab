@@ -1852,7 +1852,6 @@ GameObject:
   - component: {fileID: 8389378817738365555}
   - component: {fileID: 3297992447693833389}
   - component: {fileID: 4664595657853803439}
-  - component: {fileID: 7849304053494576751}
   - component: {fileID: 4144681497511459223}
   - component: {fileID: 4253194043543507953}
   m_Layer: 9
@@ -1922,13 +1921,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.65, z: 0}
 --- !u!114 &8389378817738365555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1942,7 +1941,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   movement: {x: 0, y: 0, z: 0}
-  InterationScale: 2
   animator: {fileID: 2747176988148459899}
   view: {fileID: 0}
   stat: {fileID: 3297992447693833389}
@@ -1986,20 +1984,7 @@ MonoBehaviour:
   UiCheckBox: {fileID: 0}
   expImg: {fileID: 0}
   exptext: {fileID: 0}
-  stats: {fileID: 0}
-  isOnInventory: 0
---- !u!114 &7849304053494576751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7192792723899452590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a07ee7d73fc3f4849801da8da3c0d9de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerProgress
+  stats: {fileID: 3297992447693833389}
 --- !u!208 &4144681497511459223
 NavMeshObstacle:
   m_ObjectHideFlags: 0

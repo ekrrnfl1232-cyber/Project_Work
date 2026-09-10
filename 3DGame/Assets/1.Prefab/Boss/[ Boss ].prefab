@@ -1298,7 +1298,6 @@ GameObject:
   - component: {fileID: 3425897726818796333}
   - component: {fileID: 5628816050685408952}
   - component: {fileID: 3797408732685860904}
-  - component: {fileID: 294634144570554549}
   - component: {fileID: 5894571752857852638}
   m_Layer: 10
   m_Name: '[ Boss ]'
@@ -1364,8 +1363,6 @@ MonoBehaviour:
   target: {fileID: 0}
   data: {fileID: 11400000, guid: ca937c554cb118e429f6677f524b4077, type: 2}
   stats: {fileID: 3425897726818796333}
-  area: {fileID: 7311808155219869994, guid: 9a95ca2414664524296cd35dac9f8c25, type: 3}
-  charge: {fileID: 6484735945849466092, guid: 00ae224fc7451ab46a5b988eba0aa957, type: 3}
   bossAni: {fileID: 5637188882952814664}
 --- !u!114 &3425897726818796333
 MonoBehaviour:
@@ -1391,30 +1388,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dd369a4b326544c9831dcc8e0a4747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossView
+  isParent: {fileID: 0}
+  prefabHp: {fileID: 4013781562914862402, guid: 6d586452a1caa064c8f27945c1181e52, type: 3}
+  areaPrefab: {fileID: 7311808155219869994, guid: 9a95ca2414664524296cd35dac9f8c25, type: 3}
+  chargePrefab: {fileID: 6484735945849466092, guid: 00ae224fc7451ab46a5b988eba0aa957, type: 3}
 --- !u!136 &3797408732685860904
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7689424480026308325}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.7
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
---- !u!136 &294634144570554549
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

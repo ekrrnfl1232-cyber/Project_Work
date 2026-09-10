@@ -1,9 +1,21 @@
+using TMPro;
 using UnityEngine;
 
 public class QuestNPC : MonoBehaviour, IInterectable
 {
     [SerializeField] private QuestData questData;
     [SerializeField] private QuestManager questManager;
+
+    [SerializeField] private GameObject questUI;
+    [SerializeField] private TMP_Text questTitle;
+    [SerializeField] private TMP_Text questInfo;
+
+
+    private void Awake()
+    {
+        questUI.SetActive(false);
+
+    }
 
     public string GetInterfaction()
     {
@@ -22,7 +34,9 @@ public class QuestNPC : MonoBehaviour, IInterectable
         QuestProgress quest = questManager.GetQuest(questData.questId);
         if (quest == null)
         {
-            questManager.AcceptQuest(questData);
+            questTitle.text = $"{questData.questTitle}";
+            questInfo.text = $"{questData.description} \n 보상 : {questData.rewardItem.name} 경험치 : {questData.rewardExp}";
+            questUI.SetActive(true);
             return;
         }
         if(quest.State == QuestState.canComplete)
@@ -31,6 +45,12 @@ public class QuestNPC : MonoBehaviour, IInterectable
             return;
         }
         Debug.Log("용무 없음");
+    }
+
+    public void Accept()
+    {
+        questManager.AcceptQuest(questData);
+        questUI.SetActive(!questUI.activeSelf);
     }
 
 }

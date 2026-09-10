@@ -10,17 +10,18 @@ public class BossView : MonoBehaviour
     [SerializeField] private GameObject prefabHp;
     [SerializeField] private GameObject areaPrefab;
     [SerializeField] private GameObject chargePrefab;
-    [SerializeField] private TMP_Text phaseTxt;
 
     private GameObject hpBG;
     private Image hpImgOne;
     private Image hpImgTwo;
+    private TMP_Text phaseTxt;
 
     public void CreateHp(BossStat stats)
     {
         hpBG = Instantiate(prefabHp, isParent);
         hpImgOne = hpBG.transform.GetChild(1).GetComponent<Image>();
         hpImgTwo = hpBG.transform.GetChild(0).GetComponent<Image>();
+        phaseTxt = hpBG.transform.GetChild(2).GetComponent<TMP_Text>();
         RectTransform rt = hpBG.GetComponent<RectTransform>();
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 1f);
         rt.pivot = new Vector2(0.5f, 0.5f);
@@ -34,6 +35,10 @@ public class BossView : MonoBehaviour
         if(stats.HpOne == 0)
         {
             phaseTxt.text = "¡¿ 1";
+        }
+        else if(stats.HpTwo == 0)
+        {
+            phaseTxt.text = "¡¿ 0";
         }
     }
 

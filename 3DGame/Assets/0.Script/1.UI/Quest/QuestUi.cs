@@ -11,13 +11,11 @@ public class QuestUi : MonoBehaviour
     {
         GameEvents.OnQuestChanged += ReFresh;
     }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
-        if(questManager != null)
+        if (questManager != null)
             GameEvents.OnQuestChanged -= ReFresh;
     }
-
 
     private void ReFresh()
     {

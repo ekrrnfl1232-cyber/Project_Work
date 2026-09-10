@@ -30,4 +30,7 @@ public class PlayerData : ScriptableObject
     private float maxExp;
     public float MaxExp { get { return maxExp; } }
 
+    [SerializeField]
+    private float interationScale = 2f;
+    public float InterationScale { get { return interationScale; } }
 }

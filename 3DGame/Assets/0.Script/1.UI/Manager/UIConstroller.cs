@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIConstroller : Singleton<UIConstroller>
 {
-    public bool isOnInventory;
 
     public Inventory inventory;
     public EquipSystem equipSystem;
