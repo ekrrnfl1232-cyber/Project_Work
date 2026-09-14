@@ -50,6 +50,7 @@ public class PlayerView : MonoBehaviour
             {
                 stats.Exp -= stats.MaxExp;
                 stats.Level += 1;
+                GameEvents.RaiseLevelChange();
                 stats.MaxExp += 100f;
             }
         }

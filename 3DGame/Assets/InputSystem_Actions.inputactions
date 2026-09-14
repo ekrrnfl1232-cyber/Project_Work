@@ -665,6 +665,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Stat",
+                    "type": "Button",
+                    "id": "8cc2083d-ea2a-40f5-b083-bcfb048aec6c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1116,6 +1125,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Equip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80bddd90-58e1-4615-9118-9eef307363c8",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Stat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

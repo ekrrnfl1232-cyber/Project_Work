@@ -12,10 +12,8 @@ public static class GameEvents
     public static Action OnQuestChanged;
     // 플레이어가 몬스터 잡았을때의 이벤트
     public static Action<int> PlayerKill;
-    // 인벤토리를 열었을 시 플레이어 컨트롤러 작동 멈춤
-    public static event Action<bool> OnInventChange;
 
-    public static event Action OnSave;
+    public static Action LevelChange;
 
     public static void RaiseExpChange(float exp)
     {
@@ -35,13 +33,8 @@ public static class GameEvents
         PlayerKill?.Invoke(monsterId);
     }
 
-    public static void RaiseInven(bool isOn)
+    public static void RaiseLevelChange()
     {
-        OnInventChange?.Invoke(isOn);
-    }
-
-    public static void RaiseSave()
-    {
-        OnSave?.Invoke();
+        LevelChange?.Invoke();
     }
 }

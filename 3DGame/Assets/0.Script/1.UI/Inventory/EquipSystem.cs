@@ -22,19 +22,29 @@ public class EquipSystem : Singleton<EquipSystem>
         }
         return totalDamage;
     }
+
+    public int EquipTotalDefence()
+    {
+        int totalDefence = 0;
+        foreach(EquipmentSlot slot in slots)
+        {
+            if(slot.Data != null && slot.Data.Defence != 0)
+            {
+                totalDefence += slot.Data.Defence;
+            }
+        }
+        return totalDefence;
+    }
+
     public float EquipTotalSpeed()
     {
         float totalSpeed = 0;
 
         foreach (EquipmentSlot slot in slots)
         {
-            if (slot.Data != null)
+            if (slot.Data != null && slot.Data.Speed != 0)
             {
                 totalSpeed += slot.Data.Speed;
-            }
-            else
-            {
-                totalSpeed = 0;
             }
         }
 

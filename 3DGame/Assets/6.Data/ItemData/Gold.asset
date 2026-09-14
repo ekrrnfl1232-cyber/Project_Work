@@ -21,5 +21,5 @@ MonoBehaviour:
   damage: 0
   defence: 0
   speed: 0
-  itemType: 0
+  itemType: 2
   equipType: 0

@@ -751,6 +751,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stat"",
+                    ""type"": ""Button"",
+                    ""id"": ""8cc2083d-ea2a-40f5-b083-bcfb048aec6c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1204,6 +1213,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Equip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80bddd90-58e1-4615-9118-9eef307363c8"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Stat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1301,6 +1321,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
         m_UI_Quest = m_UI.FindAction("Quest", throwIfNotFound: true);
         m_UI_Equip = m_UI.FindAction("Equip", throwIfNotFound: true);
+        m_UI_Stat = m_UI.FindAction("Stat", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1623,6 +1644,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Inventory;
     private readonly InputAction m_UI_Quest;
     private readonly InputAction m_UI_Equip;
+    private readonly InputAction m_UI_Stat;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -1686,6 +1708,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/Equip".
         /// </summary>
         public InputAction @Equip => m_Wrapper.m_UI_Equip;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/Stat".
+        /// </summary>
+        public InputAction @Stat => m_Wrapper.m_UI_Stat;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1751,6 +1777,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Equip.started += instance.OnEquip;
             @Equip.performed += instance.OnEquip;
             @Equip.canceled += instance.OnEquip;
+            @Stat.started += instance.OnStat;
+            @Stat.performed += instance.OnStat;
+            @Stat.canceled += instance.OnStat;
         }
 
         /// <summary>
@@ -1801,6 +1830,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Equip.started -= instance.OnEquip;
             @Equip.performed -= instance.OnEquip;
             @Equip.canceled -= instance.OnEquip;
+            @Stat.started -= instance.OnStat;
+            @Stat.performed -= instance.OnStat;
+            @Stat.canceled -= instance.OnStat;
         }
 
         /// <summary>
@@ -2096,5 +2128,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEquip(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Stat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnStat(InputAction.CallbackContext context);
     }
 }

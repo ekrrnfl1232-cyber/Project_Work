@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIConstroller : Singleton<UIConstroller>
 {
+    public StatUI statUI;
 
     public Inventory inventory;
     public EquipSystem equipSystem;
@@ -17,12 +18,14 @@ public class UIConstroller : Singleton<UIConstroller>
     private GameObject inven;
     private GameObject equip;
     private GameObject quest;
+    private GameObject stat;
 
     private void Awake()
     {
         inven = inventory.transform.GetChild(0).gameObject;
         equip = equipSystem.transform.GetChild(0).gameObject;
         quest = Quest.transform.GetChild(0).gameObject;
+        stat = statUI.transform.GetChild(0).gameObject;
     }
 
     void Start()
@@ -31,6 +34,7 @@ public class UIConstroller : Singleton<UIConstroller>
         quest.SetActive(false);
         inven.SetActive(false);
         equip.SetActive(false);
+        stat.SetActive(false);
     }
     void Update()
     {
@@ -48,10 +52,14 @@ public class UIConstroller : Singleton<UIConstroller>
             quest.SetActive(!quest.activeSelf);
         }
         if(InputManger.Instance.input.UI.Equip.WasPressedThisFrame())
-        {
-            Debug.Log(equip.activeSelf);    
+        { 
             equip.SetActive(!equip.activeSelf);
         }
+        if(InputManger.Instance.input.UI.Stat.WasPressedThisFrame())
+        {
+            stat.SetActive(!stat.activeSelf);
+        }
+
         
     }
 
