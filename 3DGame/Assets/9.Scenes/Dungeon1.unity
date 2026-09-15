@@ -5307,18 +5307,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 904730798}
-        m_TargetAssemblyTypeName: StatUI, Assembly-CSharp
-        m_MethodName: LevelChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &609490581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5594,18 +5582,6 @@ MonoBehaviour:
       - m_Target: {fileID: 403487720}
         m_TargetAssemblyTypeName: PlusStatSlot, Assembly-CSharp
         m_MethodName: Minus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 904730798}
-        m_TargetAssemblyTypeName: StatUI, Assembly-CSharp
-        m_MethodName: LevelChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6023,18 +5999,6 @@ MonoBehaviour:
       - m_Target: {fileID: 403487720}
         m_TargetAssemblyTypeName: PlusStatSlot, Assembly-CSharp
         m_MethodName: Plus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 904730798}
-        m_TargetAssemblyTypeName: StatUI, Assembly-CSharp
-        m_MethodName: UsedLevelStat
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7034,6 +6998,7 @@ MonoBehaviour:
   - {fileID: 1171558238}
   - {fileID: 1700168513}
   levelStat: {fileID: 200637165}
+  statUI: {fileID: 0}
 --- !u!1 &916221960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7090361012441899526, guid: 0c37ee0e6e774f44b9769212dea78544, type: 3}
@@ -8513,18 +8478,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 904730798}
-        m_TargetAssemblyTypeName: StatUI, Assembly-CSharp
-        m_MethodName: UsedLevelStat
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1122681531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8977,18 +8930,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1861007626}
         m_TargetAssemblyTypeName: PlusStatSlot, Assembly-CSharp
         m_MethodName: Plus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 904730798}
-        m_TargetAssemblyTypeName: StatUI, Assembly-CSharp
-        m_MethodName: UsedLevelStat
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11801,18 +11742,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 904730798}
-        m_TargetAssemblyTypeName: StatUI, Assembly-CSharp
-        m_MethodName: LevelChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1642769860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13348,7 +13277,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1861007622}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13363,7 +13292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150.94, y: 122.2}
+  m_AnchoredPosition: {x: 150.93991, y: 122.200005}
   m_SizeDelta: {x: 716, y: 309}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1861007624

@@ -19,6 +19,7 @@ MonoBehaviour:
   maxStack: 1
   price: 0
   damage: 0
+  hp: 10
   defence: 5
   speed: 2
   itemType: 0

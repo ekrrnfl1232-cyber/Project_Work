@@ -23,6 +23,19 @@ public class EquipSystem : Singleton<EquipSystem>
         return totalDamage;
     }
 
+    public int EquipTotalHP()
+    {
+        int totalHP = 0;
+        foreach (EquipmentSlot slot in slots)
+        {
+            if (slot.Data != null)
+            {
+                totalHP += slot.Data.HP;
+            }
+        }
+        return totalHP;
+    }
+
     public int EquipTotalDefence()
     {
         int totalDefence = 0;

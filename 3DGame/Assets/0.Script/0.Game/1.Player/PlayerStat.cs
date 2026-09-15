@@ -29,7 +29,7 @@ public class PlayerStat : MonoBehaviour
 
 
     public int Hp { get { return hp; } set { hp = value; } }
-    public int MaxHp { get; set; }
+    public int BaseMaxHp { get; set; }
     public int Level {get { return level; } set { level = value; } }
     public float Exp { get { return exp; } set { exp = value; } }
     public float MaxExp { get { return maxExp; } set { maxExp = value; } }
@@ -41,7 +41,7 @@ public class PlayerStat : MonoBehaviour
 
     private void Awake()
     {
-        Hp = MaxHp = data.Maxhp;
+        Hp = BaseMaxHp = data.Maxhp;
         BaseAttack = data.Wdamage;
         BaseSpeed = data.MoveForce;
         Level = 1;
@@ -52,7 +52,7 @@ public class PlayerStat : MonoBehaviour
 
     public void ResetStat()
     {
-        Hp = data.Maxhp;
+        Hp = BaseMaxHp = data.Maxhp;
         BaseAttack = baseAttack;
         BaseDefence = baseDefence;
         BaseSpeed = baseSpeed;
@@ -60,16 +60,21 @@ public class PlayerStat : MonoBehaviour
 
     public int TotalDamage()
     {
-        return EquipSystem.Instance.EquipTotalDamage() + BaseAttack;
+        return EquipSystem.Instance.EquipTotalDamage() + StatUI.Instance.TotalStr + BaseAttack;
     }
 
     public int TotalDefence()
     {
-        return EquipSystem.Instance.EquipTotalDamage() + BaseDefence;
+        return EquipSystem.Instance.EquipTotalDamage() + StatUI.Instance.TotalDef + BaseDefence;
+    }
+
+    public int TotalHP()
+    {
+        return EquipSystem.Instance.EquipTotalHP() + StatUI.Instance.TotalHp + BaseMaxHp;
     }
 
     public float TotalSpeed()
     {
-        return BaseSpeed + EquipSystem.Instance.EquipTotalSpeed() + BaseSpeed;
+        return EquipSystem.Instance.EquipTotalSpeed() + BaseSpeed;
     }
 }

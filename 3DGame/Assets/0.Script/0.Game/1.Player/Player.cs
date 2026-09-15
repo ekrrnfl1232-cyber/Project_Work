@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [Header("Animator")]
     [SerializeField] public Animator animator;
-    [HideInInspector] public PlayerView view;
+    public PlayerView view { get; private set; }
     public PlayerModel model { get; set; }
     public PlayerStat stat;
     [SerializeField] public PlayerData data;
