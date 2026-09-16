@@ -18,7 +18,7 @@ public class QuestManager : MonoBehaviour
         }
         QuestProgress prog = new QuestProgress(quest);
         activeQuests.Add(prog);
-        GameEvents.PlayerKill += NotifyEnemyKilled;
+        GameEvents.PlayerKill += (data, gold, exp) => NotifyEnemyKilled(data);
         GameEvents.RaiseQuestChanged();
         Debug.Log($"Quest Accepted:{quest.questTitle}");
         return true;
@@ -48,9 +48,10 @@ public class QuestManager : MonoBehaviour
         return null;
     }
 
-    public void NotifyEnemyKilled(int enemyId)
+    public void NotifyEnemyKilled(MonsterData data)
     {
         bool change = false;
+        int enemyId = data.MonsterId;
 
         foreach(QuestProgress quest in activeQuests)
         {
@@ -90,12 +91,11 @@ public class QuestManager : MonoBehaviour
             }
         }
         int gold = quest.Data.rewardGold;
-        PlayerProgress.Instance.AddGold(gold);
         float exp = (float)quest.Data.rewardExp;
-        PlayerProgress.Instance.AddExp(exp);
+        GameEvents.RaiseChangeCurrency(gold, exp);
         
         quest.Complete();
-        GameEvents.PlayerKill -= NotifyEnemyKilled;
+        GameEvents.PlayerKill -= (data, gold, exp) => NotifyEnemyKilled(data);
         GameEvents.RaiseQuestChanged();
         Debug.Log($"Quest Complete {quest.Data.questTitle}");
         return false;

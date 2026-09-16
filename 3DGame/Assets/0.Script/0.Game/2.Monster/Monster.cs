@@ -74,9 +74,7 @@ public class Monster : MonoBehaviour, IDamageable
     public void OnDead()
     {
         gameObject.SetActive(false);
-        GameEvents.RaiseKillChange(data.MonsterId);
-        PlayerProgress.Instance.AddExp(data.GetExp);
-        PlayerProgress.Instance.AddGold(data.GetGold);
+        GameEvents.RaiseKillChange(data, data.GetGold, data.GetExp);
         View.DeleteHp();
         Invoke("ReSpawn", 1f);
     }

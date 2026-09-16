@@ -82,7 +82,7 @@ public class UIConstroller : Singleton<UIConstroller>
         data.level = playerStat.Level;
         data.Hp = playerStat.Hp;
         data.exp = playerStat.Exp;
-        data.gold = inventory.gold;
+        data.gold = inventory.Gold;
         data.invendata = inventory.GetInvenDatas();
         data.equipDatas = equipSystem.GetEquipData();
 
@@ -93,8 +93,7 @@ public class UIConstroller : Singleton<UIConstroller>
         GameSaveData data = SaveManager.Instance.Load();
         playerStat.Level = data.level;
         playerStat.Hp = data.Hp;
-        PlayerProgress.Instance.AddExp(data.exp);
-        PlayerProgress.Instance.AddGold(data.gold);
+        GameEvents.RaiseChangeCurrency(data.gold, data.exp);
 
         inventory.LoadInventory(data.invendata);
         //equipSystem.LoadEquip(data.equipDatas);

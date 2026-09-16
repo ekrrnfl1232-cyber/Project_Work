@@ -12,7 +12,8 @@ public class PlayerView : MonoBehaviour
 
     [SerializeField] private Image expImg;
     [SerializeField] public TMP_Text exptext;
-
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
     private GameObject hpBG;
     private Image hpImg;
     [SerializeField]private PlayerStat stats;
@@ -41,9 +42,8 @@ public class PlayerView : MonoBehaviour
         hpImg.rectTransform.sizeDelta = new Vector2(hpImg.rectTransform.sizeDelta.x * ((float)hp / maxHp), 30f);
     }
 
-    public void ExpUpdata(float exp)
+    public void ExpUpdata()
     {
-        stats.Exp += exp;
         if (stats.Exp >= stats.MaxExp)
         {
             while(stats.Exp >= stats.MaxExp)
@@ -60,11 +60,13 @@ public class PlayerView : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.OnExpChange += ExpUpdata;
+        GameEvents.PlayerKill += (data, gold, exp) => ExpUpdata();
+        GameEvents.ChangeCurrency += (gold, exp) => ExpUpdata();
     }
 
     private void OnDisable()
     {
-        GameEvents.OnExpChange -= ExpUpdata;
+        GameEvents.PlayerKill -= (data, gold, exp) => ExpUpdata();
+        GameEvents.ChangeCurrency -= (gold, exp) => ExpUpdata();
     }
 }

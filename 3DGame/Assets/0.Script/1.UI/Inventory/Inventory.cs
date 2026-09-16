@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private TMP_Text goldAmount;
 
-    public int gold { get; set; }
+    public int Gold { get; set; }
 
     private List<InventoryItem> items = new();
     private Image background;
@@ -37,12 +37,14 @@ public class Inventory : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.OnGoldChange += GoldAmount;
+        GameEvents.PlayerKill += (data, gold, exp) => GoldAmount(gold);
+        GameEvents.ChangeCurrency += (gold, exp) => GoldAmount(gold);
     }
 
     private void OnDisable()
     {
-        GameEvents.OnGoldChange -= GoldAmount;
+        GameEvents.PlayerKill -= (data, gold, exp) => GoldAmount(gold);
+        GameEvents.ChangeCurrency -= (gold, exp) => GoldAmount(gold);
     }
 
     // 매개변수 int 추가
@@ -97,10 +99,10 @@ public class Inventory : MonoBehaviour
         return data;
     }
 
-    public void GoldAmount()
+    public void GoldAmount(int addGold)
     {
-        goldAmount.text = $"{PlayerProgress.Instance.Gold}";
-        gold = PlayerProgress.Instance.Gold;
+        Gold += addGold;
+        goldAmount.text = $"{Gold}";
     }
 
     public void LoadInventory(InvenData[] data)

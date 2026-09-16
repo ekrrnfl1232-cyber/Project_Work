@@ -14,7 +14,7 @@ public class PlayerJumpState : IState
     {
         player.animator.SetFloat("Speed", 0);
         player.animator.SetTrigger("ReturnIdle");
-        player.model.VerticalVelo = Mathf.Sqrt(player.data.JumpHeight * player.model.gravity.y * -2f);
+        player.stat.VerticalVelo = Mathf.Sqrt(player.data.JumpHeight * player.stat.Gravity.y * -2f);
     }
 
     public void Exit()
@@ -23,7 +23,7 @@ public class PlayerJumpState : IState
 
     public void Tick()
     {
-        if (player.controll.isGrounded && player.model.VerticalVelo < 0f)
+        if (player.controll.isGrounded && player.stat.VerticalVelo < 0f)
             player.ChangeState(PlayerState.idleState);
     }
 }

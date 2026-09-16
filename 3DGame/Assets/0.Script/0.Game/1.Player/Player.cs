@@ -14,52 +14,56 @@ public enum PlayerState
 
 public class Player : MonoBehaviour, IDamageable
 {
-    [Header("Move")]
-    public Vector3 movement = Vector3.zero;
-    public Vector2 movedir {  get; private set; } = Vector2.zero;
-
     [Header("Animator")]
-    [SerializeField] public Animator animator;
+    public Animator animator;
+    [Header("Script")]
     public PlayerView view { get; private set; }
-    public PlayerModel model { get; set; }
     public PlayerStat stat;
-    [SerializeField] public PlayerData data;
-    public int Dmg { get; set; }
-    public GameObject UiSystem;
-    public CharacterController controll;
+    public PlayerData data;
 
+    [Header("Controller")]
+    public CharacterController controll;
+    public BoxCollider sword;
+
+    [Header("UI")]
+    public GameObject UiSystem;
+
+    // »óÅÂ
     private IState currentState;
     private PlayerState currentKey;
     public PlayerState prevState { get; private set; }
     public Dictionary<PlayerState, IState> States { get; private set; }
+
+    // ÄðÅ¸ÀÓ
     private Cooldown coolDown = new Cooldown(1f);
     public Cooldown AtkCool { get { return coolDown; }}
+
     private void Awake()
     {
-        model = new PlayerModel(data);
         SettingState();
     }
 
     private void Start()
     {
         view = GetComponent<PlayerView>();
-        view.ExpUpdata(0);
+        view.ExpUpdata();
         view.CreateHp();
         ChangeState(PlayerState.idleState);
     }
 
     private void Update()
     {
+        
         view.HPbar(transform.position);
         if (InputManger.Instance.input.Player.Move.IsPressed())
         {
-            movedir = InputManger.Instance.input.Player.Move.ReadValue<Vector2>();
+            stat.MoveDir = InputManger.Instance.input.Player.Move.ReadValue<Vector2>();
         }
         else
         {
-            movedir = Vector2.zero;
+            stat.MoveDir = Vector2.zero;
         }
-            model.Movement = new Vector3(movedir.x, 0, movedir.y).normalized;
+            stat.Movement = new Vector3(stat.MoveDir.x, 0, stat.MoveDir.y).normalized;
         if (controll.isGrounded)
         {
             if (InputManger.Instance.input.Player.Attack.WasPressedThisFrame() && AtkCool.IsReady)
@@ -100,15 +104,15 @@ public class Player : MonoBehaviour, IDamageable
     {
         if(controll.isGrounded)
         {
-            if(model.VerticalVelo < 0f)
-                model.VerticalVelo = -2f;
+            if(stat.VerticalVelo < 0f)
+                stat.VerticalVelo = -2f;
         }
         else
         {
-            model.VerticalVelo += Physics.gravity.y * Time.deltaTime;
+            stat.VerticalVelo += Physics.gravity.y * Time.deltaTime;
         }
-        model.gravity = new Vector3 (0, model.VerticalVelo, 0 );
-        controll.Move(model.gravity * Time.deltaTime);
+        stat.Gravity = new Vector3 (0, stat.VerticalVelo, 0 );
+        controll.Move(stat.Gravity * Time.deltaTime);
     }
 
     private void SettingState()
@@ -142,7 +146,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         Vector3 posInter = transform.position;
         posInter.y += 1f;
-        Collider[] colls = Physics.OverlapSphere(posInter, model.InterationScale);
+        Collider[] colls = Physics.OverlapSphere(posInter, stat.InterationScale);
         bool isFind = false;
         foreach (var col in colls)
         {
