@@ -1300,7 +1300,7 @@ GameObject:
   - component: {fileID: 3797408732685860904}
   - component: {fileID: 5894571752857852638}
   m_Layer: 10
-  m_Name: '[ Boss ]'
+  m_Name: Boss
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

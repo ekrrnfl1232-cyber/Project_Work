@@ -1046,7 +1046,7 @@ GameObject:
   - component: {fileID: 7571673112749864989}
   - component: {fileID: 5081917945776505512}
   m_Layer: 10
-  m_Name: '[ Skeleton ]'
+  m_Name: Skeleton
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1060,7 +1060,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6541184085704367737}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.1546661, z: -0, w: 0.98796684}
+  m_LocalRotation: {x: 0, y: 0.15466744, z: -0, w: -0.9879666}
   m_LocalPosition: {x: 5.1116614, y: 0.049676344, z: 10.698889}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1071,7 +1071,7 @@ Transform:
   - {fileID: 271101640314658389}
   - {fileID: 804707930400329114}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 342.205, z: 0}
 --- !u!95 &4555603673748335599
 Animator:
   serializedVersion: 7
@@ -1130,21 +1130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   target: {fileID: 0}
-  hp: 100
-  maxhp: 100
-  targetlayer:
-    serializedVersion: 2
-    m_Bits: 512
-  ScanSize: 5
-  isFind: 0
-  isReturn: 0
-  targetScan:
-  - {fileID: 9061303501702145900}
-  - {fileID: 0}
-  MonAni: {fileID: 4555603673748335599}
-  view: {fileID: 7571673112749864989}
-  Mmodel: {fileID: 0}
-  agent: {fileID: 5081917945776505512}
+  qm: {fileID: 0}
   data: {fileID: 11400000, guid: a4e215e7b48a76a459868f0d41f16e61, type: 2}
 --- !u!114 &7571673112749864989
 MonoBehaviour:
