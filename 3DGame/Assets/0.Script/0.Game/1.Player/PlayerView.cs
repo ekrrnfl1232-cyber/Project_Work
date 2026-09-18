@@ -60,13 +60,11 @@ public class PlayerView : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.PlayerKill += (data, gold, exp) => ExpUpdata();
-        GameEvents.ChangeCurrency += (gold, exp) => ExpUpdata();
+        GameEvents.ChangeUpdate += ExpUpdata;
     }
 
     private void OnDisable()
     {
-        GameEvents.PlayerKill -= (data, gold, exp) => ExpUpdata();
-        GameEvents.ChangeCurrency -= (gold, exp) => ExpUpdata();
+        GameEvents.ChangeUpdate -= ExpUpdata;
     }
 }

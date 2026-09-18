@@ -66,20 +66,7 @@ public class Player : MonoBehaviour, IDamageable
             stat.Movement = new Vector3(stat.MoveDir.x, 0, stat.MoveDir.y).normalized;
         if (controll.isGrounded)
         {
-            if (InputManger.Instance.input.Player.Attack.WasPressedThisFrame() && AtkCool.IsReady)
-            {
-                Debug.Log("공격키 입력");
-                ChangeState(PlayerState.attackState);
-            }
-            if (InputManger.Instance.input.Player.Jump.WasPressedThisFrame())
-            {
-                Debug.Log("점프 키 입력");
-                ChangeState(PlayerState.jumpState);
-            }
-            if (InputManger.Instance.input.Player.Sprint.WasPressedThisFrame())
-            {
-                ChangeState(PlayerState.dashState);
-            }
+            HandleInput();
         }
         if (InputManger.Instance.input.Player.enabled)
         {
@@ -98,21 +85,6 @@ public class Player : MonoBehaviour, IDamageable
         currentState = States[state];
         currentKey = state;
         currentState?.Enter();
-    }
-
-    private void Gravity()
-    {
-        if(controll.isGrounded)
-        {
-            if(stat.VerticalVelo < 0f)
-                stat.VerticalVelo = -2f;
-        }
-        else
-        {
-            stat.VerticalVelo += Physics.gravity.y * Time.deltaTime;
-        }
-        stat.Gravity = new Vector3 (0, stat.VerticalVelo, 0 );
-        controll.Move(stat.Gravity * Time.deltaTime);
     }
 
     private void SettingState()
@@ -140,6 +112,21 @@ public class Player : MonoBehaviour, IDamageable
         {
             Debug.Log($"{name} Dead");
         }
+    }
+
+    private void Gravity()
+    {
+        if(controll.isGrounded)
+        {
+            if(stat.VerticalVelo < 0f)
+                stat.VerticalVelo = -2f;
+        }
+        else
+        {
+            stat.VerticalVelo += Physics.gravity.y * Time.deltaTime;
+        }
+        stat.Gravity = new Vector3 (0, stat.VerticalVelo, 0 );
+        controll.Move(stat.Gravity * Time.deltaTime);
     }
 
     void Interect()
@@ -173,6 +160,24 @@ public class Player : MonoBehaviour, IDamageable
             {
                 transform.rotation = Quaternion.LookRotation(dir);
             }
+        }
+    }
+
+    private void HandleInput()
+    {
+        if (InputManger.Instance.input.Player.Attack.WasPressedThisFrame() && AtkCool.IsReady)
+        {
+            Debug.Log("공격키 입력");
+            ChangeState(PlayerState.attackState);
+        }
+        if (InputManger.Instance.input.Player.Jump.WasPressedThisFrame())
+        {
+            Debug.Log("점프 키 입력");
+            ChangeState(PlayerState.jumpState);
+        }
+        if (InputManger.Instance.input.Player.Sprint.WasPressedThisFrame())
+        {
+            ChangeState(PlayerState.dashState);
         }
     }
 }

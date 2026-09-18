@@ -18,4 +18,6 @@ public class GameManager : Singleton<GameManager>
 
     public GameState State { get; set; }
 
+
+
 }

@@ -17,9 +17,9 @@ public class Loding : Singleton<Loding>
         StartCoroutine(LoadScene());
     }
 
-    public static void LoadScene(string sceneName)
+    public static void LoadScene(SceneType sceneName)
     {
-        TargetScene = sceneName;
+        TargetScene = sceneName.ToString();
         SceneManager.LoadScene("Loading");
 
     }

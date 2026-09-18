@@ -1,35 +1,28 @@
 using UnityEngine;
 
+public enum SceneType
+{
+    Lobby,
+    Dungeon1,
+    Dungeon2,
+    BossRoom
+}
+
 public class SceneLoader : Singleton<SceneLoader>
 {
-    public string[] sceneName =
-    {
-        "Title",
-        "Lobby",
-        "Loading",
-        "Game",
-        "Dungeon1"
-    };
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void TitleLoadScene()
+    public void LoadingScene(SceneType name)
     {
-        Loding.LoadScene(sceneName[0]);
+        Loding.LoadScene(name);
     }
-    public void LobbyLoadScene()
+
+    public void LoadGame()
     {
-        Loding.LoadScene(sceneName[1]);
-    }
-    public void GameLoadScene()
-    {
-        Loding.LoadScene(sceneName[3]);
-    }
-    public void Dungeon1LoadScene()
-    {
-        Loding.LoadScene(sceneName[4]);
+        Loding.LoadScene(SceneType.Lobby);
     }
 }

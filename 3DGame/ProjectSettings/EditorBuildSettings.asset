@@ -20,6 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/9.Scenes/Dungeon1.unity
     guid: 7e58b2a4d9a5a704b8f07bd17377ca0e
+  - enabled: 1
+    path: Assets/9.Scenes/Dungeon2.unity
+    guid: c12426ef0baf40144893997e93d6fdcf
+  - enabled: 1
+    path: Assets/9.Scenes/BossRoom.unity
+    guid: 0eed8a327a01ee9458f8b232c7eedf54
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 828c6bb3de55e5544a81fd62c43cd58c, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

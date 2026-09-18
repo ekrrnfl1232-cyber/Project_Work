@@ -9,6 +9,7 @@ public static class GameEvents
     // 플레이어가 몬스터 잡았을때의 이벤트
     public static Action<MonsterData, int, float> PlayerKill;
     public static Action<int, float> ChangeCurrency;
+    public static Action ChangeUpdate;
 
     public static Action LevelChange;
     public static void RaiseQuestChanged()
@@ -29,5 +30,10 @@ public static class GameEvents
     public static void RaiseLevelChange()
     {
         LevelChange?.Invoke();
+    }
+
+    public static void RaiseChangeUpdate()
+    {
+        ChangeUpdate?.Invoke();
     }
 }

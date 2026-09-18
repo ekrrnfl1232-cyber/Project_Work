@@ -64,6 +64,7 @@ public class PlayerStat : MonoBehaviour
     private void AddExp(float addExp)
     {
         Exp += addExp;
+        GameEvents.RaiseChangeUpdate();
     }
 
     public void ResetStat()

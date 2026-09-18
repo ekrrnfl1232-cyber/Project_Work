@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIConstroller : Singleton<UIConstroller>
 {
-    public StatUI statUI;
+    //public StatUI statUI;
 
     public Inventory inventory;
     public EquipSystem equipSystem;
@@ -18,14 +18,15 @@ public class UIConstroller : Singleton<UIConstroller>
     private GameObject inven;
     private GameObject equip;
     private GameObject quest;
-    private GameObject stat;
+    //private GameObject stat;
 
     private void Awake()
     {
+        DontDestroyOnLoad(this);
         inven = inventory.transform.GetChild(0).gameObject;
         equip = equipSystem.transform.GetChild(0).gameObject;
         quest = Quest.transform.GetChild(0).gameObject;
-        stat = statUI.transform.GetChild(0).gameObject;
+        //stat = statUI.transform.GetChild(0).gameObject;
     }
 
     void Start()
@@ -34,11 +35,15 @@ public class UIConstroller : Singleton<UIConstroller>
         quest.SetActive(false);
         inven.SetActive(false);
         equip.SetActive(false);
-        stat.SetActive(false);
+        //stat.SetActive(false);
     }
     void Update()
     {
-        if(InputManger.Instance.input.UI.Inventory.WasPressedThisFrame())
+        UIHandleInput();
+    }
+    private void UIHandleInput()
+    {
+        if (InputManger.Instance.input.UI.Inventory.WasPressedThisFrame())
         {
             inven.SetActive(!inven.activeSelf);
             if (quest.activeInHierarchy)
@@ -47,25 +52,22 @@ public class UIConstroller : Singleton<UIConstroller>
             }
             IsInventory(inven.activeSelf);
         }
-        if(InputManger.Instance.input.UI.Quest.WasPressedThisFrame())
+        if (InputManger.Instance.input.UI.Quest.WasPressedThisFrame())
         {
             quest.SetActive(!quest.activeSelf);
         }
-        if(InputManger.Instance.input.UI.Equip.WasPressedThisFrame())
-        { 
+        if (InputManger.Instance.input.UI.Equip.WasPressedThisFrame())
+        {
             equip.SetActive(!equip.activeSelf);
         }
-        if(InputManger.Instance.input.UI.Stat.WasPressedThisFrame())
+        if (InputManger.Instance.input.UI.Stat.WasPressedThisFrame())
         {
-            stat.SetActive(!stat.activeSelf);
+            //stat.SetActive(!stat.activeSelf);
         }
-
-        
     }
-
     private void IsInventory(bool active)
     {
-        if(active)
+        if (active)
         {
             InputManger.Instance.input.Player.Disable();
         }
@@ -75,7 +77,7 @@ public class UIConstroller : Singleton<UIConstroller>
         }
     }
 
-    public void OnSave()
+    public void OnSave()    
     {
         GameSaveData data = new GameSaveData();
 
