@@ -9,6 +9,7 @@ public class PlayerAttackState : IState
     }
     public void Enter()
     {
+        player.Cool.Reset(PlayerCool.Attack);
         player.animator.SetTrigger("Sword01");
         Vector3 posAttack = player.transform.position + player.transform.forward * 1f;
         posAttack.y += 0.5f;
@@ -23,7 +24,7 @@ public class PlayerAttackState : IState
                 break;
             }
         }
-        player.AtkCool.Start();
+        player.Cool.Start(PlayerCool.Attack);
         player.ChangeState(PlayerState.idleState);
     }
 

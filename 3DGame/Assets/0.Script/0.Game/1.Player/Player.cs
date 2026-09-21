@@ -1,6 +1,7 @@
 using DG.Tweening.Core.Easing;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 public enum PlayerState
 {
@@ -35,8 +36,8 @@ public class Player : MonoBehaviour, IDamageable
     public Dictionary<PlayerState, IState> States { get; private set; }
 
     // 쿨타임
-    private Cooldown coolDown = new Cooldown(1f);
-    public Cooldown AtkCool { get { return coolDown; }}
+    private PlayerCooldown cooldown = new PlayerCooldown(1f, 1f);
+    public PlayerCooldown Cool { get { return cooldown; } }
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour, IDamageable
         view.ExpUpdata();
         view.CreateHp();
         ChangeState(PlayerState.idleState);
+        InputManger.Instance.input.Player.Get().actionTriggered += OnAction;
     }
 
     private void Update()
@@ -63,18 +65,14 @@ public class Player : MonoBehaviour, IDamageable
         {
             stat.MoveDir = Vector2.zero;
         }
-            stat.Movement = new Vector3(stat.MoveDir.x, 0, stat.MoveDir.y).normalized;
-        if (controll.isGrounded)
-        {
-            HandleInput();
-        }
+        stat.Movement = new Vector3(stat.MoveDir.x, 0, stat.MoveDir.y).normalized;
         if (InputManger.Instance.input.Player.enabled)
         {
             Interect();
             Look();
         }
         Gravity();
-        AtkCool?.Tick(Time.deltaTime);
+        Cool.TIck(Time.deltaTime);
         currentState?.Tick();
     }
 
@@ -107,10 +105,6 @@ public class Player : MonoBehaviour, IDamageable
             stat.Hp -= damage;
             DamageFontManager.Instance.CreateText(damage, transform.position);
             ChangeState(PlayerState.hitState);
-        }
-        else
-        {
-            Debug.Log($"{name} Dead");
         }
     }
 
@@ -163,21 +157,29 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    private void HandleInput()
+    private void OnAction(InputAction.CallbackContext contxt)
     {
-        if (InputManger.Instance.input.Player.Attack.WasPressedThisFrame() && AtkCool.IsReady)
+        if(!controll.isGrounded)
         {
-            Debug.Log("공격키 입력");
-            ChangeState(PlayerState.attackState);
+            return;
         }
-        if (InputManger.Instance.input.Player.Jump.WasPressedThisFrame())
+        switch (contxt.action.name)
         {
-            Debug.Log("점프 키 입력");
-            ChangeState(PlayerState.jumpState);
-        }
-        if (InputManger.Instance.input.Player.Sprint.WasPressedThisFrame())
-        {
-            ChangeState(PlayerState.dashState);
+            case "Attack":
+                if(Cool.IsReady(PlayerCool.Attack))
+                {
+                    ChangeState(PlayerState.attackState);
+                }
+                break;
+            case "Jump":
+                ChangeState(PlayerState.jumpState);
+                break;
+            case "Sprint":
+                if (Cool.IsReady(PlayerCool.Dash))
+                {
+                    ChangeState(PlayerState.dashState);
+                }
+                break;
         }
     }
 }

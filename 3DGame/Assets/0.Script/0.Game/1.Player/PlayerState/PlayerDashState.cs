@@ -14,6 +14,7 @@ public class PlayerDashState : IState
 
     public void Enter()
     {
+        player.Cool.Reset(PlayerCool.Dash);
         player.animator.SetBool("ShieldRush", true);
         timer = 0f;
         dashDir = player.transform.forward;
@@ -31,6 +32,7 @@ public class PlayerDashState : IState
         if(timer >= 0.2f)
         {
             player.animator.SetBool("ShieldRush", false);
+            player.Cool.Start(PlayerCool.Dash);
             player.ChangeState(PlayerState.idleState);
         }
 

@@ -6,15 +6,15 @@ public class Cooldown
     private float cooldownTime;
     private float timer;
 
-    public bool IsReady
-    {
-        get { return timer <= 0f; }
-    }
 
     public Cooldown(float cooldwonTime)
     {
         this.cooldownTime = cooldwonTime;
         timer = 0f;
+    }
+    public bool IsReady
+    {
+        get { return timer <= 0f; }
     }
 
     public void Start()

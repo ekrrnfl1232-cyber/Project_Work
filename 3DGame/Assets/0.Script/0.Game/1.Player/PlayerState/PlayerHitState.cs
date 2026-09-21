@@ -15,15 +15,12 @@ public class PlayerHitState : IState
     public void Enter()
     {
         player.animator.SetTrigger("Hit");
-        Debug.Log("Player 타격 받음");
-        Debug.Log($"남은 체력 : {player.stat.Hp}");
         player.view.HpUpdate(player.stat.Hp, player.data.Maxhp);
         player.ChangeState(player.prevState);
     }
 
     public void Exit()
     {
-        Debug.Log("피격 나감");
     }
 
     public void Tick()
