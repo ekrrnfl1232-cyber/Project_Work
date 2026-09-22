@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class PlayerStat : MonoBehaviour
@@ -9,13 +10,13 @@ public class PlayerStat : MonoBehaviour
     private int hp;
 
     [SerializeField]
-    private int level;
+    private static int level;
 
     [SerializeField]
-    private float exp;
+    private static float exp;
 
     [SerializeField]
-    private float maxExp;
+    private static float maxExp;
 
     [SerializeField]
     private int baseAttack;
@@ -26,15 +27,19 @@ public class PlayerStat : MonoBehaviour
     [SerializeField]
     private float baseSpeed;
 
+    [SerializeField]
+    private int areaDamage;
+
     public int Hp { get { return hp; } set { hp = value; } }
     public int BaseMaxHp { get; set; }
-    public int Level {get { return level; } set { level = value; } }
-    public float Exp { get { return exp; } set { exp = value; } }
-    public float MaxExp { get { return maxExp; } set { maxExp = value; } }
+    public static int Level {get { return level; } set { level = value; } }
+    public static float Exp { get { return exp; } set { exp = value; } }
+    public static float MaxExp { get { return maxExp; } set { maxExp = value; } }
 
     public int BaseAttack { get { return baseAttack; } set { baseAttack = value; } }
     public int BaseDefence { get { return baseDefence; } private set { baseDefence = value; } }
     public float BaseSpeed { get { return baseSpeed; } private set { baseSpeed = value; } }
+    public int AreaDamage { get { return areaDamage; } private set { areaDamage = value; } }
 
     public float InterationScale { get; set; }
     public float VerticalVelo { get; set; }
@@ -53,6 +58,7 @@ public class PlayerStat : MonoBehaviour
 
         BaseAttack = data.Wdamage;
         BaseSpeed = data.MoveForce;
+        AreaDamage = data.AreaDmg;
 
         VerticalVelo = 0f;
         Level = 1;
@@ -64,7 +70,16 @@ public class PlayerStat : MonoBehaviour
     private void AddExp(float addExp)
     {
         Exp += addExp;
-        GameEvents.RaiseChangeUpdate();
+        if (Exp >= MaxExp)
+        {
+            while (Exp >= MaxExp)
+            {
+                Exp -= MaxExp;
+                Level += 1;
+                MaxExp += 100f;
+            }
+        }
+        GameEvents.RaiseChangeEXPUpdate();
     }
 
     public void ResetStat()

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Player
+  m_GUID: 606c7ed0a0dca7b44a1417b642a177be
+  m_SerializeEntries:
+  - m_GUID: 1eb6085ddd0182e4fb67499e2ec6891a
+    m_Address: AreaAttack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Skill
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d754e21e73a053428ce20e9624f724e
+    m_Address: MaxHp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ui
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: eeb190f4fdc1b21479548a96dae26d12, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 43a50dbc0dd7c5a4b89d7794538c969d, type: 2}
+    - {fileID: 11400000, guid: f9157aa7129e5814f859fe61a70b4b07, type: 2}

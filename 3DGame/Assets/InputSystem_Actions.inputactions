@@ -122,6 +122,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Area",
+                    "type": "Button",
+                    "id": "d6f83df3-0589-4201-8933-25736f09ba0a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -540,6 +549,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Equip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "738c43a9-9a6d-4b77-ac6b-ca0412b29df1",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Area",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

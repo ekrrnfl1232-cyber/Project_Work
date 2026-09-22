@@ -2,8 +2,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum PlayerSkill
+{
+    Area
+}
+
 public class PlayerView : MonoBehaviour
 {
+
+    [Header("Skill")]
+    [SerializeField] public GameObject area;
 
     [Header("UI")]
     [SerializeField] private Transform isParent;
@@ -44,27 +52,23 @@ public class PlayerView : MonoBehaviour
 
     public void ExpUpdata()
     {
-        if (stats.Exp >= stats.MaxExp)
-        {
-            while(stats.Exp >= stats.MaxExp)
-            {
-                stats.Exp -= stats.MaxExp;
-                stats.Level += 1;
-                GameEvents.RaiseLevelChange();
-                stats.MaxExp += 100f;
-            }
-        }
-        exptext.text = $"LV.{stats.Level} {stats.Exp / stats.MaxExp * 100f}% ({stats.Exp} / {stats.MaxExp})";
-        expImg.rectTransform.sizeDelta = new Vector2(1920f * (stats.Exp / stats.MaxExp), 20f);
+        exptext.text = $"LV.{PlayerStat.Level} {PlayerStat.Exp / PlayerStat.MaxExp * 100f}% ({PlayerStat.Exp} / {PlayerStat.MaxExp})";
+        expImg.rectTransform.sizeDelta = new Vector2(1920f * (PlayerStat.Exp / PlayerStat.MaxExp), 20f);
+    }
+
+    public void Area(Vector3 pos)
+    {
+        area.SetActive(true);
+        area.transform.position = pos;
     }
 
     private void OnEnable()
     {
-        GameEvents.ChangeUpdate += ExpUpdata;
+        GameEvents.ChangeEXPUpdate += ExpUpdata;
     }
 
     private void OnDisable()
     {
-        GameEvents.ChangeUpdate -= ExpUpdata;
+        GameEvents.ChangeEXPUpdate -= ExpUpdata;
     }
 }

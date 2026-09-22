@@ -8,7 +8,6 @@ public class InputManger : Singleton<InputManger>
     private void Awake()
     {
         input = new InputSystem_Actions();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()

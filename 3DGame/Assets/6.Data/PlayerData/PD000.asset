@@ -17,5 +17,7 @@ MonoBehaviour:
   jumpHeight: 10
   dashForce: 15
   moveForce: 5
-  damage: 100
+  damage: 10
+  areaDmg: 20
   maxExp: 500
+  interationScale: 2

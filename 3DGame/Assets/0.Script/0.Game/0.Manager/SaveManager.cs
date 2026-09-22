@@ -29,7 +29,6 @@ public class SaveManager : Singleton<SaveManager>
     
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         savePath = Path.Combine(Application.persistentDataPath, "save.Json");
     }
     public void Save(GameSaveData data)

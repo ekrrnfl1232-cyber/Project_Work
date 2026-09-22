@@ -16,7 +16,6 @@ public class StatUI : Singleton<StatUI>
 
     private void Awake()
     {
-        GameEvents.LevelChange += LevelChange;
 
        
         view.LevelView();

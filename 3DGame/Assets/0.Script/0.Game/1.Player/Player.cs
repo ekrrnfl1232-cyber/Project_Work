@@ -10,7 +10,8 @@ public enum PlayerState
     attackState,
     jumpState,
     dashState,
-    hitState
+    hitState,
+    AreaState
 }
 
 public class Player : MonoBehaviour, IDamageable
@@ -26,8 +27,8 @@ public class Player : MonoBehaviour, IDamageable
     public CharacterController controll;
     public BoxCollider sword;
 
-    [Header("UI")]
-    public GameObject UiSystem;
+    private bool isTargeting = false;
+    public bool IsTargeting { get { return isTargeting; } set { isTargeting = value; } }
 
     // »óÅÂ
     private IState currentState;
@@ -36,7 +37,7 @@ public class Player : MonoBehaviour, IDamageable
     public Dictionary<PlayerState, IState> States { get; private set; }
 
     // ÄðÅ¸ÀÓ
-    private PlayerCooldown cooldown = new PlayerCooldown(1f, 1f);
+    private PlayerCooldown cooldown = new PlayerCooldown();
     public PlayerCooldown Cool { get { return cooldown; } }
 
     private void Awake()
@@ -49,8 +50,8 @@ public class Player : MonoBehaviour, IDamageable
         view = GetComponent<PlayerView>();
         view.ExpUpdata();
         view.CreateHp();
-        ChangeState(PlayerState.idleState);
         InputManger.Instance.input.Player.Get().actionTriggered += OnAction;
+        ChangeState(PlayerState.idleState);
     }
 
     private void Update()
@@ -94,7 +95,8 @@ public class Player : MonoBehaviour, IDamageable
             { PlayerState.attackState, new PlayerAttackState(this) },
             { PlayerState.jumpState, new PlayerJumpState(this) },
             { PlayerState.dashState, new PlayerDashState(this) },
-            { PlayerState.hitState, new PlayerHitState(this) }
+            { PlayerState.hitState, new PlayerHitState(this) },
+            { PlayerState.AreaState, new PlayerAreaSkillState(this) }
         };
     }
 
@@ -163,23 +165,42 @@ public class Player : MonoBehaviour, IDamageable
         {
             return;
         }
+        if(!contxt.performed)
+        {
+            return;
+        }
         switch (contxt.action.name)
         {
             case "Attack":
-                if(Cool.IsReady(PlayerCool.Attack))
+                if(Cool.IsReady(PlayerCool.Attack) && IsTargeting == false)
                 {
                     ChangeState(PlayerState.attackState);
                 }
                 break;
             case "Jump":
-                ChangeState(PlayerState.jumpState);
+                if (IsTargeting == false)
+                {
+                    ChangeState(PlayerState.jumpState);
+                }
                 break;
             case "Sprint":
-                if (Cool.IsReady(PlayerCool.Dash))
+                if (Cool.IsReady(PlayerCool.Dash) && IsTargeting == false)
                 {
                     ChangeState(PlayerState.dashState);
                 }
                 break;
+            case "Area":
+                if(Cool.IsReady(PlayerCool.Area))
+                {
+                    IsTargeting = true;
+                    ChangeState(PlayerState.AreaState);
+                }
+                break;
         }
+    }
+
+    private void OnDisable()
+    {
+        InputManger.Instance.input.Player.Get().actionTriggered -= OnAction;
     }
 }
