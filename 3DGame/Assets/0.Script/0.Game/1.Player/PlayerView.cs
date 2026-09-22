@@ -47,7 +47,8 @@ public class PlayerView : MonoBehaviour
 
     public void HpUpdate(int hp, int maxHp)
     {
-        hpImg.rectTransform.sizeDelta = new Vector2(hpImg.rectTransform.sizeDelta.x * ((float)hp / maxHp), 30f);
+        float ratio = maxHp > 0 ? Mathf.Clamp01((float)hp / maxHp) : 0f;
+        hpImg.rectTransform.sizeDelta = new Vector2(200f * ratio, 30f);
     }
 
     public void ExpUpdata()
