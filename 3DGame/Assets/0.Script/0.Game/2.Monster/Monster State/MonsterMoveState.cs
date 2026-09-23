@@ -29,14 +29,14 @@ public class MonsterMoveState : IState
         if(monster.Model.TargetDis <= 1.5f)
         {
             monster.agent.ResetPath();
-            monster.ChangeState("idleState");
+            monster.ChangeState(MonsterState.idle);
         }
         
 
         if (!monster.IsFind && monster.StartDis >= monster.data.SpawnRange)
         {
             monster.agent.ResetPath();
-            monster.ChangeState("patrolState");
+            monster.ChangeState(MonsterState.idle);
         }
     }
 }

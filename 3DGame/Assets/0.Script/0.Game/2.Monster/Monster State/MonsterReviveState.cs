@@ -23,7 +23,7 @@ public class MonsterReviveState : IState
         monster.MonsterAni.Play("Mini Simple Characters Armature|Loose", 0, 1f);
 
         monster.Model.HP = monster.data.Hp;
-        monster.ChangeState("idleState");
+        monster.ChangeState(MonsterState.idle);
     }
 
     public void Exit()

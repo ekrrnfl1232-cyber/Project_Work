@@ -30,6 +30,8 @@ public class PlayerStat : MonoBehaviour
     [SerializeField]
     private int areaDamage;
 
+    private static bool isInit = false;
+
     public int Hp { get { return hp; } set { hp = value; } }
     public int BaseMaxHp { get; set; }
     public static int Level {get { return level; } set { level = value; } }
@@ -60,10 +62,15 @@ public class PlayerStat : MonoBehaviour
         BaseSpeed = data.MoveForce;
         AreaDamage = data.AreaDmg;
 
+        if(!isInit)
+        {
+            Level = 1;
+            Exp = 0f;
+            MaxExp = 500f;
+            isInit = true;
+        }
+
         VerticalVelo = 0f;
-        Level = 1;
-        Exp = 0;
-        MaxExp = 500;
         ResetStat();
     }
 

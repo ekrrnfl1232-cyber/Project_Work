@@ -2,13 +2,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum MonsterState
+{
+    idle,
+    chase,
+    attack,
+    patrol,
+    revive,
+    dead,
+    hit
+}
 public class Monster : MonoBehaviour, IDamageable
 {
     public Transform target;
 
     public LayerMask targetlayer { get; private set; }
     private IState currentState;
-    private string currentKey;
+    private MonsterState currentKey;
 
     public bool IsFind { get; private set; }
     public Cooldown attackCool { get; set; } = new Cooldown(5f);
@@ -22,8 +32,8 @@ public class Monster : MonoBehaviour, IDamageable
     public NavMeshAgent agent {  get; set; }
     [SerializeField] public MonsterData data;
     public bool IsLive { get; set; } = true;
-    public string PrevState { get; private set; }
-    public Dictionary<string, IState> States { get; private set; }
+    public MonsterState PrevState { get; private set; }
+    public Dictionary<MonsterState, IState> States { get; private set; }
     public float StartDis { get; private set; }
     void Awake()
     {
@@ -44,7 +54,7 @@ public class Monster : MonoBehaviour, IDamageable
         Model.HP = Model.MaxHP = data.Hp;
 
         View.CreateHp();
-        ChangeState("idleState");
+        ChangeState(MonsterState.idle);
     }
     void Update()
     {
@@ -62,7 +72,7 @@ public class Monster : MonoBehaviour, IDamageable
         currentState?.Tick();
     }
 
-    public void ChangeState(string state)
+    public void ChangeState(MonsterState state)
     {
         PrevState = currentKey;
         currentState?.Exit();
@@ -80,7 +90,7 @@ public class Monster : MonoBehaviour, IDamageable
     }
     public void ReSpawn()
     {
-        ChangeState("reviveState");
+        ChangeState(MonsterState.revive);
     }
     public void TakeDamage(int damage)
     {
@@ -89,7 +99,7 @@ public class Monster : MonoBehaviour, IDamageable
             if (Model.HP != 0)
             {
                 Model.HP = 0;
-                ChangeState("deadState");
+                ChangeState(MonsterState.dead);
             }
             else
                 return;
@@ -97,7 +107,7 @@ public class Monster : MonoBehaviour, IDamageable
         else if (Model.HP != 0)
         {
             Model.HP -= damage;
-            ChangeState("hitState");
+            ChangeState(MonsterState.hit);
             DamageFontManager.Instance.CreateText(damage, transform.position);
         }
         else
@@ -106,15 +116,15 @@ public class Monster : MonoBehaviour, IDamageable
 
     private void SettingState()
     {
-        States = new Dictionary<string, IState>()
+        States = new Dictionary<MonsterState, IState>()
         {
-            { "attackState", new MonsterAttackState(this) },
-            { "idleState", new MonsterIdleState(this) },
-            { "moveState", new MonsterMoveState(this) },
-            { "patrolState", new MonsterPatrolState(this) },
-            { "reviveState", new MonsterReviveState(this) },
-            { "deadState", new MonsterDeadState(this) },
-            { "hitState", new MonsterHitState(this) }
+            { MonsterState.attack, new MonsterAttackState(this) },
+            { MonsterState.idle, new MonsterIdleState(this) },
+            { MonsterState.chase, new MonsterMoveState(this) },
+            { MonsterState.patrol, new MonsterPatrolState(this) },
+            { MonsterState.revive, new MonsterReviveState(this) },
+            { MonsterState.dead, new MonsterDeadState(this) },
+            { MonsterState.hit, new MonsterHitState(this) }
         };
     }
 

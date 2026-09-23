@@ -25,18 +25,20 @@ public class PlayerAreaSkillState : IState
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit hit))
         {
-            range.transform.position = hit.point;
+            Vector3 pos = hit.point;
+            pos.y = range.transform.position.y;
+            range.transform.position = pos;
         }
-        if(Input.GetMouseButtonDown(0))
+        
+        if (Input.GetMouseButtonDown(0))
         {
             Collider[] targetCheck = Physics.OverlapSphere
-            (range.transform.position, 4f, LayerMask.GetMask("Monster"));
+            (range.transform.position, 2f, LayerMask.GetMask("Monster"));
             foreach(var tar in targetCheck)
             {
                 if (tar.TryGetComponent<IDamageable>(out IDamageable damage))
                 {
                     damage.TakeDamage(player.stat.AreaDamage);
-                    break;
                 }
             }
             range.SetActive(false);

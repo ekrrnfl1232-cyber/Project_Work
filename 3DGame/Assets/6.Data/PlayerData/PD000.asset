@@ -18,6 +18,6 @@ MonoBehaviour:
   dashForce: 15
   moveForce: 5
   damage: 10
-  areaDmg: 20
+  areaDmg: 100
   maxExp: 500
   interationScale: 2

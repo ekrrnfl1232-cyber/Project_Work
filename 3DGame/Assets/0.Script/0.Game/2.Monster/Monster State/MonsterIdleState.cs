@@ -27,10 +27,10 @@ public class MonsterIdleState : IState
             monster.transform.LookAt(monster.target);
             if (monster.attackCool.IsReady)
             {
-                monster.ChangeState("attackState");
+                monster.ChangeState(MonsterState.attack);
             }
         }
         if (monster.IsFind && monster.Model.TargetDis > monster.data.Range)
-            monster.ChangeState("moveState");
+            monster.ChangeState(MonsterState.chase);
     }
 }

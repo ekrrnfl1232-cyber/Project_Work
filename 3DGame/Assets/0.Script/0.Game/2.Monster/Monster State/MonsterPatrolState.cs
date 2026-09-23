@@ -27,11 +27,11 @@ public class MonsterPatrolState : IState
         if (monster.agent.remainingDistance < 0.5f)
         {
             monster.agent.ResetPath();
-            monster.ChangeState("idleState");
+            monster.ChangeState(MonsterState.idle);
         }
         else if (monster.IsFind && monster.Model.TargetDis >= monster.data.Range)
         {
-            monster.ChangeState("moveState");
+            monster.ChangeState(MonsterState.chase);
         }
     }
 
