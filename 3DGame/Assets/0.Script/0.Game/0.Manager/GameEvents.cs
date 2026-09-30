@@ -10,6 +10,8 @@ public static class GameEvents
     public static Action<MonsterData, int, float> PlayerKill;
     public static Action<int, float> ChangeCurrency;
     public static Action ChangeEXPUpdate;
+    // 플레이어가 전투방 진입 시
+    public static Action<BoxCollider> EnPlayer;
 
     public static void RaiseQuestChanged()
     {
@@ -29,5 +31,10 @@ public static class GameEvents
     public static void RaiseChangeEXPUpdate()
     {
         ChangeEXPUpdate?.Invoke();
+    }
+
+    public static void RaiseChangeEnPlayer(BoxCollider col)
+    {
+        EnPlayer?.Invoke(col);
     }
 }
