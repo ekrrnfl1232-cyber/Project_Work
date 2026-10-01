@@ -18,12 +18,10 @@ public class MonsterReviveState : IState
         monster.View.CreateHp();
         monster.IsLive = true;
 
-        monster.MonsterAni.SetBool("IsDead", false);
-        monster.MonsterAni.SetFloat("AnimSpeed", -1f);
-        monster.MonsterAni.Play("Mini Simple Characters Armature|Loose", 0, 1f);
+        monster.MonsterAni.SetTrigger("Idle");
 
         monster.Model.HP = monster.data.Hp;
-        monster.ChangeState(MonsterState.idle);
+        
     }
 
     public void Exit()

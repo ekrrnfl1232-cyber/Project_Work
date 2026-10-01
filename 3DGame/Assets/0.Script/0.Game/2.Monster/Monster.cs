@@ -90,7 +90,7 @@ public class Monster : MonoBehaviour, IDamageable
     }
     public void ReSpawn()
     {
-        ChangeState(MonsterState.revive);
+
     }
     public void TakeDamage(int damage)
     {

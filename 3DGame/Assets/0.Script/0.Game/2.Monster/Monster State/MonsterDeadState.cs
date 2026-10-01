@@ -4,9 +4,11 @@ using UnityEngine;
 public class MonsterDeadState : IState
 {
     Monster monster;
+    float time;
     public MonsterDeadState (Monster monster)
     {
         this.monster = monster;
+        time = 2f;
     }
 
     public void Enter()
@@ -16,7 +18,6 @@ public class MonsterDeadState : IState
         monster.MonsterAni.SetTrigger("Dead");
         monster.MonsterAni.SetBool("IsDead", true);
         monster.View.HpUpdate(monster.Model.HP, monster.Model.MaxHP);
-        Debug.Log($"{monster.name} Dead");
         monster.Invoke("OnDead", 2f);
     }
 
@@ -26,6 +27,7 @@ public class MonsterDeadState : IState
 
     public void Tick()
     {
+        time -= Time.deltaTime;
     }
 
 }

@@ -5,7 +5,8 @@ public enum SceneType
     Lobby,
     Dungeon1,
     Dungeon2,
-    BossRoom
+    BossRoom,
+    TestRoom
 }
 
 public class SceneLoader : Singleton<SceneLoader>
@@ -23,6 +24,6 @@ public class SceneLoader : Singleton<SceneLoader>
 
     public void LoadGame()
     {
-        Loding.LoadScene(SceneType.Lobby);
+        Loding.LoadScene(SceneType.TestRoom);
     }
 }

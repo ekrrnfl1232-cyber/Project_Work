@@ -2,40 +2,44 @@ using UnityEngine;
 
 public class MonsterSpawn : MonoBehaviour
 {
-    [SerializeField] private BoxCollider combat01;
     [SerializeField] private int spawnCount = 5;
     void Start()
     {
         ObjectPoolManager.Instance.CreateObj(PoolType.Enemy, 10);
+        SpawnMonster();
     }
 
     private void OnEnable()
     {
-        GameEvents.EnPlayer += SpawnMonster;
+        //GameEvents.EnPlayer += SpawnMonster;
+
     }
     private void OnDisable()
     {
-        GameEvents.EnPlayer -= SpawnMonster;
+        //GameEvents.EnPlayer -= SpawnMonster;
     }
 
-    public void SpawnMonster(BoxCollider col)
+
+
+    public void SpawnMonster()
     {
         for(int i = 0; i < spawnCount; ++i)
         {
             GameObject monster = ObjectPoolManager.Instance.GetObject(PoolType.Enemy);
-            monster.transform.position = RandomPostion(col);
+            monster.transform.position = RandomPostion();
             monster.SetActive(true);
         }
     }
 
-    public Vector3 RandomPostion(BoxCollider col)
+    public Vector3 RandomPostion()
     {
-        Bounds bounds = col.bounds;
+        Vector2 pos = Random.insideUnitCircle * 13f;
 
-        float x = Random.Range(bounds.min.x, bounds.max.x);
-        float z = Random.Range(bounds.min.z, bounds.max.z);
+        return new Vector3(transform.position.x + pos.x, 1f, transform.position.z + pos.y);
+    }
 
-        Vector3 pos = new Vector3(x, bounds.center.y, z);
-        return pos;
+    public void ReturnObject()
+    {
+
     }
 }
