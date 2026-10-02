@@ -7,14 +7,17 @@ public enum PoolType
 {
     Enemy,
     equip,
-    potion
+    potion,
+    HpBar
 }
 
 public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
-    [SerializeField] private Dictionary<PoolType, Queue<GameObject>> pool;
+    private Dictionary<PoolType, Queue<GameObject>> pool;
+    [SerializeField] private Transform uiParent;
 
     [SerializeField] private GameObject Enemy;
+    [SerializeField] private GameObject Hpbar;
 
     private void Awake()
     {
@@ -43,15 +46,18 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
                 break;
             case PoolType.potion:
                 break;
+            case PoolType.HpBar:
+                spawnObj = Hpbar;
+                break;
         }    
 
         for(int i = 0; i < size; ++i)
         {
-            GameObject Mon = Instantiate(spawnObj, transform);
+            GameObject obj = Instantiate(spawnObj, transform);
 
-            Mon.SetActive(false);
+            obj.SetActive(false);
 
-            pool[type].Enqueue(Mon);
+            pool[type].Enqueue(obj);
         }
     }
 
@@ -67,6 +73,8 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
                     break;
                 case PoolType.potion:
                     break;
+                case PoolType.HpBar:
+                    return Instantiate(Hpbar, uiParent);
             }
         }
         GameObject obj = pool[type].Dequeue();

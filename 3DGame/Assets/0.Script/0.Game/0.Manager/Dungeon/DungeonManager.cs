@@ -1,39 +1,28 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DungeonManager : MonoBehaviour
+public class DungeonManager : Singleton<DungeonManager>
 {
-    public GameObject door;
+    private List<GameObject> monster;
 
-    [SerializeField] private TMP_Text count;
-
-    private int targetCount;
-
-    private int killCount;
-    void Start()
+    private void Awake()
     {
-        killCount = 0;
-        targetCount = 10;
-        door.SetActive(false);
-        GameEvents.PlayerKill += (data, gold, exp) => Target();
+        monster = new();
+        GameEvents.DeadMonster += IsKillMonster;
     }
 
-    private void Update()
+    public void Add(GameObject mon)
     {
-        if(killCount >= targetCount)
+        monster.Add(mon);
+    }
+
+    public void IsKillMonster()
+    {
+        monster.RemoveAt(0);
+        if(monster.Count == 0)
         {
-            door.SetActive(true);
+            GameEvents.RaiseClearCombat();
         }
-    }
-
-    private void Target()
-    {
-        killCount++;
-        count.text = $"{ killCount }/{ targetCount }";
-    }
-
-    private void OnDestroy()
-    {
-        GameEvents.PlayerKill -= (data, gold, exp) => Target();
     }
 }

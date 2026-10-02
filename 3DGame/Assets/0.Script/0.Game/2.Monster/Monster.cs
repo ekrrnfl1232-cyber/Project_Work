@@ -14,9 +14,8 @@ public enum MonsterState
 }
 public class Monster : MonoBehaviour, IDamageable
 {
-    public Transform target;
+    public Transform Target {  get; set; }
 
-    public LayerMask targetlayer { get; private set; }
     private IState currentState;
     private MonsterState currentKey;
 
@@ -28,13 +27,18 @@ public class Monster : MonoBehaviour, IDamageable
     public MonsterView View { get; set; }
     public MonsterModel Model { get; set; }
 
-    public QuestManager qm;
     public NavMeshAgent agent {  get; set; }
-    [SerializeField] public MonsterData data;
+    public MonsterData data { get; set; }
     public bool IsLive { get; set; } = true;
     public MonsterState PrevState { get; private set; }
     public Dictionary<MonsterState, IState> States { get; private set; }
     public float StartDis { get; private set; }
+
+    public void Init(MonsterData data)
+    {
+        this.data = data;
+    }
+
     void Awake()
     {
         Model = new MonsterModel
@@ -42,23 +46,22 @@ public class Monster : MonoBehaviour, IDamageable
                 data.Hp,
                 transform.position
             );
+        MonsterAni = GetComponent<Animator>();
+        View = GetComponent<MonsterView>();
+        agent = GetComponent<NavMeshAgent>();
         SettingState();
     }
 
     void Start()
     {
-        MonsterAni = GetComponent<Animator>();
-        View = GetComponent<MonsterView>();
-        agent = GetComponent<NavMeshAgent>();
-        targetlayer = LayerMask.GetMask("Player");
         Model.HP = Model.MaxHP = data.Hp;
 
-        View.CreateHp();
+        View.CreateHp(transform.position);
         ChangeState(MonsterState.idle);
     }
     void Update()
     {
-        if (target == null || agent == null)
+        if (Target == null || agent == null)
             return;
 
         View.HPbar(transform.position);
@@ -67,7 +70,7 @@ public class Monster : MonoBehaviour, IDamageable
         attackCool.Tick(Time.deltaTime);
 
         StartDis = Vector3.Distance(transform.position, Model.StartPos);
-        Model.TargetDis = Vector3.Distance(transform.position, target.position);
+        Model.TargetDis = Vector3.Distance(transform.position, Target.position);
 
         currentState?.Tick();
     }
@@ -85,12 +88,13 @@ public class Monster : MonoBehaviour, IDamageable
     {
         gameObject.SetActive(false);
         GameEvents.RaiseKillChange(data, data.GetGold, data.GetExp);
+        GameEvents.RaiseChangeDeadMonster();
         View.DeleteHp();
         Invoke("ReSpawn", 1f);
     }
     public void ReSpawn()
     {
-
+        ChangeState(MonsterState.revive);
     }
     public void TakeDamage(int damage)
     {
@@ -143,5 +147,20 @@ public class Monster : MonoBehaviour, IDamageable
             }
         }
     }
-    
+
+    private void ChaseTarget(Transform target)
+    {
+        Target = target; 
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.ChaseMonster += ChaseTarget;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.ChaseMonster -= ChaseTarget;
+    }
+
 }

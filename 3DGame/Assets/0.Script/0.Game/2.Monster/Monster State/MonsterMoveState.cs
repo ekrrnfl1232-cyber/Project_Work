@@ -24,7 +24,7 @@ public class MonsterMoveState : IState
 
     public void Tick()
     {
-        monster.agent.SetDestination(monster.target.position);
+        monster.agent.SetDestination(monster.Target.position);
         
         if(monster.Model.TargetDis <= 1.5f)
         {

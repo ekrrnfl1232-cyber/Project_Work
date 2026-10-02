@@ -24,7 +24,7 @@ public class MonsterIdleState : IState
     {
         if (monster.IsFind && monster.Model.TargetDis <= monster.data.Range && monster.IsLive)
         {
-            monster.transform.LookAt(monster.target);
+            monster.transform.LookAt(monster.Target);
             if (monster.attackCool.IsReady)
             {
                 monster.ChangeState(MonsterState.attack);

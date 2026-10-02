@@ -12,16 +12,12 @@ public class MonsterReviveState : IState
 
     public void Enter()
     {
-        monster.transform.position = monster.Model.StartPos;
-
-        monster.gameObject.SetActive(true);
-        monster.View.CreateHp();
         monster.IsLive = true;
-
         monster.MonsterAni.SetTrigger("Idle");
 
         monster.Model.HP = monster.data.Hp;
-        
+
+        ObjectPoolManager.Instance.ReturnObject(PoolType.Enemy, monster.gameObject);
     }
 
     public void Exit()

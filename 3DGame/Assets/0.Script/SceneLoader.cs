@@ -24,6 +24,6 @@ public class SceneLoader : Singleton<SceneLoader>
 
     public void LoadGame()
     {
-        Loding.LoadScene(SceneType.TestRoom);
+        Loding.LoadScene(SceneType.Lobby);
     }
 }

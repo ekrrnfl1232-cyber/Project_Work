@@ -3,16 +3,17 @@ using UnityEngine.UI;
 
 public class MonsterView : MonoBehaviour
 {
-    [SerializeField] private Transform isParent;
-    [SerializeField] private GameObject prefabHP;
 
     private GameObject hpBG;
     private Image hpImg;
 
-    public void CreateHp()
+    public void CreateHp(Vector3 pos)
     {
-        hpBG = Instantiate(prefabHP, isParent);
+        ObjectPoolManager.Instance.CreateObj(PoolType.HpBar, 1);
+        hpBG = ObjectPoolManager.Instance.GetObject(PoolType.HpBar);
         hpImg = hpBG.transform.GetChild(0).GetComponent<Image>();
+        HPbar(pos);
+        hpBG.SetActive(true);
     }
     public void DeleteHp()
     {
