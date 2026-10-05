@@ -1,0 +1,660 @@
+{
+  "date": "2026-10-05",
+  "files": [
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/Cooldown.cs",
+      "bytes": 567,
+      "sha256": "F38CA92BAF0FB78C5735A13ADE61C9E12B18D87C7F5C3A9276955E621CF94B89"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/Dungeon/DungeonManager.cs",
+      "bytes": 548,
+      "sha256": "C622EDB454DB640170EB02313F19C80E27D567446360A82A05A0C1688C352DE4"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/GameEvents.cs",
+      "bytes": 1769,
+      "sha256": "1A9B254097CAE3C54AC06E81E7DE42580750DD9EC66CE804014E33084AB14E64"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/GameManager.cs",
+      "bytes": 375,
+      "sha256": "39DD15D008762BEA35BF245D3A0549C4694AEACAF4A66ADA794DEBD34E2880D8"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/InputManger.cs",
+      "bytes": 383,
+      "sha256": "2298B5540DEC30CABEF0D6D18C5DFB34A2A8058F68CF880F6B495176442BB2A8"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/Interaction/IInterectable.cs",
+      "bytes": 117,
+      "sha256": "84B07B4470E1EE1582EA0044A6F8C08E463BA083E6B4A5FF7E04895DCB0A94A5"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/SaveManager.cs",
+      "bytes": 1670,
+      "sha256": "39A19746DF870B0AD05A6D31A33E5D1B212045C89E3CA31D5DC6F7C7164602DC"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/Singleton/Singleton.cs",
+      "bytes": 427,
+      "sha256": "EA35B968B6F53D925AFE661E96203774BBB543B56D4FBF12FE1674648298501C"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/0.Manager/State/IState.cs",
+      "bytes": 116,
+      "sha256": "550DA8C5FB6C1AFD9D6B82B848EB055B19B09A2A30189AFEB114986C679B5899"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/Player.cs",
+      "bytes": 5932,
+      "sha256": "DD76286D5B4CE278EE3E430779E476D9602099149E79394739BEE9366526764D"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerCooldown.cs",
+      "bytes": 1524,
+      "sha256": "4ED49056F51000890D9AF82EFC1E7751AB332EE038998F892D1D0ACDEE080286"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerStat.cs",
+      "bytes": 3335,
+      "sha256": "FE33D9BE04167665534C78AA5F6F3ABB6C81CD65D2F8DBDB532CB92C985ABF6C"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerAreaSkillState.cs",
+      "bytes": 1340,
+      "sha256": "94EE532787EEB474A2BDFE733BB20D42F39CDCFCBAE3C5B223EF6C76551868EA"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerAttackState.cs",
+      "bytes": 1053,
+      "sha256": "43F28C0C7DDE8825B865B83BA771B8CB1C835362F0A8AA7CAF6A7F6188B4E2E5"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerBladeSkill.cs",
+      "bytes": 303,
+      "sha256": "ACEDFB04AA7D6847A9558319E65A7E2AF98E3A7528EF5CE862616F21E371EAAD"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerDashState.cs",
+      "bytes": 874,
+      "sha256": "409B74D69454BEBA57BBEB6D7EBBEBEC6D8D16C361E151F78D56E17932AB4CAE"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerDeadState.cs",
+      "bytes": 341,
+      "sha256": "A43B4138C40BE4BEB72D38F52D5A535DDC90088915E4691B2C1F347A0550254E"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerHitState.cs",
+      "bytes": 578,
+      "sha256": "DC9C3BA01E5F3C3037885BCC2F1DC4B531EB752B04087ACA32F7A975FE37C8C1"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerIdle.cs",
+      "bytes": 559,
+      "sha256": "603C7813F45980C6AE066B1F330DD459DF4BF8E8D1CA1AF59BD3099DD361C421"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerJumpState.cs",
+      "bytes": 662,
+      "sha256": "281F0BCAD1BB30A425C80E31698A920DC99FFCFD3D45CF13E3BAEB7C3B371695"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerState/PlayerMoveState.cs",
+      "bytes": 596,
+      "sha256": "0DD92F5A86638D0D5EACCC9BF08EBCB80F332DFD71B0EC4D2A0B6F5FB801E729"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/1.Player/PlayerView.cs",
+      "bytes": 1925,
+      "sha256": "2768847CBA9A3579BCFF45D12EF4F8FF97FBF9912089115597C0E34672C9D76A"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/Monster State/MonsterAttackState.cs",
+      "bytes": 1139,
+      "sha256": "D21C7EECD77E346A77A999879C2D40E8857A1442DFBCDE42B17BA805307F5327"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/Monster State/MonsterDeadState.cs",
+      "bytes": 702,
+      "sha256": "0A490AECC2A515EF76D2F5CC778FF5319E6F91AFECD2765F1F98F57CE63A26C0"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/Monster State/MonsterHitState.cs",
+      "bytes": 557,
+      "sha256": "ECB587C92B080822518F2831BA58B898AB413858734BD32D51C83DC686B38C0C"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/Monster State/MonsterIdleState.cs",
+      "bytes": 845,
+      "sha256": "40C0D84C307EE9EF5BCFF079E84A86B5539C015F465FF40D22CCA1732B515402"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/Monster State/MonsterMoveState.cs",
+      "bytes": 949,
+      "sha256": "D31F2C64BCC4B6B391ACC71E77BAB269EF6E62376F2B66FD5F3B22F33F684FE1"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/Monster State/MonsterPatrolState.cs",
+      "bytes": 866,
+      "sha256": "6DF758668723D96C309B6F14F14B7B054855254E032B2397ABF9B0CAF58678E5"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/Monster State/MonsterReviveState.cs",
+      "bytes": 556,
+      "sha256": "FD786FF5457560006404FC6077435B32ED0071569C53CED5906B4475AB1FDC13"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/Monster.cs",
+      "bytes": 4305,
+      "sha256": "D3C3A18684F93CD33CA590E4A4F8BE24133AFF48B80556E57E11435DC5B25FD3"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/MonsterModel.cs",
+      "bytes": 431,
+      "sha256": "DA2911EAFF4C45ED8D9F1A1017A6448607D5D460D38F3AE5B9EC0EA1F2BC8151"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/2.Monster/MonsterView.cs",
+      "bytes": 1015,
+      "sha256": "03435E21440A50498685DF7DDB3FD4D37F8A24BC6B9B200F66834FE405BD3591"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss State/BossAreaAttack.cs",
+      "bytes": 1652,
+      "sha256": "0D1EF2DC78BA9AC34962AB85AC458F3481CB982141323F5AB880353AB61B3873"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss State/BossChargeAttack.cs",
+      "bytes": 1882,
+      "sha256": "B59C775CDA20C25479DADF1C6253AC471ABFA7A03EDF3D859EDD282F3B6FF7E3"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss State/BossChaseState.cs",
+      "bytes": 485,
+      "sha256": "5167157394519459303ED520423A2F460863A2798C282E9E4792E828B7C7A233"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss State/BossDeadState.cs",
+      "bytes": 312,
+      "sha256": "DF31FA852A17197CB013AE60E387B6448FC7F158C4D02F45A4489DC08A9FD887"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss State/BossIdleState.cs",
+      "bytes": 557,
+      "sha256": "7B4996E5739254B9134AE5036A634CCA1BEF9C8F84105DA5CA22097B8EDF1C6B"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss State/BossNormalAttackState.cs",
+      "bytes": 1134,
+      "sha256": "E0BE2805A72EE113EC1014B7B885E4EA39845ACEA6CBDE9E16653D76C08DCA14"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss State/BossPhaseChangeState.cs",
+      "bytes": 425,
+      "sha256": "6BA8595933EDC4ACB930D9D30E204F44EAA39095F279B9A1062B0FD4434BEA01"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss State/BossSelectAttack.cs",
+      "bytes": 1176,
+      "sha256": "CBB1C73820572DB4B272F2241E6759F70B87B27E3559A4E64198E3B2ECD61CEF"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/Boss.cs",
+      "bytes": 3590,
+      "sha256": "D75EA5F7A4EFAAC2D7155D2722232DEAF2BC22430F30A63EBB33A39A53DC22D2"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/BossStat.cs",
+      "bytes": 1040,
+      "sha256": "28B947109C9FE84B10620D3705F54BEC03BA9B44FDE14565B2BCB1FC19AB63A6"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/3.Boss/BossView.cs",
+      "bytes": 2181,
+      "sha256": "AC96D7E40DE6089F3886D338144604199A152FA72BB16102A2734A74542E63A7"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/4.Entity/Box.cs",
+      "bytes": 156,
+      "sha256": "75AD09CFFC11B970EAD81A9F6E112AA019240C157CB5FD1F2150E7C3514FD6B7"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/4.Entity/Door.cs",
+      "bytes": 232,
+      "sha256": "B19B96BF7D8014E2156C8FA05520EF2D7ADAFF5EA8FC745AE17FDE060E584A20"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/4.Entity/NPC/NPC.cs",
+      "bytes": 147,
+      "sha256": "38461CF0678BAB77239C4FC56857E8E5F9F9874AD7C77411E7DA3E1CCFAEDF39"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/4.Entity/NPC/QuestNPC.cs",
+      "bytes": 1622,
+      "sha256": "E3BF9A264A9A77AB5201A91132C7179B3D5B7C26720CA5FBDE0B280B3CC7ECBF"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/Camera/ChaseCamera.cs",
+      "bytes": 640,
+      "sha256": "12D9E330E3BBA0C003ED11AD287571360834BCFB0727DC420916F3B2071CDEC5"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/Dungeon/CombatSensor.cs",
+      "bytes": 1004,
+      "sha256": "AFCDD0F06C5C6C7EDE39C635E6591291C33C8932469931FD38D7EC56F9141E19"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/Dungeon/MonsterSpawn.cs",
+      "bytes": 1211,
+      "sha256": "7713C91E17006401561F1F92B45A02742A4B511CC451173F8DA6EDE27624E59E"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/Dungeon/ObjectPoolManganer.cs",
+      "bytes": 2205,
+      "sha256": "A425BE4A53AA95D7C7FBDE3DE6FD53D68C26AF55A8DB1A057A05263740CF07AB"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/IDamageable.cs",
+      "bytes": 93,
+      "sha256": "7804FE6ABDB205476B7F2E026EA25DFC778E99F6FEB400E0003205CC7D6CA7D2"
+    },
+    {
+      "path": "Assets/0.Script/0.Game/MonsterTest/MonsterWolf.cs",
+      "bytes": 298,
+      "sha256": "87EDA2FE332CEDAA1CBE402CB3C43DE41FFDCE596CCB3B48085E1DD47B05883C"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/DamageFontManager.cs",
+      "bytes": 1007,
+      "sha256": "A9671C0B1EA26F08E77B508555A5D00E443A20884E0114F2798167AFE5D3CC3A"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Inventory/EquipmentSlot.cs",
+      "bytes": 2979,
+      "sha256": "7095B61DC550AC8BCE60E39C799114AE5529FECEB1973F58D1256DEE2E8E38BE"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Inventory/EquipSystem.cs",
+      "bytes": 2086,
+      "sha256": "F0433750A99E83D61EAD05EE66C88E12364E627AB21152359E436D7E6C07A3FE"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Inventory/Inventory.cs",
+      "bytes": 3150,
+      "sha256": "4C8A983C96B5A62388BFF7330BA9B8302FAAF705CAE168738C0F0A7086333585"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Inventory/InventoryItem.cs",
+      "bytes": 2902,
+      "sha256": "31A117610CDB25EEB5D965AEE1F08F034FE6021DEAC08728202E75C651AB053A"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Inventory/InventoryUI.cs",
+      "bytes": 191,
+      "sha256": "CFDEF03366041FFBA1822329C3620EAB9EB5B8B260C9BE5E9BD897379A646688"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Manager/QuestManager.cs",
+      "bytes": 3072,
+      "sha256": "B403110A826B80148A29AD5FD1B039E8AA413E66811CAA5FA7827E9274D8902D"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Manager/UIConstroller.cs",
+      "bytes": 2863,
+      "sha256": "F10CE9E84EC05C78B28A37A5AEF2731DB8BB44BA0E0027DB590E47BD18A7397B"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/PopUp/ListPopup.cs",
+      "bytes": 1202,
+      "sha256": "D8CC5BCA022EFA703A67E5CEC5599A40FBD6629FBA6071094EF8B4D53A3B69AD"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/PopUp/PopupController.cs",
+      "bytes": 554,
+      "sha256": "3133FACDD74FA48FC2686FF106AFE3008F9A19075DAC1589B451003B6F026CFA"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/PopUp/ToastPopup.cs",
+      "bytes": 1441,
+      "sha256": "66B16257BBE2D73849F9140825D531577FBEB11CEED4BCFB8BB7F5BD15D1C1CD"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Quest/QuestProgress.cs",
+      "bytes": 854,
+      "sha256": "EA0ECD8A9C5DC27168020947A013BFB0E117453FCE57E3F04A0E10EB66E9971F"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Quest/QuestUi.cs",
+      "bytes": 1314,
+      "sha256": "4D2C95A8A56A74C2978B42A1BA5FE1FC0E0A39C15990D8D7DE5369E8BE0B8493"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Stat/PlusStatSlot.cs",
+      "bytes": 1179,
+      "sha256": "CDD286AACCE3C14938BD9E50202A8493E3D7CE43B2995964F84743FAC436BA44"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Stat/StatUI.cs",
+      "bytes": 867,
+      "sha256": "F8864B9CEC8DFB59331373CFDA43B0CB2760A70A0B2FDABA5693DFE0D75B93E2"
+    },
+    {
+      "path": "Assets/0.Script/1.UI/Stat/StatUIView.cs",
+      "bytes": 681,
+      "sha256": "2CDD50734E509D58CCC0D624D31782F11BA67015442135B6146E2B9574E613E8"
+    },
+    {
+      "path": "Assets/0.Script/9.Addressable/AddressableLoader.cs",
+      "bytes": 905,
+      "sha256": "BD89E487BC833983B55B34ABC193D5212E075140F866D7390B43F940AD893AA4"
+    },
+    {
+      "path": "Assets/0.Script/Audio/AudioManager.cs",
+      "bytes": 922,
+      "sha256": "3C31196098E74C680C5BA8AEF92A5102C08EA60B4495052645AC822D550A3ED3"
+    },
+    {
+      "path": "Assets/0.Script/Audio/ClickSount.cs",
+      "bytes": 279,
+      "sha256": "324CF0AE55C564EFD58836F2E7A3365C20F7A64F3EECEE760E52E2B2AC3D1F4A"
+    },
+    {
+      "path": "Assets/0.Script/Loding.cs",
+      "bytes": 1658,
+      "sha256": "B58312C914BF059CADDA5D2F662B07E5204312CA87F255DFD38D79463A5EADF6"
+    },
+    {
+      "path": "Assets/0.Script/PlayFromTitle.cs",
+      "bytes": 315,
+      "sha256": "9325E7B3BA57079D5DCDE7EA009A08D090485924E96209A13399FA99C2E79DCF"
+    },
+    {
+      "path": "Assets/0.Script/SceneLoader.cs",
+      "bytes": 446,
+      "sha256": "20A859415D64AF2C85744266FB4E2C1A93F63A1A5A913CAA88F6A9DA2A351EE7"
+    },
+    {
+      "path": "Assets/0.Script/VFX/VFXManager.cs",
+      "bytes": 744,
+      "sha256": "B6815EEF661ACE69FBDBB2109A92257F61A6F33F6C2178D283796DCC19433840"
+    },
+    {
+      "path": "Assets/1.Prefab/Boss/AreaAttack.prefab",
+      "bytes": 5435,
+      "sha256": "0D12D469F7D1F9AD23F30584C87856A6A333E28693D783052E47DE12D90B0550"
+    },
+    {
+      "path": "Assets/1.Prefab/Boss/Boss.prefab",
+      "bytes": 49766,
+      "sha256": "9311EC6256757C77B98B6F435BEBF15BFEB56B86B96EE7441488483CCB06A441"
+    },
+    {
+      "path": "Assets/1.Prefab/Boss/BossHp.prefab",
+      "bytes": 11234,
+      "sha256": "889B339CEB150FBC428B1E4858B046F65E737CAABBFD9087D64140498BD064CE"
+    },
+    {
+      "path": "Assets/1.Prefab/Boss/ChargeAttack.prefab",
+      "bytes": 5436,
+      "sha256": "3F0EA9A9EB821D9F1629EF599E9F05E59EE2BF8F953503E26118FEF39E34C12A"
+    },
+    {
+      "path": "Assets/1.Prefab/Boss/EarthShatter.prefab",
+      "bytes": 367612,
+      "sha256": "8B71609A3E7314921B25F0784DB1CD02337FA9CF61451FEDF7A7644767BF3B4D"
+    },
+    {
+      "path": "Assets/1.Prefab/Boss/SmallExplosion.prefab",
+      "bytes": 494047,
+      "sha256": "092DF5AAC7B7FD32FA4EF2A06AD8AC8A6652F9BA186F73BF992A91CF4DEA70D6"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/[ Door ].prefab",
+      "bytes": 10696,
+      "sha256": "88D42601DC301BF5A235869A3FA5F6010680BBE91FA508B11ECFFCBCF40D3039"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/[ NPC ].prefab",
+      "bytes": 9489,
+      "sha256": "26BFC56BC07B70FF67A8B4DEA3484E716B9420F486A2B821B49453EC053CB414"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/Block/Block Wall.prefab",
+      "bytes": 3346,
+      "sha256": "19DEF6D783BFB3CA1027BEFCBD4A431F86D66A212264319192D8DF668E594BC2"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/Chests.prefab",
+      "bytes": 4327,
+      "sha256": "DE7C3F2CE6697616A3F8D5DAD9E81040E82CAE189705A58EBC339804DA3DBC28"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/Ground.prefab",
+      "bytes": 255156,
+      "sha256": "5D789D1888AA3F37ACE8D8BC18884E247C3597602A533DCBBCEEE1356F1C2264"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/Sensor/Combat_Sensor.prefab",
+      "bytes": 2049,
+      "sha256": "E5030C149C8E93EB25FB626B1F8695CFFAD72AAFD09201BC7C5FD68E8BD99D41"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/Table.prefab",
+      "bytes": 3368,
+      "sha256": "E69E39AEEA1F2424C3AD42E5FE6815A8730BCAA0B825F05CE9C668E87FEAF8A6"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/Wall_4M.prefab",
+      "bytes": 13304,
+      "sha256": "88DC2CB124B9F7CB9D110037065D5914CC551DED8D7804E024CECA40E4DC57D0"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/Wall_6M.prefab",
+      "bytes": 21192,
+      "sha256": "0CE3389ACCD76EC38C65D5C912567E0B28538B4FFEE8B85EFC5DF3B23D7373EC"
+    },
+    {
+      "path": "Assets/1.Prefab/Entity/Wall.prefab",
+      "bytes": 99741,
+      "sha256": "FCFF5B1DF3895FAAFCD669563E5A2492FD44F6D2ACAFCA2EB640ED2A9B41549F"
+    },
+    {
+      "path": "Assets/1.Prefab/Monster/Skeleton.prefab",
+      "bytes": 49079,
+      "sha256": "B5FDEFBADECDFCFF32384C19739238C939D9575AD7AAFC5A772D88E5D0A18B5A"
+    },
+    {
+      "path": "Assets/1.Prefab/Player/[ Player ].prefab",
+      "bytes": 98201,
+      "sha256": "F550C04F167B1248ACA0B2931DCF2A64B5A79098584CA6F72A1543C0B8A82FED"
+    },
+    {
+      "path": "Assets/1.Prefab/Player/AreaAttack.prefab",
+      "bytes": 2736,
+      "sha256": "57B5349CFB116AC0F8978E498BF787002E5E7E2B116A1AC42885EE019BF9FB47"
+    },
+    {
+      "path": "Assets/1.Prefab/Player/HpBar/MaxHp.prefab",
+      "bytes": 4702,
+      "sha256": "8BD0A752C12DA66B12FCF45FC9B2E32712B98E2783238DAADFC8E334D6A0F658"
+    },
+    {
+      "path": "Assets/1.Prefab/test/Ground_03.prefab",
+      "bytes": 3375,
+      "sha256": "83557E930D5228B043CAA3F8ADE87D9D01ADE6ABFDADBBCB75AF71107EA6793A"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/DamageTxt.prefab",
+      "bytes": 4172,
+      "sha256": "C079F2FC326596AE436B09B05EDC4E19C71B1F5769C9C82A52DCFA251A0B82D8"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/Quest UI/QuestAccept.prefab",
+      "bytes": 33033,
+      "sha256": "90C07FA7035A042E756D0344088AC59EBB64DBAFBC734C05AB5D0B8093FCCD16"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/UI Bar/ExpBG.prefab",
+      "bytes": 8737,
+      "sha256": "47B71B0406A179062B35AF873249C30A7D8233400CE86538887F229388D34AB8"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/UI Bar/GoldBG.prefab",
+      "bytes": 10225,
+      "sha256": "3FFD15D3552ECA6E681FEC2EC9DC395BC571B1EB034454EC40246C17E65F0506"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/UI Bar/ItemBG.prefab",
+      "bytes": 24552,
+      "sha256": "FBCA58C89B990EFB31E4D6B77C144FB050B1540198C80EB99C4440BD01F1F4FB"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/UI Bar/MoveItem.prefab",
+      "bytes": 22194,
+      "sha256": "A8F49ED6DE9CDBA694AEA52A01E23A160B3A80D821D5B14F441B41B8974FA198"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/UI Bar/UiCheckBox.prefab",
+      "bytes": 6479,
+      "sha256": "841EA0BB2216F4BAEC0FC1F6ABC3B3C0E0D5274C580B4EF2E1785A88E2CF290F"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/UI/Inventory UI.prefab",
+      "bytes": 43402,
+      "sha256": "D061CDE68C053F297F153D9C7903DB330D938A0AB4607CF1AC177F37DABE88EB"
+    },
+    {
+      "path": "Assets/1.Prefab/Ui/UI/StatSystem.prefab",
+      "bytes": 146309,
+      "sha256": "19AFA746021393A6FD45E5D329889AD40A64074BFA564362EE79F45D95D0CBE5"
+    },
+    {
+      "path": "Assets/6.Data/BossData/BM.asset",
+      "bytes": 570,
+      "sha256": "91A919EB5C10D386AF2561CA05984E2DB94BB2AE99029EA190E06926C4B821B5"
+    },
+    {
+      "path": "Assets/6.Data/DataScript/ItemScriptable.cs",
+      "bytes": 1201,
+      "sha256": "878521CCF63585569E4B15C3BC703448FBF149F42056E780F62C8CC6CB261367"
+    },
+    {
+      "path": "Assets/6.Data/DataScript/MonsterData.cs",
+      "bytes": 1093,
+      "sha256": "552406638D4794EEB70A925250568501063A2E066BDA07DD4D5DA27D7E902407"
+    },
+    {
+      "path": "Assets/6.Data/DataScript/PlayerData.cs",
+      "bytes": 1066,
+      "sha256": "3E9DA22143785E0C6CE31463AB29878745FF0FADCDCBBB2EF5855F16AA241595"
+    },
+    {
+      "path": "Assets/6.Data/DataScript/QuestData.cs",
+      "bytes": 616,
+      "sha256": "4E39A14F04C31728A4AA530F0F748122309D31C5F349695C340218F9760E0A23"
+    },
+    {
+      "path": "Assets/6.Data/ItemData/Gold.asset",
+      "bytes": 749,
+      "sha256": "A5A04150B041AC88CD2486EC48BEE7DB7829949C4664D8E1CCC87F64BEBA8B6D"
+    },
+    {
+      "path": "Assets/6.Data/Json/Testjson.cs",
+      "bytes": 551,
+      "sha256": "4F242F1956D722C8175B826355074F4CF1103F3D626B4027738CEE133066EA3D"
+    },
+    {
+      "path": "Assets/6.Data/Json/TestSaveData.cs",
+      "bytes": 206,
+      "sha256": "A09274FD45D7359F1AD6A0D1CE93C578BB4DF2DD499CB4A369A6FE278D821020"
+    },
+    {
+      "path": "Assets/6.Data/MonsterData/MD000.asset",
+      "bytes": 574,
+      "sha256": "3E97F9EAAB8DB771E6945FA7FB9DF841514704ABC4CEFDF2210A55730E462CA7"
+    },
+    {
+      "path": "Assets/6.Data/PlayerData/PD000.asset",
+      "bytes": 578,
+      "sha256": "7101EBC433CD7664B7A22877D4CF3C8945DB4F5C8C007C8F7F70A0CFDD30E5D3"
+    },
+    {
+      "path": "Assets/6.Data/QuestData/QuestData 1.asset",
+      "bytes": 786,
+      "sha256": "C1C0F8AC9592A3391CE688BDDF0D407F0A2282AC90F692E03B56930F68510A08"
+    },
+    {
+      "path": "Assets/9.Scenes/Dungeon1.unity",
+      "bytes": 722411,
+      "sha256": "B33EC4B3A1AD7B2F9EFF55B4D54CAE9AFA10936FD7F6E7FF5987F9F55A30912B"
+    },
+    {
+      "path": "Assets/9.Scenes/Dungeon1/NavMesh-Combat01.asset",
+      "bytes": 8756,
+      "sha256": "AF273E639983B1ABF6001316AB759B02E19424985343275CA5B00DA82D8CF828"
+    },
+    {
+      "path": "Assets/9.Scenes/Dungeon1/NavMesh-Combat02.asset",
+      "bytes": 8012,
+      "sha256": "C080FA599CBE17B5BF00CDC4AFF5D7620939401C8FE17334D23287847433BFE7"
+    },
+    {
+      "path": "Assets/9.Scenes/Dungeon1/NavMesh-Combat03 1.asset",
+      "bytes": 9328,
+      "sha256": "24AC2FB13FB8D1948B913F39C91F00E3AF9C002025948EFAA2DD575B452A14B5"
+    },
+    {
+      "path": "Assets/9.Scenes/Dungeon1/NavMesh-Combat03.asset",
+      "bytes": 9120,
+      "sha256": "605F2D95CA5CEF6B3B4941FF870E2A883064F7D83A1EE0A106A47D5174BBAC99"
+    },
+    {
+      "path": "Assets/9.Scenes/Loading.unity",
+      "bytes": 34058,
+      "sha256": "02A1FACFAC65CC77814046BE6F95E2B0B05BCD027FCE8AAFB382F72837CB343E"
+    },
+    {
+      "path": "Assets/9.Scenes/Lobby.unity",
+      "bytes": 194715,
+      "sha256": "3D7480B3416EA8BD997741E8F76A9FE8AA7990E6D7DB572E12212754CB9E78B7"
+    },
+    {
+      "path": "Assets/9.Scenes/TestRoom.unity",
+      "bytes": 96306,
+      "sha256": "4C641E1AA004F6DA718EDD54CA919893D47CFE116A6853AA090784CBE94D0BB1"
+    },
+    {
+      "path": "Assets/9.Scenes/TestRoom/NavMesh-NavMesh Surface.asset",
+      "bytes": 39944,
+      "sha256": "6AB0E9F22CF69D3D6DF43152630E5CADE2E2098F91671EE60F0E5892C33D940D"
+    },
+    {
+      "path": "Assets/9.Scenes/Title.unity",
+      "bytes": 28893,
+      "sha256": "D76A17C9093461034CB8EFEA102C973D9D0D3719079653FCFE001E35CDA931B8"
+    },
+    {
+      "path": "Assets/InputSystem_Actions.inputactions",
+      "bytes": 48837,
+      "sha256": "31B4D6A0B7A2F12E4B45FC40E945D6A6A3995492033A8E7F39FA8B2AB2AC1A56"
+    },
+    {
+      "path": "Packages/manifest.json",
+      "bytes": 2929,
+      "sha256": "106E3C1D7AFAB4302FF5D6A32C0DD4F58CE6F1300CE6B3DE4A4D2D3E3582EA2B"
+    },
+    {
+      "path": "ProjectSettings/EditorBuildSettings.asset",
+      "bytes": 984,
+      "sha256": "D80F1F595D9BD98D3F0B6F06D407F9123B9E2721EE5B12CC679DA78CE283119D"
+    },
+    {
+      "path": "ProjectSettings/ProjectVersion.txt",
+      "bytes": 85,
+      "sha256": "3B3BE4BE51C5B3959F1F03E738C54195BA913953153FBEDBF0B0ADC9E4F0AD90"
+    }
+  ]
+}
