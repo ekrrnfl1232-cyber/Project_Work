@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 208222260}
   - component: {fileID: 208222259}
   - component: {fileID: 208222258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,6 +461,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1824026675}
     m_Modifications:
+    - target: {fileID: 1366443357279315841, guid: 745c299a856ca93438eb576a458ac689, type: 3}
+      propertyPath: m_RayTracingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8021976650055363219, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -508,6 +512,10 @@ PrefabInstance:
     - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_Name
       value: Block Wall02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_IsActive
@@ -914,6 +922,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1109521334}
     m_Modifications:
+    - target: {fileID: 1366443357279315841, guid: 745c299a856ca93438eb576a458ac689, type: 3}
+      propertyPath: m_RayTracingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8021976650055363219, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.6
@@ -957,6 +969,10 @@ PrefabInstance:
     - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_Name
       value: Block Wall01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1725,7 +1741,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 65536
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -2016,7 +2032,7 @@ GameObject:
   - component: {fileID: 1696585963}
   - component: {fileID: 1696585962}
   - component: {fileID: 1696585961}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Combat02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2313,6 +2329,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: trailway_01_closed (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6171967089752036469, guid: 9efe041706d1c2749bfbc45dab67d18e, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6840101360908766927, guid: 9efe041706d1c2749bfbc45dab67d18e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 31.45
@@ -2405,6 +2425,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1109521334}
     m_Modifications:
+    - target: {fileID: 1366443357279315841, guid: 745c299a856ca93438eb576a458ac689, type: 3}
+      propertyPath: m_RayTracingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8021976650055363219, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.24
@@ -2448,6 +2472,10 @@ PrefabInstance:
     - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_Name
       value: Block Wall02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2539,6 +2567,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1824026675}
     m_Modifications:
+    - target: {fileID: 1366443357279315841, guid: 745c299a856ca93438eb576a458ac689, type: 3}
+      propertyPath: m_RayTracingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8021976650055363219, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_LocalPosition.x
       value: -40.74
@@ -2582,6 +2614,10 @@ PrefabInstance:
     - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
       propertyPath: m_Name
       value: Block Wall01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749928115715975361, guid: 745c299a856ca93438eb576a458ac689, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2664,7 +2700,7 @@ GameObject:
   - component: {fileID: 1326399558624745949}
   - component: {fileID: 3647075077032509466}
   - component: {fileID: 8371418400407333322}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Combat01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

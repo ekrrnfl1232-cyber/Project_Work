@@ -9,15 +9,14 @@ public class MonsterView : MonoBehaviour
 
     public void CreateHp(Vector3 pos)
     {
-        ObjectPoolManager.Instance.CreateObj(PoolType.HpBar, 1);
         hpBG = ObjectPoolManager.Instance.GetObject(PoolType.HpBar);
         hpImg = hpBG.transform.GetChild(0).GetComponent<Image>();
         HPbar(pos);
         hpBG.SetActive(true);
     }
-    public void DeleteHp()
+    public void ReturnHp()
     {
-        Destroy(hpBG);
+        ObjectPoolManager.Instance.ReturnObject(PoolType.HpBar, hpBG);
     }
 
     public void HPbar(Vector3 pos)
@@ -30,10 +29,5 @@ public class MonsterView : MonoBehaviour
     public void HpUpdate(int HP, int maxHP)
     {
         hpImg.rectTransform.sizeDelta = new Vector2(hpImg.rectTransform.sizeDelta.x * ((float)HP / maxHP), hpImg.rectTransform.sizeDelta.y);
-    }
-
-    public void HPbarDelete(bool isLive)
-    {
-        hpBG.SetActive(isLive);
     }
 }

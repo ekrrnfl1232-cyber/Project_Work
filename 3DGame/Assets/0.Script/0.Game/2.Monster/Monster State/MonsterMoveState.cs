@@ -31,12 +31,5 @@ public class MonsterMoveState : IState
             monster.agent.ResetPath();
             monster.ChangeState(MonsterState.idle);
         }
-        
-
-        if (!monster.IsFind && monster.StartDis >= monster.data.SpawnRange)
-        {
-            monster.agent.ResetPath();
-            monster.ChangeState(MonsterState.idle);
-        }
     }
 }

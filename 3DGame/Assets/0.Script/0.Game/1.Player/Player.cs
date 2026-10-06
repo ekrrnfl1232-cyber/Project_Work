@@ -27,6 +27,8 @@ public class Player : MonoBehaviour, IDamageable
     public CharacterController controll;
     public BoxCollider sword;
 
+    [Header("LayerRaycast")]
+    public LayerMask layerRay;
     private bool isTargeting = false;
     public bool IsTargeting { get { return isTargeting; } set { isTargeting = value; } }
 
@@ -148,7 +150,7 @@ public class Player : MonoBehaviour, IDamageable
     private void Look()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, layerRay))
         {
             Vector3 dir = hit.point - transform.position;
             dir.y = 0f;

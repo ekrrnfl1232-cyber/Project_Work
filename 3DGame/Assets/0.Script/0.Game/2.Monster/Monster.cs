@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,38 +23,26 @@ public class Monster : MonoBehaviour, IDamageable
     public bool IsFind { get; private set; }
     public Cooldown attackCool { get; set; } = new Cooldown(5f);
 
-    public Animator MonsterAni {  get; set; }
+    public Animator MonsterAni;
 
-    public MonsterView View { get; set; }
+    public MonsterView View;
     public MonsterModel Model { get; set; }
 
-    public NavMeshAgent agent {  get; set; }
+    public NavMeshAgent agent;  
     public MonsterData data { get; set; }
     public bool IsLive { get; set; } = true;
     public MonsterState PrevState { get; private set; }
     public Dictionary<MonsterState, IState> States { get; private set; }
     public float StartDis { get; private set; }
 
-    public void Init(MonsterData data)
-    {
-        this.data = data;
-    }
-
-    void Awake()
+    void Start()
     {
         Model = new MonsterModel
             (
                 data.Hp,
                 transform.position
             );
-        MonsterAni = GetComponent<Animator>();
-        View = GetComponent<MonsterView>();
-        agent = GetComponent<NavMeshAgent>();
         SettingState();
-    }
-
-    void Start()
-    {
         Model.HP = Model.MaxHP = data.Hp;
 
         View.CreateHp(transform.position);
@@ -86,11 +75,13 @@ public class Monster : MonoBehaviour, IDamageable
 
     public void OnDead()
     {
-        gameObject.SetActive(false);
         GameEvents.RaiseKillChange(data, data.GetGold, data.GetExp);
         GameEvents.RaiseChangeDeadMonster();
-        View.DeleteHp();
-        Invoke("ReSpawn", 1f);
+        View.ReturnHp();
+
+        Model.HP = data.Hp;
+
+        ObjectPoolManager.Instance.ReturnObject(PoolType.Enemy, gameObject);
     }
     public void ReSpawn()
     {
@@ -98,24 +89,17 @@ public class Monster : MonoBehaviour, IDamageable
     }
     public void TakeDamage(int damage)
     {
+        DamageFontManager.Instance.CreateText(damage, transform.position);
         if (Model.HP <= damage)
         {
-            if (Model.HP != 0)
-            {
-                Model.HP = 0;
-                ChangeState(MonsterState.dead);
-            }
-            else
-                return;
-        }
-        else if (Model.HP != 0)
-        {
-            Model.HP -= damage;
-            ChangeState(MonsterState.hit);
-            DamageFontManager.Instance.CreateText(damage, transform.position);
+            Model.HP = 0;
+            ChangeState(MonsterState.dead);
         }
         else
-            return;
+        {
+            Model.HP -= damage;
+            View.HpUpdate(Model.HP, Model.MaxHP);
+        }
     }
 
     private void SettingState()
@@ -125,8 +109,6 @@ public class Monster : MonoBehaviour, IDamageable
             { MonsterState.attack, new MonsterAttackState(this) },
             { MonsterState.idle, new MonsterIdleState(this) },
             { MonsterState.chase, new MonsterMoveState(this) },
-            { MonsterState.patrol, new MonsterPatrolState(this) },
-            { MonsterState.revive, new MonsterReviveState(this) },
             { MonsterState.dead, new MonsterDeadState(this) },
             { MonsterState.hit, new MonsterHitState(this) }
         };

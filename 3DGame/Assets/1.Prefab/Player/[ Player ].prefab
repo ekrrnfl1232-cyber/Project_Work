@@ -894,6 +894,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4ac67256bee0ed749b03873637c9af35, type: 2}
   controll: {fileID: 1588461605831524932}
   sword: {fileID: 996706441702685900}
+  layerRay:
+    serializedVersion: 2
+    m_Bits: 65544
 --- !u!114 &6565759657930119130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,9 +911,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStat
   data: {fileID: 11400000, guid: 4ac67256bee0ed749b03873637c9af35, type: 2}
   hp: 0
-  level: 0
-  exp: 0
-  maxExp: 0
   baseAttack: 10
   baseDefence: 0
   baseSpeed: 3

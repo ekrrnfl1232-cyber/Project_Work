@@ -13,8 +13,6 @@ public class MonsterHitState : IState
     {
         monster.View.HpUpdate(monster.Model.HP, monster.Model.MaxHP);
         monster.MonsterAni.SetTrigger("Hit");
-        Debug.Log($"남은 체력 : {monster.Model.HP}");
-        monster.ChangeState(MonsterState.idle);
     }
 
     public void Exit()

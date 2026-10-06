@@ -21,7 +21,6 @@ public class PlayerAttackState : IState
             if (tar.TryGetComponent<IDamageable>(out IDamageable damage))
             {
                 damage.TakeDamage(player.stat.TotalDamage());
-                break;
             }
         }
         player.Cool.Start(PlayerCool.Attack);

@@ -12,7 +12,6 @@ public class MonsterPatrolState : IState
 
     public void Enter()
     {
-        Debug.Log("∫π±Õ¡ﬂ");
         monster.MonsterAni.SetTrigger("Run");
         monster.agent.speed += (int)monster.agent.speed << 2;
         monster.agent.SetDestination(monster.Model.StartPos);

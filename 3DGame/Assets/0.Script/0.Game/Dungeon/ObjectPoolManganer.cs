@@ -30,17 +30,20 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         {
             {PoolType.Enemy, new Queue<GameObject>() },
             {PoolType.equip, new Queue<GameObject>() },
-            {PoolType.potion, new Queue<GameObject>() }
+            {PoolType.potion, new Queue<GameObject>() },
+            {PoolType.HpBar, new Queue<GameObject>() }
         };
     }
 
     public void CreateObj(PoolType type, int size)
     {
         GameObject spawnObj = null;
+        Transform parent = null;
         switch (type)
         {
             case PoolType.Enemy:
                 spawnObj = Enemy;
+                parent = transform;
                 break;
             case PoolType.equip:
                 break;
@@ -48,12 +51,13 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
                 break;
             case PoolType.HpBar:
                 spawnObj = Hpbar;
+                parent = uiParent;
                 break;
         }    
 
         for(int i = 0; i < size; ++i)
         {
-            GameObject obj = Instantiate(spawnObj, transform);
+            GameObject obj = Instantiate(spawnObj, parent);
 
             obj.SetActive(false);
 

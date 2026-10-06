@@ -1129,9 +1129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2e87209952e0c49807555d4010a428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
-  target: {fileID: 0}
-  qm: {fileID: 0}
-  data: {fileID: 11400000, guid: a4e215e7b48a76a459868f0d41f16e61, type: 2}
+  MonsterAni: {fileID: 4555603673748335599}
+  View: {fileID: 7571673112749864989}
+  agent: {fileID: 5081917945776505512}
 --- !u!114 &7571673112749864989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1144,8 +1144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da17cbc2231d4d245915ed18f4c4340b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterView
-  isParent: {fileID: 0}
-  prefabHP: {fileID: 4013781562914862402, guid: 5d754e21e73a053428ce20e9624f724e, type: 3}
 --- !u!195 &5081917945776505512
 NavMeshAgent:
   m_ObjectHideFlags: 0

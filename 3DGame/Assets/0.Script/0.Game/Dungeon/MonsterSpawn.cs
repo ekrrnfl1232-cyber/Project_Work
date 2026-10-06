@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class MonsterSpawn : MonoBehaviour
 {
-    [SerializeField] private int spawnCount = 5;
+    [SerializeField] private int spawnCount = 10;
     [SerializeField] private Transform target;
     [SerializeField] private MonsterData data;
     void Start()
     {
-        ObjectPoolManager.Instance.CreateObj(PoolType.Enemy, 10);
+        ObjectPoolManager.Instance.CreateObj(PoolType.Enemy, spawnCount);
+        ObjectPoolManager.Instance.CreateObj(PoolType.HpBar, spawnCount);
     }
 
     private void OnEnable()
