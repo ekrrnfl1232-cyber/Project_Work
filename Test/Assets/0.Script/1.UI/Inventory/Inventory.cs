@@ -1,0 +1,119 @@
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class Inventory : MonoBehaviour
+{
+    [SerializeField] private Transform parent;
+    [SerializeField] private InventoryItem invenItem;
+
+    [SerializeField] private ItemScriptable[] itemDatas;
+
+    [SerializeField] private TMP_Text goldAmount;
+
+    public int Gold { get; set; }
+
+    private List<InventoryItem> items = new();
+    private Image background;
+    public Transform Inven => parent;
+
+    private void Start()
+    {
+        itemDatas = Resources.LoadAll<ItemScriptable>("ItemData");
+        background = parent.GetComponent<Image>();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F5))
+        {
+            int rand = Random.Range(0, itemDatas.Length);
+            CreateItem(itemDatas[rand], 1);
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.PlayerKill += (data, gold, exp) => GoldAmount(gold);
+        GameEvents.ChangeCurrency += (gold, exp) => GoldAmount(gold);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.PlayerKill -= (data, gold, exp) => GoldAmount(gold);
+        GameEvents.ChangeCurrency -= (gold, exp) => GoldAmount(gold);
+    }
+
+    // 매개변수 int 추가
+    // 반환 자료형 int  변경
+    public int CreateItem(ItemScriptable item, uint count)
+    {
+        items.RemoveAll(item => item == null);
+        if (items.Count != 0)
+        {
+            foreach (var i in items)
+            {
+                if (i.Data == item)
+                {
+                    if (i.Amount < item.MaxStack)
+                    {
+                        i.SetCount(count);
+                        return 0;
+                    }
+                }
+            }
+        }
+        
+        InventoryItem createItem = Instantiate(invenItem, parent);
+        createItem.Init(item);
+        createItem.Setting();
+        createItem.SetCount(count);
+        items.Add(createItem);
+        return 1;
+    }
+
+    public InvenData[] GetInvenDatas()
+    {
+        InvenData[] data = new InvenData[items.Count];
+        for(int i = 0; i < items.Count; ++i)
+        {
+            if (items == null)
+            {
+                data[i] = new InvenData
+                {
+                    id = 1234,
+                    stack = 0
+                };
+                continue;
+            }
+            data[i] = new InvenData
+            {
+                id = items[i].Data.ItemID,
+                stack = items[i].Amount
+            };
+        }
+
+        return data;
+    }
+
+    public void GoldAmount(int addGold)
+    {
+        Gold += addGold;
+        goldAmount.text = $"{Gold}";
+    }
+
+    public void LoadInventory(InvenData[] data)
+    {
+        foreach(var saveData in data)
+        {
+            for(int i = 0; i < itemDatas.Length; ++i)
+            {
+                if (itemDatas[i].ItemID == saveData.id)
+                    CreateItem(itemDatas[i], saveData.stack);
+            }
+        }
+    }
+}

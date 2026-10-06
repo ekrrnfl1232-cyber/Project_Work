@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "332199223363",
+    "firebase_url": "https://dgame-4cd72-default-rtdb.firebaseio.com",
+    "project_id": "dgame-4cd72",
+    "storage_bucket": "dgame-4cd72.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332199223363:android:09e2aac4062b462129b4f6",
+        "android_client_info": {
+          "package_name": "com.JihoGame.Game3D"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKUs85uDeGEgAVjxl0_xURS1fzL1xcNhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
