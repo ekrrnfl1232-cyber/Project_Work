@@ -150,14 +150,17 @@ public class Player : MonoBehaviour, IDamageable
     private void Look()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, layerRay))
+        Plane aimPlane = new Plane(Vector3.up, transform.position);
+        if (!aimPlane.Raycast(ray, out float distance))
+            return;
+
+        Vector3 aimPoint = ray.GetPoint(distance);
+        Vector3 dir = aimPoint - transform.position;
+        dir.y = 0f;
+
+        if(dir.sqrMagnitude > 0.001f)
         {
-            Vector3 dir = hit.point - transform.position;
-            dir.y = 0f;
-            if (dir.sqrMagnitude > 0.001f)
-            {
-                transform.rotation = Quaternion.LookRotation(dir);
-            }
+            transform.rotation = Quaternion.LookRotation(dir);
         }
     }
 
@@ -174,7 +177,14 @@ public class Player : MonoBehaviour, IDamageable
         switch (contxt.action.name)
         {
             case "Attack":
-                if(Cool.IsReady(PlayerCool.Attack) && IsTargeting == false)
+                if (IsTargeting)
+                    break;
+
+                if (currentState is PlayerAttackState attack)
+                {
+                    attack.QueueAttack();
+                }
+                else if (Cool.IsReady(PlayerCool.Attack))
                 {
                     ChangeState(PlayerState.attackState);
                 }
@@ -199,6 +209,42 @@ public class Player : MonoBehaviour, IDamageable
                 }
                 break;
         }
+    }
+
+    public void AttackHit(int attackNumber)
+    {
+        if(currentState is PlayerAttackState attack)
+        {
+            attack.OnHit(attackNumber);
+        }
+    }
+
+    public void AttackComboCheck(int attackNumber)
+    {
+        if (currentState is PlayerAttackState attack)
+        {
+            attack.OnComboCheck(attackNumber);
+        }
+    }
+
+    public void AttackEnd(int attackNumber)
+    {
+        if (currentState is PlayerAttackState attack)
+        {
+            attack.OnAnimationEnd(attackNumber);
+        }
+    }
+
+    public void AttackThrustStart(int attackNumber)
+    {
+        if (currentState is PlayerAttackState attack)
+            attack.OnThrustStart(attackNumber);
+    }
+
+    public void AttackThrustEnd(int attackNumber)
+    {
+        if (currentState is PlayerAttackState attack)
+            attack.OnThrustEnd(attackNumber);
     }
 
     private void OnDisable()
