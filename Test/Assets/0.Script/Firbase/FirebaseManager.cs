@@ -38,7 +38,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
                 app = FirebaseApp.DefaultInstance;
                 IsReady = true;
                 Debug.Log($"[Firebase] Init Success");
-                AuthManager.Instance.Init();
+                AuthManager.Instance.InitializeAuth();
             });
     }
 }
