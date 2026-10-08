@@ -31,7 +31,7 @@ public class QuestNPC : MonoBehaviour, IInterectable
     }
     public void Interact()
     {
-        QuestProgress quest = questManager.GetQuest(questData.questId);
+        /*QuestProgress quest = questManager.GetQuest(questData.questId);
         if (quest == null)
         {
             questTitle.text = $"{questData.questTitle}";
@@ -43,7 +43,7 @@ public class QuestNPC : MonoBehaviour, IInterectable
         {
             questManager.CompleteQuest(questData.questId);
             return;
-        }
+        }*/
         Debug.Log("용무 없음");
     }
 

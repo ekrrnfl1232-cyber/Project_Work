@@ -97,36 +97,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Inventory",
+                    "name": "Skill",
                     "type": "Button",
-                    "id": "193e8d40-3f37-4df1-8c6a-2ec8727a6afc",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quest",
-                    "type": "Button",
-                    "id": "c0c540d7-1830-4c39-8c5e-8f279e94930f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Equip",
-                    "type": "Button",
-                    "id": "800fe027-4376-410c-a998-4d3f5a1bd014",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Area",
-                    "type": "Button",
-                    "id": "d6f83df3-0589-4201-8933-25736f09ba0a",
+                    "id": "15664fd8-a92d-4011-a7c1-0f882a362a8f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -356,17 +329,6 @@
                 },
                 {
                     "name": "",
-                    "id": "cbac6039-9c09-46a1-b5f2-4e5124ccb5ed",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Next",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e15ca19d-e649-4852-97d5-7fe8ccc44e94",
                     "path": "<Gamepad>/dpad/right",
                     "interactions": "",
@@ -521,45 +483,56 @@
                 },
                 {
                     "name": "",
-                    "id": "d68359dd-c72f-4bfd-afe5-43185e9454cb",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a0124d3d-4135-44e4-a332-249941c9c0cd",
-                    "path": "<Keyboard>/j",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quest",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6cfb9dee-2139-4c8d-b916-0bbcafd81ecb",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Equip",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "738c43a9-9a6d-4b77-ac6b-ca0412b29df1",
+                    "id": "946eaf4a-557a-43ee-a6c4-6225214f1a83",
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Area",
+                    "groups": "",
+                    "action": "Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb5b06f0-6845-4d58-af7c-21d235435dbe",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50964a3b-eb33-48be-bfe6-6d895268720c",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e1cb83e-d240-49c3-ac42-24727522f675",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1394aa1-f656-4041-9e7e-96d4e3f2d42f",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -591,7 +564,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "15cef263-9014-4fd5-94d9-4e4a6234a6ef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -681,15 +654,6 @@
                     "name": "Equip",
                     "type": "Button",
                     "id": "3e072176-dec9-4ae5-b97b-c24e7d561bd6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Stat",
-                    "type": "Button",
-                    "id": "8cc2083d-ea2a-40f5-b083-bcfb048aec6c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1145,17 +1109,6 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Equip",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "80bddd90-58e1-4615-9118-9eef307363c8",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Stat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

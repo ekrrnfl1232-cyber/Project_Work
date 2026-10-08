@@ -14,7 +14,6 @@ public class PlayerMoveState : IState
 
     public void Exit()
     {
-
     }
 
     public void Tick()

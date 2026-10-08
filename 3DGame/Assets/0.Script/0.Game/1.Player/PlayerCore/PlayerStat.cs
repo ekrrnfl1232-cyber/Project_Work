@@ -1,3 +1,4 @@
+using Unity.Android.Gradle.Manifest;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -6,28 +7,20 @@ public class PlayerStat : MonoBehaviour
     [SerializeField]
     private PlayerData data;
 
-    [SerializeField]
     private int hp;
 
-    [SerializeField]
     private static int level;
 
-    [SerializeField]
     private static float exp;
 
-    [SerializeField]
     private static float maxExp;
 
-    [SerializeField]
     private int baseAttack;
 
-    [SerializeField]
     private int baseDefence;
 
-    [SerializeField]
     private float baseSpeed;
 
-    [SerializeField]
     private int areaDamage;
 
     private static bool isInit = false;
@@ -41,7 +34,6 @@ public class PlayerStat : MonoBehaviour
     public int BaseAttack { get { return baseAttack; } set { baseAttack = value; } }
     public int BaseDefence { get { return baseDefence; } private set { baseDefence = value; } }
     public float BaseSpeed { get { return baseSpeed; } private set { baseSpeed = value; } }
-    public int AreaDamage { get { return areaDamage; } private set { areaDamage = value; } }
 
     public float InterationScale { get; set; }
     public float VerticalVelo { get; set; }
@@ -60,7 +52,6 @@ public class PlayerStat : MonoBehaviour
 
         BaseAttack = data.Wdamage;
         BaseSpeed = data.MoveForce;
-        AreaDamage = data.AreaDmg;
 
         if(!isInit)
         {

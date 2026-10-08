@@ -27,10 +27,6 @@ public class PlayerData : ScriptableObject
     public int Wdamage { get { return damage; } }
 
     [SerializeField]
-    private int areaDmg;
-    public int AreaDmg { get { return areaDmg; } }
-
-    [SerializeField]
     private float maxExp;
     public float MaxExp { get { return maxExp; } }
 

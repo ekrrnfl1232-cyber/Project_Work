@@ -60,10 +60,6 @@ public class UIConstroller : Singleton<UIConstroller>
         {
             equip.SetActive(!equip.activeSelf);
         }
-        if (InputManger.Instance.input.UI.Stat.WasPressedThisFrame())
-        {
-            //stat.SetActive(!stat.activeSelf);
-        }
     }
     private void IsInventory(bool active)
     {

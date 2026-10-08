@@ -16,7 +16,7 @@ public class PlayerIdle : IState
 
     public void Tick()
     {
-        if (player.stat.MoveDir != Vector2.zero && player.IsTargeting == false)
+        if (player.stat.MoveDir != Vector2.zero)
         {
             player.ChangeState(PlayerState.moveState);
         }

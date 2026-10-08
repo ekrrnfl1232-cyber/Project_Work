@@ -26,6 +26,10 @@ public class PlayerView : MonoBehaviour
     private Image hpImg;
     [SerializeField]private PlayerStat stats;
 
+    private void Update()
+    {
+        HPbar(transform.position);
+    }
     public void CheckBox(bool isFind)
     {
         UiCheckBox.SetActive(isFind);
@@ -55,12 +59,6 @@ public class PlayerView : MonoBehaviour
     {
         exptext.text = $"LV.{PlayerStat.Level} {PlayerStat.Exp / PlayerStat.MaxExp * 100f}% ({PlayerStat.Exp} / {PlayerStat.MaxExp})";
         expImg.rectTransform.sizeDelta = new Vector2(1920f * (PlayerStat.Exp / PlayerStat.MaxExp), 20f);
-    }
-
-    public void Area(Vector3 pos)
-    {
-        area.SetActive(true);
-        area.transform.position = pos;
     }
 
     private void OnEnable()

@@ -11,7 +11,7 @@ public enum PlayerState
     jumpState,
     dashState,
     hitState,
-    AreaState
+    dashAttackState
 }
 
 public class Player : MonoBehaviour, IDamageable
@@ -19,18 +19,16 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Animator")]
     public Animator animator;
     [Header("Script")]
-    public PlayerView view { get; private set; }
+    public PlayerView view;
     public PlayerStat stat;
     public PlayerData data;
+    public PlayerAnimationEvent playerani;
+    private PlayerInteract interact;
+    private PlayerLook look;
 
     [Header("Controller")]
     public CharacterController controll;
     public BoxCollider sword;
-
-    [Header("LayerRaycast")]
-    public LayerMask layerRay;
-    private bool isTargeting = false;
-    public bool IsTargeting { get { return isTargeting; } set { isTargeting = value; } }
 
     // ป๓ลย
     private IState currentState;
@@ -45,11 +43,12 @@ public class Player : MonoBehaviour, IDamageable
     private void Awake()
     {
         SettingState();
+        interact = new PlayerInteract(this);
+        look = new PlayerLook(this);
     }
 
     private void Start()
     {
-        view = GetComponent<PlayerView>();
         view.ExpUpdata();
         view.CreateHp();
         InputManger.Instance.input.Player.Get().actionTriggered += OnAction;
@@ -58,22 +57,12 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        
-        view.HPbar(transform.position);
-        if (InputManger.Instance.input.Player.Move.IsPressed())
-        {
-            stat.MoveDir = InputManger.Instance.input.Player.Move.ReadValue<Vector2>();
-        }
-        else
-        {
-            stat.MoveDir = Vector2.zero;
-        }
-        stat.Movement = new Vector3(stat.MoveDir.x, 0, stat.MoveDir.y).normalized;
+        IsMove();
         if (InputManger.Instance.input.Player.enabled)
         {
-            Interect();
-            Look();
+            look?.Tick(Input.mousePosition);
         }
+        interact.Tick();
         Gravity();
         Cool.TIck(Time.deltaTime);
         currentState?.Tick();
@@ -98,8 +87,9 @@ public class Player : MonoBehaviour, IDamageable
             { PlayerState.jumpState, new PlayerJumpState(this) },
             { PlayerState.dashState, new PlayerDashState(this) },
             { PlayerState.hitState, new PlayerHitState(this) },
-            { PlayerState.AreaState, new PlayerAreaSkillState(this) }
+            {PlayerState.dashAttackState, new PlayerDashAttackState(this) }
         };
+        playerani.Init(this);
     }
 
     public void TakeDamage(int damage)
@@ -111,7 +101,6 @@ public class Player : MonoBehaviour, IDamageable
             ChangeState(PlayerState.hitState);
         }
     }
-
     private void Gravity()
     {
         if(controll.isGrounded)
@@ -127,41 +116,17 @@ public class Player : MonoBehaviour, IDamageable
         controll.Move(stat.Gravity * Time.deltaTime);
     }
 
-    void Interect()
+    private void IsMove()
     {
-        Vector3 posInter = transform.position;
-        posInter.y += 1f;
-        Collider[] colls = Physics.OverlapSphere(posInter, stat.InterationScale);
-        bool isFind = false;
-        foreach (var col in colls)
+        if (InputManger.Instance.input.Player.Move.IsPressed())
         {
-            if (col.TryGetComponent<IInterectable>(out IInterectable interact))
-            {
-                isFind = true;
-                if (InputManger.Instance.input.Player.Interact.triggered)
-                {
-                    interact.Interact();
-                }
-                break;
-            }
+            stat.MoveDir = InputManger.Instance.input.Player.Move.ReadValue<Vector2>();
         }
-        view.CheckBox(isFind);
-    }
-    private void Look()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane aimPlane = new Plane(Vector3.up, transform.position);
-        if (!aimPlane.Raycast(ray, out float distance))
-            return;
-
-        Vector3 aimPoint = ray.GetPoint(distance);
-        Vector3 dir = aimPoint - transform.position;
-        dir.y = 0f;
-
-        if(dir.sqrMagnitude > 0.001f)
+        else
         {
-            transform.rotation = Quaternion.LookRotation(dir);
+            stat.MoveDir = Vector2.zero;
         }
+        stat.Movement = new Vector3(stat.MoveDir.x, 0, stat.MoveDir.y).normalized;
     }
 
     private void OnAction(InputAction.CallbackContext contxt)
@@ -177,9 +142,6 @@ public class Player : MonoBehaviour, IDamageable
         switch (contxt.action.name)
         {
             case "Attack":
-                if (IsTargeting)
-                    break;
-
                 if (currentState is PlayerAttackState attack)
                 {
                     attack.QueueAttack();
@@ -190,63 +152,21 @@ public class Player : MonoBehaviour, IDamageable
                 }
                 break;
             case "Jump":
-                if (IsTargeting == false)
-                {
-                    ChangeState(PlayerState.jumpState);
-                }
+                ChangeState(PlayerState.jumpState);
                 break;
             case "Sprint":
-                if (Cool.IsReady(PlayerCool.Dash) && IsTargeting == false)
+                if (Cool.IsReady(PlayerCool.Dash))
                 {
                     ChangeState(PlayerState.dashState);
                 }
                 break;
-            case "Area":
-                if(Cool.IsReady(PlayerCool.Area))
-                {
-                    IsTargeting = true;
-                    ChangeState(PlayerState.AreaState);
-                }
+            case "Interact":
+                interact.Interact();
+                break;
+            case "Skill":
                 break;
         }
     }
-
-    public void AttackHit(int attackNumber)
-    {
-        if(currentState is PlayerAttackState attack)
-        {
-            attack.OnHit(attackNumber);
-        }
-    }
-
-    public void AttackComboCheck(int attackNumber)
-    {
-        if (currentState is PlayerAttackState attack)
-        {
-            attack.OnComboCheck(attackNumber);
-        }
-    }
-
-    public void AttackEnd(int attackNumber)
-    {
-        if (currentState is PlayerAttackState attack)
-        {
-            attack.OnAnimationEnd(attackNumber);
-        }
-    }
-
-    public void AttackThrustStart(int attackNumber)
-    {
-        if (currentState is PlayerAttackState attack)
-            attack.OnThrustStart(attackNumber);
-    }
-
-    public void AttackThrustEnd(int attackNumber)
-    {
-        if (currentState is PlayerAttackState attack)
-            attack.OnThrustEnd(attackNumber);
-    }
-
     private void OnDisable()
     {
         InputManger.Instance.input.Player.Get().actionTriggered -= OnAction;
