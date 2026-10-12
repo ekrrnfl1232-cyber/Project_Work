@@ -21,7 +21,7 @@ public class PlayerStat : MonoBehaviour
 
     private float baseSpeed;
 
-    private int areaDamage;
+    private float dashAttackSpeed;
 
     private static bool isInit = false;
 
@@ -34,6 +34,7 @@ public class PlayerStat : MonoBehaviour
     public int BaseAttack { get { return baseAttack; } set { baseAttack = value; } }
     public int BaseDefence { get { return baseDefence; } private set { baseDefence = value; } }
     public float BaseSpeed { get { return baseSpeed; } private set { baseSpeed = value; } }
+    public float DashAttackSpeed { get { return dashAttackSpeed; } private set { dashAttackSpeed = value; } }
 
     public float InterationScale { get; set; }
     public float VerticalVelo { get; set; }
@@ -52,6 +53,7 @@ public class PlayerStat : MonoBehaviour
 
         BaseAttack = data.Wdamage;
         BaseSpeed = data.MoveForce;
+        dashAttackSpeed = 20f;
 
         if(!isInit)
         {

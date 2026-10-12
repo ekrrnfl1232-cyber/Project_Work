@@ -164,6 +164,8 @@ public class Player : MonoBehaviour, IDamageable
                 interact.Interact();
                 break;
             case "Skill":
+                if (Cool.IsReady(PlayerCool.dashAttack))
+                    ChangeState(PlayerState.dashAttackState);
                 break;
         }
     }

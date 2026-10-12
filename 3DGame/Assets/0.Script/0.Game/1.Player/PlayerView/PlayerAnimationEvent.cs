@@ -3,10 +3,12 @@ using UnityEngine;
 public class PlayerAnimationEvent : MonoBehaviour
 {
     private PlayerAttackState attackState;
+    private PlayerDashAttackState dashAttackState;
 
     public void Init(Player player)
     {
         attackState = (PlayerAttackState)player.States[PlayerState.attackState];
+        dashAttackState = (PlayerDashAttackState)player.States[PlayerState.dashAttackState];
     }
     public void AttackHit(int attackNumber) => attackState.OnHit(attackNumber);
     public void AttackComboCheck(int attackNumber) => attackState.OnComboCheck(attackNumber);
@@ -16,4 +18,8 @@ public class PlayerAnimationEvent : MonoBehaviour
     public void AttackThrustStart(int attackNumber) => attackState.OnThrustStart(attackNumber);
 
     public void AttackThrustEnd(int attackNumber) => attackState.OnThrustEnd(attackNumber);
+
+    public void DashAttackStart() => dashAttackState.IsDashAttackStart();
+
+    public void DashAttackEnd() => dashAttackState.IsDashAttackEnd();
 }

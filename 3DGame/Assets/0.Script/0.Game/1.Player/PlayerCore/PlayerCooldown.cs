@@ -4,35 +4,35 @@ public enum PlayerCool
 {
     Attack,
     Dash,
-    Area
+    dashAttack
 }
 
 public class PlayerCooldown
 {
     private Cooldown atkCool;
     private Cooldown dashcool;
-    private Cooldown area;
+    private Cooldown dashAttack;
 
     public PlayerCooldown ()
     {
         atkCool = new Cooldown(1f);
         dashcool = new Cooldown(1f);
-        area = new Cooldown(2f);
+        dashAttack = new Cooldown(5f);
     }
 
     public void Start(PlayerCool cool)
     {
-        if (cool == PlayerCool.Attack)
+        switch(cool)
         {
-            atkCool.Start();
-        }
-        if (cool == PlayerCool.Dash)
-        {
-            dashcool.Start();
-        }
-        if(cool == PlayerCool.Area)
-        {
-            area.Start();
+            case PlayerCool.Attack:
+                atkCool.Start();
+                break;
+            case PlayerCool.Dash:
+                dashcool.Start();
+                break;
+            case PlayerCool.dashAttack:
+                dashAttack.Start();
+                break;
         }
     }
 
@@ -40,39 +40,43 @@ public class PlayerCooldown
     {
         atkCool.Tick(time);
         dashcool.Tick(time);
-        area.Tick(time);
+        dashAttack.Tick(time);
     }
 
     public void Reset(PlayerCool cool)
     {
-        if (cool == PlayerCool.Attack)
+        switch (cool)
         {
-            atkCool.Reset();
-        }
-        if (cool == PlayerCool.Dash)
-        {
-            dashcool.Reset();
-        }
-        if (cool == PlayerCool.Area)
-        {
-            area.Reset();
+            case PlayerCool.Attack:
+                atkCool.Reset();
+                break;
+            case PlayerCool.Dash:
+                dashcool.Reset();
+                break;
+            case PlayerCool.dashAttack:
+                dashAttack.Reset();
+                break;
         }
     }
 
     public bool IsReady(PlayerCool cool)
     {
-        if(cool == PlayerCool.Attack)
+        bool ready;
+        switch (cool)
         {
-            return atkCool.IsReady;
+            case PlayerCool.Attack:
+                ready = atkCool.IsReady;
+                break;
+            case PlayerCool.Dash:
+                ready = dashcool.IsReady;
+                break;
+            case PlayerCool.dashAttack:
+                ready = dashAttack.IsReady;
+                break;
+            default:
+                ready = false; 
+                break;
         }
-        if(cool == PlayerCool.Dash)
-        {
-            return dashcool.IsReady;
-        }
-        if(cool == PlayerCool.Area)
-        {
-            return area.IsReady;
-        }
-        return false;
+        return ready;
     }
 }

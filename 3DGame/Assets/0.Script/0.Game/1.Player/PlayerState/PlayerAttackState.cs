@@ -66,7 +66,6 @@ public class PlayerAttackState : IState
         thrustRemain = 0f;
         thrustStart = false;
 
-        // 이동 값과 이전 대기 트리거가 공격을 일찍 끝내지 않도록 정리한다.
         player.animator.SetFloat("Speed", 0f);
         player.animator.ResetTrigger("ReturnIdle");
         player.animator.ResetTrigger("Sword01");
@@ -120,8 +119,6 @@ public class PlayerAttackState : IState
     }
     public void OnThrustStart(int attackNumber)
     {
-        Debug.Log($"전진 이벤트: {attackNumber}, 현재 콤보: {comboIndex}");
-
         if (attackNumber != comboIndex ||
             comboIndex != 3 ||
             thrustStart)
