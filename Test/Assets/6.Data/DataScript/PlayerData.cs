@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PD")]
 public class PlayerData : ScriptableObject 
 {
+
     [SerializeField]
     private int hp;
     public int HP { get { return hp; } }

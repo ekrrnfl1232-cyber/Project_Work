@@ -4,7 +4,7 @@ using Firebase.Auth;
 public class AuthManager : Singleton<AuthManager>
 {
     private FirebaseAuth auth;
-    private FirebaseUser CurrentUser => auth?.CurrentUser;
+    public FirebaseUser CurrentUser => auth?.CurrentUser;
     private bool isLoggedIn => CurrentUser != null;
 
     public void InitializeAuth()
@@ -83,6 +83,7 @@ public class AuthManager : Singleton<AuthManager>
         Debug.Log($"[Auth] UID: {CurrentUser.UserId}");
         // 여기서 익명 계정 확인 가능
         Debug.Log($"[Auth] Anonymous {CurrentUser.IsAnonymous}");
+        DatabaseManager.Instance.InitalizeDatabase(CurrentUser.UserId);
     }
     public void SignIn()
     {
