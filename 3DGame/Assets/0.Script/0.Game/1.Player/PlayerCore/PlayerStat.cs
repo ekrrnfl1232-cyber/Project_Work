@@ -53,7 +53,7 @@ public class PlayerStat : MonoBehaviour
 
         BaseAttack = data.Wdamage;
         BaseSpeed = data.MoveForce;
-        dashAttackSpeed = 20f;
+        dashAttackSpeed = 5f;
 
         if(!isInit)
         {

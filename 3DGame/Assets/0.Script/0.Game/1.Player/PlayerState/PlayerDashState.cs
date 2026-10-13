@@ -32,7 +32,7 @@ public class PlayerDashState : IState
         {
             player.animator.SetBool("ShieldRush", false);
             player.Cool.Start(PlayerCool.Dash);
-            player.ChangeState(player.prevState);
+            player.ChangeState(PlayerState.idleState);
         }
 
     }

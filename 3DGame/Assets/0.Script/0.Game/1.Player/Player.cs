@@ -1,5 +1,6 @@
 using DG.Tweening.Core.Easing;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -30,7 +31,10 @@ public class Player : MonoBehaviour, IDamageable
     public CharacterController controll;
     public BoxCollider sword;
 
-    // 상태
+    // bool
+    public bool IsRushing { get; set; } = false;
+
+    // 상태 패턴
     private IState currentState;
     private PlayerState currentKey;
     public PlayerState prevState { get; private set; }
@@ -58,7 +62,7 @@ public class Player : MonoBehaviour, IDamageable
     private void Update()
     {
         IsMove();
-        if (InputManger.Instance.input.Player.enabled)
+        if (InputManger.Instance.input.Player.enabled && !IsRushing)
         {
             look?.Tick(Input.mousePosition);
         }
@@ -129,6 +133,18 @@ public class Player : MonoBehaviour, IDamageable
         stat.Movement = new Vector3(stat.MoveDir.x, 0, stat.MoveDir.y).normalized;
     }
 
+    public void ControllRock(bool isRock)
+    {
+        if(isRock == true)
+        {
+            InputManger.Instance.input.Player.Get().actionTriggered -= OnAction;
+        }
+        else
+        {
+            InputManger.Instance.input.Player.Get().actionTriggered += OnAction;
+        }
+    }
+
     private void OnAction(InputAction.CallbackContext contxt)
     {
         if(!controll.isGrounded)
@@ -169,6 +185,15 @@ public class Player : MonoBehaviour, IDamageable
                 break;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 pos = transform.position;
+        pos.y = 2f;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(pos, 1f);
+    }
+
     private void OnDisable()
     {
         InputManger.Instance.input.Player.Get().actionTriggered -= OnAction;
