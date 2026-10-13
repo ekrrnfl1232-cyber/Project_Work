@@ -12,27 +12,32 @@ public enum PlayerState
     jumpState,
     dashState,
     hitState,
-    dashAttackState
+    dashAttackState,
+    fangState,
+    rootBindState
 }
 
 public class Player : MonoBehaviour, IDamageable
 {
-    [Header("Animator")]
+    [Header("Character Component")]
     public Animator animator;
-    [Header("Script")]
-    public PlayerView view;
+    public CharacterController controll;
+
+    [Header("Player Data")]
     public PlayerStat stat;
     public PlayerData data;
+
+    [Header("View And AnimationEnvent")]
+    public PlayerView view;
     public PlayerAnimationEvent playerani;
+
+    // 플레이어 기능
     private PlayerInteract interact;
     private PlayerLook look;
 
-    [Header("Controller")]
-    public CharacterController controll;
-    public BoxCollider sword;
-
-    // bool
-    public bool IsRushing { get; set; } = false;
+    // 쿨타임
+    private PlayerCooldown cooldown = new PlayerCooldown();
+    public PlayerCooldown Cool => cooldown;
 
     // 상태 패턴
     private IState currentState;
@@ -40,9 +45,9 @@ public class Player : MonoBehaviour, IDamageable
     public PlayerState prevState { get; private set; }
     public Dictionary<PlayerState, IState> States { get; private set; }
 
-    // 쿨타임
-    private PlayerCooldown cooldown = new PlayerCooldown();
-    public PlayerCooldown Cool { get { return cooldown; } }
+    // 액션 제어
+    public bool RotationLock { get; set; } = false;
+    private bool actionLock;
 
     private void Awake()
     {
@@ -62,7 +67,7 @@ public class Player : MonoBehaviour, IDamageable
     private void Update()
     {
         IsMove();
-        if (InputManger.Instance.input.Player.enabled && !IsRushing)
+        if (InputManger.Instance.input.Player.enabled && !RotationLock)
         {
             look?.Tick(Input.mousePosition);
         }
@@ -91,7 +96,9 @@ public class Player : MonoBehaviour, IDamageable
             { PlayerState.jumpState, new PlayerJumpState(this) },
             { PlayerState.dashState, new PlayerDashState(this) },
             { PlayerState.hitState, new PlayerHitState(this) },
-            {PlayerState.dashAttackState, new PlayerDashAttackState(this) }
+            { PlayerState.dashAttackState, new PlayerDashAttackState(this) },
+            { PlayerState.fangState, new PlayerFangState(this) },
+            { PlayerState.rootBindState, new PlayerRootBindState(this) }
         };
         playerani.Init(this);
     }
@@ -122,6 +129,12 @@ public class Player : MonoBehaviour, IDamageable
 
     private void IsMove()
     {
+        if (actionLock)
+        {
+            stat.MoveDir = Vector2.zero;
+            stat.Movement = Vector3.zero;
+            return;
+        }
         if (InputManger.Instance.input.Player.Move.IsPressed())
         {
             stat.MoveDir = InputManger.Instance.input.Player.Move.ReadValue<Vector2>();
@@ -135,19 +148,16 @@ public class Player : MonoBehaviour, IDamageable
 
     public void ControllRock(bool isRock)
     {
-        if(isRock == true)
-        {
-            InputManger.Instance.input.Player.Get().actionTriggered -= OnAction;
-        }
-        else
-        {
-            InputManger.Instance.input.Player.Get().actionTriggered += OnAction;
-        }
+        actionLock = isRock;
     }
 
     private void OnAction(InputAction.CallbackContext contxt)
     {
-        if(!controll.isGrounded)
+        if (actionLock)
+        {
+            return;
+        }
+        if (!controll.isGrounded)
         {
             return;
         }
@@ -180,8 +190,32 @@ public class Player : MonoBehaviour, IDamageable
                 interact.Interact();
                 break;
             case "Skill":
+                SkillInput(contxt);
+                break;
+        }
+    }
+
+    private void SkillInput(InputAction.CallbackContext contxt)
+    {
+        if (contxt.control is not UnityEngine.InputSystem.Controls.KeyControl key)
+            return;
+        switch (key.keyCode)
+        {
+            case Key.Digit1:
+                if (Cool.IsReady(PlayerCool.fangAttack))
+                    ChangeState(PlayerState.fangState);
+                break;
+            case Key.Digit2:
                 if (Cool.IsReady(PlayerCool.dashAttack))
                     ChangeState(PlayerState.dashAttackState);
+                break;
+            case Key.Digit3:
+                if(Cool.IsReady(PlayerCool.RootBind))
+                    ChangeState(PlayerState.rootBindState);
+                break;
+            case Key.Digit4:
+                break;
+            case Key.E:
                 break;
         }
     }

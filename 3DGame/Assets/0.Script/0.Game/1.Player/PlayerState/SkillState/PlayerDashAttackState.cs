@@ -8,6 +8,9 @@ public class PlayerDashAttackState : IState
     Player player;
 
     private bool isCharging;
+    private bool isRushing;
+
+    private float elaps;
 
     private float time;
     private float charegeDelay = 0.2f;
@@ -16,6 +19,7 @@ public class PlayerDashAttackState : IState
     private Vector3 pos;
     private Collider[] col;
     private HashSet<IDamageable> damagedTargets = new HashSet<IDamageable>();
+
     public PlayerDashAttackState(Player player)
     {
         this.player = player;
@@ -24,20 +28,18 @@ public class PlayerDashAttackState : IState
     {
         player.ControllRock(true);
         player.animator.SetBool("DashAttack", true);
-        player.IsRushing = false;
     }
     
     public void Exit()
     {
-        isCharging = false;
-        player.IsRushing = false;
+        player.ControllRock(false);
+        player.RotationLock = false;
         player.animator.speed = 1f;
+        damagedTargets.Clear();
     }
 
     public void Tick()
     {
-        Debug.Log("isCharging" + isCharging);
-        Debug.Log("IsRushing" + player.IsRushing);
         if (isCharging)
         {
             time -= Time.deltaTime;
@@ -48,9 +50,70 @@ public class PlayerDashAttackState : IState
             }
             return;
         }
-        if (!player.IsRushing)
-            return;
-        player.controll.Move(attackDir * player.stat.DashAttackSpeed * Time.deltaTime);
+        if (isRushing)
+        {
+            OnRush();
+            OnHit();
+        }
+    }
+
+    public void OnChargeStart()
+    {
+    }
+
+    public void OnChargeEnd()
+    {
+        attackDir = player.transform.forward;
+        player.animator.speed = 0f;
+        time = charegeDelay;
+        player.RotationLock = true;
+        isCharging = true;
+    }
+
+    public void OnRushStart()
+    {
+        elaps = 0f;
+        isRushing = true;
+    }
+
+    public void OnRushEnd()
+    {
+        isRushing = false;
+    }
+
+    public void OnRushAttackEnd()
+    {
+        player.Cool.Start(PlayerCool.dashAttack);
+        player.RotationLock = false;
+        player.ControllRock(false);
+        damagedTargets.Clear();
+        player.animator.SetBool("DashAttack", false);
+        player.ChangeState(PlayerState.idleState);
+    }
+
+    private void OnRush()
+    {
+        float dashAttackSpeed = 10f;
+        float cruiseDuration = 0.2f;
+        float brakeDuration = 0.1f;
+
+        float GetDistance(float elapsed)
+        {
+            float cruiseTime = Mathf.Clamp(elapsed, 0f, cruiseDuration);
+            float brakeTime = Mathf.Clamp(elapsed - cruiseDuration, 0f, brakeDuration);
+
+            return dashAttackSpeed * cruiseTime + dashAttackSpeed * 
+                (brakeTime - brakeTime * brakeTime / (2f * brakeDuration));
+        }
+        float nextTime = elaps + Time.deltaTime;
+        float distance = GetDistance(nextTime) - GetDistance(elaps);
+
+        player.controll.Move(attackDir * distance);
+        elaps = nextTime;
+    }
+
+    private void OnHit()
+    {
         pos = player.transform.position;
         pos.y = 2f;
         col = Physics.OverlapSphere(pos, 1f, LayerMask.GetMask("Monster"));
@@ -63,34 +126,5 @@ public class PlayerDashAttackState : IState
 
             damageable.TakeDamage(player.data.DashAttackDamage);
         }
-    }
-
-    public void OnChargeStart()
-    {
-    }
-
-    public void OnChargeEnd()
-    {
-        time = charegeDelay;
-        isCharging = true;
-        attackDir = player.transform.forward;
-        player.animator.speed = 0f;
-    }
-
-    public void OnRushStart()
-    {
-        player.IsRushing = true;
-    }
-
-    public void OnRushEnd()
-    {
-        player.IsRushing = false;
-    }
-
-    public void OnRushAttackEnd()
-    {
-        player.ControllRock(false);
-        player.animator.SetBool("DashAttack", false);
-        player.ChangeState(PlayerState.idleState);
     }
 }

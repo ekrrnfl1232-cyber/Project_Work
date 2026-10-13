@@ -19,9 +19,9 @@ public class PlayerAnimationEvent : MonoBehaviour
 
     public void AttackThrustEnd(int attackNumber) => attackState.OnThrustEnd(attackNumber);
 
-    public void RushChargeStart() => dashAttackState.OnRushStart();
+    public void RushChargeStart() => dashAttackState.OnChargeStart();
 
-    public void RushChargeEnd() => dashAttackState.OnRushEnd();
+    public void RushChargeEnd() => dashAttackState.OnChargeEnd();
 
     public void RushStart() => dashAttackState.OnRushStart();
 

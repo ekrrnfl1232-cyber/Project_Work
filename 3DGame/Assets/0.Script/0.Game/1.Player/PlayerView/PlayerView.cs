@@ -10,25 +10,37 @@ public enum PlayerSkill
 public class PlayerView : MonoBehaviour
 {
 
-    [Header("Skill")]
-    [SerializeField] public GameObject area;
+    [System.Serializable]
+    private class SkillCooldownSlot
+    {
+        public PlayerCool skill;
+        public Image fillImage;
+    }
 
-    [Header("UI")]
+    [Header("Create in Parent")]
     [SerializeField] private Transform isParent;
     [SerializeField] private GameObject prefabHP;
+
+    [Header("Interaction")]
     [SerializeField] private GameObject UiCheckBox;
 
+    [Header("EXPbar")]
     [SerializeField] private Image expImg;
     [SerializeField] public TMP_Text exptext;
-    [Header("Animator")]
-    [SerializeField] private Animator animator;
+
+    [Header("HPbar")]
     private GameObject hpBG;
     private Image hpImg;
-    [SerializeField]private PlayerStat stats;
+
+    [Header("PlayerScript")]
+    [SerializeField] private Player player;
+    [Header("Skill UI")]
+    [SerializeField] private SkillCooldownSlot[] cooldownSlots;
 
     private void Update()
     {
         HPbar(transform.position);
+        SkillCooldown();
     }
     public void CheckBox(bool isFind)
     {
@@ -41,8 +53,17 @@ public class PlayerView : MonoBehaviour
         hpImg = hpBG.transform.GetChild(0).GetComponent<Image>();
     }
 
+    private void SkillCooldown()
+    {
+        foreach (var slot in cooldownSlots)
+        {
+            if(slot == null || slot.fillImage == null)
+                continue;
 
-    public void HPbar(Vector3 pos)
+            slot.fillImage.fillAmount = player.Cool.GetTime(slot.skill);
+        }
+    }
+    private void HPbar(Vector3 pos)
     {
         Vector3 targetPos = Camera.main.WorldToScreenPoint(pos);
         targetPos.y += 150f;

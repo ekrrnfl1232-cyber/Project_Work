@@ -17,6 +17,11 @@ public class Cooldown
         get { return timer <= 0f; }
     }
 
+    public float RemainTime =>
+        cooldownTime > 0f
+        ? Mathf.Clamp01(timer / cooldownTime)
+        : 0f;
+
     public void Start()
     {
         timer = cooldownTime;

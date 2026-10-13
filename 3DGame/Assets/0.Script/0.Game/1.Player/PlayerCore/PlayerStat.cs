@@ -21,8 +21,6 @@ public class PlayerStat : MonoBehaviour
 
     private float baseSpeed;
 
-    private float dashAttackSpeed;
-
     private static bool isInit = false;
 
     public int Hp { get { return hp; } set { hp = value; } }
@@ -34,7 +32,6 @@ public class PlayerStat : MonoBehaviour
     public int BaseAttack { get { return baseAttack; } set { baseAttack = value; } }
     public int BaseDefence { get { return baseDefence; } private set { baseDefence = value; } }
     public float BaseSpeed { get { return baseSpeed; } private set { baseSpeed = value; } }
-    public float DashAttackSpeed { get { return dashAttackSpeed; } private set { dashAttackSpeed = value; } }
 
     public float InterationScale { get; set; }
     public float VerticalVelo { get; set; }
@@ -53,7 +50,6 @@ public class PlayerStat : MonoBehaviour
 
         BaseAttack = data.Wdamage;
         BaseSpeed = data.MoveForce;
-        dashAttackSpeed = 5f;
 
         if(!isInit)
         {
