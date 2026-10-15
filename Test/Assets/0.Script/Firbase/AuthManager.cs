@@ -83,7 +83,7 @@ public class AuthManager : Singleton<AuthManager>
         Debug.Log($"[Auth] UID: {CurrentUser.UserId}");
         // 여기서 익명 계정 확인 가능
         Debug.Log($"[Auth] Anonymous {CurrentUser.IsAnonymous}");
-        DatabaseManager.Instance.InitalizeDatabase(CurrentUser.UserId);
+        RemoteConfigManager.Instance.SetDefaults();
     }
     public void SignIn()
     {

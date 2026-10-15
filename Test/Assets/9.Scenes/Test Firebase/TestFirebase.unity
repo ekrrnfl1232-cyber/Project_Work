@@ -2421,6 +2421,7 @@ GameObject:
   - component: {fileID: 1725217930}
   - component: {fileID: 1725217931}
   - component: {fileID: 1725217932}
+  - component: {fileID: 1725217933}
   m_Layer: 0
   m_Name: FirebaseManager
   m_TagString: Untagged
@@ -2474,7 +2475,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725217926}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 124a05a6634843b42a79159852de6e8d, type: 3}
   m_Name: 
@@ -2486,11 +2487,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725217926}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01bc01725dabf1047b66356ad69ec480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnalyticsManager
+--- !u!114 &1725217933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725217926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86148cad4f9455c41af76429eefd2f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RemoteConfigManager
 --- !u!1 &1827252389
 GameObject:
   m_ObjectHideFlags: 0
