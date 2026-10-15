@@ -223,7 +223,7 @@ public class Player : MonoBehaviour, IDamageable
     private void OnDrawGizmos()
     {
         Vector3 pos = transform.position;
-        pos.y = 2f;
+        pos.y = 1.3f;
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(pos, 1f);
     }

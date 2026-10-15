@@ -115,7 +115,7 @@ public class PlayerDashAttackState : IState
     private void OnHit()
     {
         pos = player.transform.position;
-        pos.y = 2f;
+        pos.y = 1.3f;
         col = Physics.OverlapSphere(pos, 1f, LayerMask.GetMask("Monster"));
         foreach (var target in col)
         {
