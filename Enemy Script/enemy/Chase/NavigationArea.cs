@@ -10,10 +10,18 @@ public class NavigationArea : MonoBehaviour
     [Header("Obstacle")]
     [SerializeField, Min(0.01f)] private float agentRadius = 0.5f;
     [SerializeField, Min(0f)] private float padding = 0.15f;
-    [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField, Min(0f)] private float enemyGap = 0.1f;
 
     [Header("Target")]
     [SerializeField] private Transform target;
+
+    [Header("LayerMask")]
+    [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField] private LayerMask enemyLayer;
+
+    //몬스터 등록
+    private Dictionary<EnemyController, Vector2> enemies = new();
+    private Collider2D[] neighbors = new Collider2D[64];
 
     public Transform Target => target;
     public LayerMask Obstacle => obstacleLayer;
@@ -28,7 +36,126 @@ public class NavigationArea : MonoBehaviour
 
     private void Update()
     {
-        RefreshObstacles();
+        RefreshFlowField();
+    }
+
+    private void LateUpdate()
+    {
+
+        if (enemies.Count < 2 || agentRadius <= 0f)
+            return;
+
+        Physics2D.SyncTransforms();
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(enemyLayer);
+        filter.useTriggers = false;
+
+        float dia = agentRadius * 2f + enemyGap;
+
+        foreach(EnemyController enemy in enemies.Keys)
+        {
+            if(enemy == null)
+                continue;
+
+            Vector2 pos = enemy.transform.position;
+            Vector2 cor = Vector2.zero;
+
+            int count = Physics2D.OverlapCircle(pos, dia, filter, neighbors);
+
+            for(int i = 0; i < count; ++i)
+            {
+                EnemyController other = neighbors[i].GetComponentInParent<EnemyController>();
+
+                if (other == null || other == enemy || other.Area != this)
+                    continue;
+
+                Vector2 offset = pos - (Vector2)other.transform.position;
+
+                float dis = offset.magnitude;
+
+                if (dis >= dia)
+                    continue;
+
+                Vector2 dir;
+
+                if(dis > 0.001f)
+                {
+                    dir = offset / dis;
+                }
+                else 
+                {
+                    if (!enemies.ContainsKey(other))
+                        continue;
+
+                    dir = Vector2.right;
+
+                    foreach (EnemyController register in enemies.Keys)
+                    {
+                        if (register == enemy)
+                        {
+                            dir = Vector2.left;
+                            break;
+                        }
+
+                        if (register == other)
+                            break;
+                    }
+                }
+                cor += dir * (dia - dis) * 0.5f;
+            }
+            if(cor.magnitude > 0.001f)
+            {
+                Push(enemy.transform, cor);
+                Physics2D.SyncTransforms();
+            }
+        }
+    }
+
+    private void Push(Transform enemy, Vector2 cor)
+    {
+        if (Grid == null)
+            return;
+
+        Vector2 pos = enemy.position;
+
+        Vector2 min = Grid.Origin + Vector2.one * agentRadius;
+
+        Vector2 max = Grid.Origin + new Vector2(Grid.Width, Grid.Height) * Grid.CellSize - Vector2.one * agentRadius;
+
+        if (min.x > max.x || min.y > max.y)
+            return;
+
+        Vector2 next = pos + cor;
+
+        next.x = Mathf.Clamp(next.x, min.x, max.x);
+        next.y = Mathf.Clamp(next.y, min.y, max.y);
+
+        cor = next - pos;
+
+        float dis = cor.magnitude;
+
+        if (dis < 0.0001f)
+            return;
+
+        Vector2 dir = cor / dis;
+
+        RaycastHit2D hit = Physics2D.CircleCast(enemy.position, agentRadius, dir, dis, obstacleLayer);
+
+        float allowDis = hit.collider == null ? dis : Mathf.Max(0f, hit.distance - 0.01f);
+
+        Vector2 des= pos + dir * allowDis;
+
+        if (!Grid.TryWorldToCell(des, out Vector2Int cell))
+            return;
+
+        if (!Grid.IsWalkable(cell))
+            return;
+
+        if (Physics2D.OverlapCircle(des, agentRadius + padding, obstacleLayer ) != null)
+            return;
+
+        enemy.position += (Vector3)(des - pos);
     }
 
     public void Initialize()
@@ -59,6 +186,17 @@ public class NavigationArea : MonoBehaviour
             }
         }
         RefreshFlowField(true);
+    }
+
+    public void Register(EnemyController enemy)
+    {
+        if (enemy != null && !enemies.ContainsKey(enemy))
+            enemies.Add(enemy, Vector2.zero);
+    }
+
+    public void Unregister(EnemyController enemy)
+    {
+        enemies.Remove(enemy);
     }
 
     public void SetTarget(Transform newTarget)

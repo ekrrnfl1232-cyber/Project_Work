@@ -71,7 +71,12 @@ public class EnemyController : MonoBehaviour
 
     public void Initialize(NavigationArea area)
     {
+        this.area?.Unregister(this);
+
         this.area = area;
+
+        if(isActiveAndEnabled)
+            this.area?.Register(this);
     }
 
     private bool CheckAttackRange(float range)
@@ -92,6 +97,15 @@ public class EnemyController : MonoBehaviour
         }
 
         return Physics2D.CircleCast(origin, fireRaius, shot.normalized, shot.magnitude, Area.Obstacle).collider == null;
+    }
 
+    private void OnEnable()
+    {
+        area?.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        area?.Unregister(this);
     }
 }
